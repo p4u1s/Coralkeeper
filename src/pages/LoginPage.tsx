@@ -1,35 +1,41 @@
-import { useState, type SubmitEvent } from "react"
-import { Button, buttonVariants } from "@/components/ui/button"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { hasErrors, validateLogin, type LoginErrors } from "@/lib/validation.ts"
-import { signIn } from "@/services/auth.ts"
-import { Link } from "react-router"
+import { useState, type SubmitEvent } from "react";
+import { Button, buttonVariants } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import {
+  hasErrors,
+  validateLogin,
+  type LoginErrors,
+} from "@/lib/validation.ts";
+import { signIn } from "@/services/auth.ts";
+import { Link } from "react-router";
 
 export function LoginPage() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [error, setError] = useState<string | null>(null)
-  const [fieldErrors, setFieldErrors] = useState<LoginErrors>({})
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<LoginErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
-    event.preventDefault()
-    setError(null)
+    event.preventDefault();
+    setError(null);
 
     // Erst prüfen – bei Feldfehlern geht keine Anfrage raus (FR-6.6)
-    const errors = validateLogin(email, password)
-    setFieldErrors(errors)
+    const errors = validateLogin(email, password);
+    setFieldErrors(errors);
     if (hasErrors(errors)) {
-      return
+      return;
     }
-    setIsSubmitting(true)
+    setIsSubmitting(true);
     try {
-      await signIn(email, password)
+      await signIn(email, password);
     } catch (err) {
-      setError(err instanceof Error ? err.message : "Anmeldung fehlgeschlagen.")
+      setError(
+        err instanceof Error ? err.message : "Anmeldung fehlgeschlagen."
+      );
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
   }
 
@@ -58,8 +64,8 @@ export function LoginPage() {
             placeholder="name@example.de"
             value={email}
             onChange={(event) => {
-              setEmail(event.target.value)
-              setFieldErrors((prev) => ({ ...prev, email: undefined }))
+              setEmail(event.target.value);
+              setFieldErrors((prev) => ({ ...prev, email: undefined }));
             }}
             aria-invalid={fieldErrors.email !== undefined}
             aria-describedby={fieldErrors.email ? "email-error" : undefined}
@@ -79,8 +85,8 @@ export function LoginPage() {
             placeholder="Mindestens 6 Zeichen"
             value={password}
             onChange={(event) => {
-              setPassword(event.target.value)
-              setFieldErrors((prev) => ({ ...prev, password: undefined }))
+              setPassword(event.target.value);
+              setFieldErrors((prev) => ({ ...prev, password: undefined }));
             }}
             aria-invalid={fieldErrors.password !== undefined}
             aria-describedby={
@@ -108,5 +114,5 @@ export function LoginPage() {
         </Link>
       </form>
     </main>
-  )
+  );
 }

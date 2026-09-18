@@ -1,6 +1,6 @@
 # TASK-04-01 · Routen für MS-4 und App-Layout
 
-**Status:** offen
+**Status:** erledigt
 **Bezug:** NFR-1.2 (Bottom-Navigation), FR-1.1 (Becken-Screens), FR-6.3 (geschützte Routen)
 **Voraussetzung:** MS-3 abgeschlossen (TASK-03-10)
 
@@ -15,7 +15,7 @@ liegen deshalb außerhalb dieses Rahmens.
 
 ## Vor dem Start klären
 
-- [ ] **Routen.** Aus Abschnitt 7 der alten Requirements v2.2 gehören zu MS-4:
+- [x] **Routen.** Aus Abschnitt 7 der alten Requirements v2.2 gehören zu MS-4:
 
   | Route          | Bildschirm                                          | Mit Navigation |
   | -------------- | --------------------------------------------------- | -------------- |
@@ -26,39 +26,44 @@ liegen deshalb außerhalb dieses Rahmens.
 
   Für **Becken bearbeiten** nennt die Liste keinen Pfad. Vorschlag: `/becken/:id/bearbeiten` (ohne Navigation).
   → Pfad festlegen.
+  → **Entschieden 18.09.2026:** `/becken/:id/bearbeiten`, ohne Navigation.
 
-- [ ] **Diary und Profil in der Navigation.** `design.md` legt vier Einträge fest, die Screens dahinter kommen erst in
+- [x] **Diary und Profil in der Navigation.** `design.md` legt vier Einträge fest, die Screens dahinter kommen erst in
       MS-8 (Diary) und MS-9 (Profil, FR-6.8). `/profil` steht in der Routenliste, ein eigener Diary-Pfad nicht –
       das Diary liegt laut Liste in `/becken/:id`. Möglichkeiten:
   - **(a)** schlichte Platzhalterseiten `/diary` und `/profil` mit Überschrift und einem Satz
   - **(b)** „Diary" führt bis MS-8 auf die Beckenliste, „Profil" auf eine Platzhalterseite
   → Entscheiden, dabei den Pfad für Diary festlegen, damit er in MS-8 nicht umbenannt werden muss.
+  → **Entschieden 18.09.2026:** (a) – Platzhalterseiten `/diary` und `/profil`. `/diary` entspricht dem eigenen
+    Diary-Screen im Mockup (über alle Becken), die Diary-Tabs in `/becken/:id` bleiben davon unberührt.
 
-- [ ] **„Abmelden".** Sitzt heute auf dem Platzhalter-Bestand (`src/pages/HomeScreen.tsx`), der in TASK-04-06 zum
+- [x] **„Abmelden".** Sitzt heute auf dem Platzhalter-Bestand (`src/pages/HomeScreen.tsx`), der in TASK-04-06 zum
       echten Bestand wird. Im Mockup liegt „Abmelden" im Profil.
       → Festlegen, ob „Abmelden" (mit Anzeige der E-Mail) auf die Profil-Platzhalterseite umzieht.
+      → **Entschieden 18.09.2026:** Ja – „Abmelden" mit Anzeige der E-Mail zieht auf `/profil` um
+      (wie Mockup und Routenliste „Profil bearbeiten und Abmelden").
 
 ## Schritte
 
-1. [ ] **Layout-Komponente** anlegen (z. B. `src/components/AppLayout.tsx`): rendert `<Outlet />` und darunter
+1. [x] **Layout-Komponente** anlegen (z. B. `src/components/AppLayout.tsx`): rendert `<Outlet />` und darunter
        einen Platz für die Bottom-Navigation aus TASK-04-02. Unterer Innenabstand des Inhalts **104 px**
        (64 Navigation + 40 Luft, `design.md` Abschnitt 3), damit nichts hinter der Navigation verschwindet.
-2. [ ] **Router in `src/App.tsx` erweitern:** innerhalb von `RequireAuth` zwei Gruppen
+2. [x] **Router in `src/App.tsx` erweitern:** innerhalb von `RequireAuth` zwei Gruppen
    - mit `AppLayout`: `/`, `/becken`, `/becken/:id` und die Pfade aus der Diary/Profil-Entscheidung
    - ohne `AppLayout`: `/becken/neu` und der Bearbeiten-Pfad
-3. [ ] Für jede neue Route vorerst eine **Platzhalterseite** in `src/pages/` mit Überschrift anlegen – die echten
+3. [x] Für jede neue Route vorerst eine **Platzhalterseite** in `src/pages/` mit Überschrift anlegen – die echten
        Inhalte folgen in TASK-04-04 bis 04-08. So ist jede Route sofort erreichbar und prüfbar.
-4. [ ] „Abmelden" gemäß Entscheidung verschieben.
-5. [ ] Der Kommentar über dem Router (`// Pfade nach Requirements v2.2, Abschnitt 7`) gilt weiter; für den
+4. [x] „Abmelden" gemäß Entscheidung verschieben.
+5. [x] Der Kommentar über dem Router (`// Pfade nach Requirements v2.2, Abschnitt 7`) gilt weiter; für den
        Bearbeiten-Pfad (nicht in Abschnitt 7) die Entscheidung dazuschreiben. Kein zweiter Routenkatalog im Code.
 
 ## Fertig, wenn
 
-- [ ] Jede neue Route ist mit Session per direkter Adresse erreichbar und zeigt ihre Überschrift
-- [ ] Ohne Session leitet jede neue Route zur Anmeldung (FR-6.3)
-- [ ] Formularrouten rendern ohne `AppLayout`
-- [ ] Unbekannte Pfade landen weiterhin auf `/`
-- [ ] `npm run build`, `npm run lint`, `npm run format` ohne Fehler
+- [x] Jede neue Route ist mit Session per direkter Adresse erreichbar und zeigt ihre Überschrift
+- [x] Ohne Session leitet jede neue Route zur Anmeldung (FR-6.3)
+- [x] Formularrouten rendern ohne `AppLayout`
+- [x] Unbekannte Pfade landen weiterhin auf `/`
+- [x] `npm run build`, `npm run lint`, `npm run format` ohne Fehler
 
 ## Hinweise
 

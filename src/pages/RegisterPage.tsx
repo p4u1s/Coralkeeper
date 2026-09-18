@@ -1,41 +1,41 @@
-import { useState, type SubmitEvent } from "react"
+import { useState, type SubmitEvent } from "react";
 import {
   hasErrors,
   validateRegister,
   type RegisterErrors,
-} from "@/lib/validation.ts"
-import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { signUp } from "@/services/auth.ts"
-import { Link } from "react-router"
-import { Button, buttonVariants } from "@/components/ui/button"
+} from "@/lib/validation.ts";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { signUp } from "@/services/auth.ts";
+import { Link } from "react-router";
+import { Button, buttonVariants } from "@/components/ui/button";
 
 export function RegisterPage() {
-  const [email, setEmail] = useState("")
-  const [password, setPassword] = useState("")
-  const [passwordRepeat, setPasswordRepeat] = useState("")
-  const [error, setError] = useState<string | null>(null)
-  const [fieldErrors, setFieldErrors] = useState<RegisterErrors>({})
-  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [passwordRepeat, setPasswordRepeat] = useState("");
+  const [error, setError] = useState<string | null>(null);
+  const [fieldErrors, setFieldErrors] = useState<RegisterErrors>({});
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
-    event.preventDefault()
-    setError(null)
+    event.preventDefault();
+    setError(null);
     //Erst prüfen - bei Feldfehlern geht keine Anfrage raus (FR-6.6)
-    const errors = validateRegister(email, password, passwordRepeat)
-    setFieldErrors(errors)
+    const errors = validateRegister(email, password, passwordRepeat);
+    setFieldErrors(errors);
     if (hasErrors(errors)) {
-      return
+      return;
     }
-    setIsSubmitting(true)
+    setIsSubmitting(true);
     try {
-      await signUp(email, password)
+      await signUp(email, password);
     } catch (err) {
       setError(
         err instanceof Error ? err.message : "Registrierung fehlgeschlagen."
-      )
+      );
     } finally {
-      setIsSubmitting(false)
+      setIsSubmitting(false);
     }
   }
 
@@ -64,8 +64,8 @@ export function RegisterPage() {
             placeholder="name@example.de"
             value={email}
             onChange={(event) => {
-              setEmail(event.target.value)
-              setFieldErrors((prev) => ({ ...prev, email: undefined }))
+              setEmail(event.target.value);
+              setFieldErrors((prev) => ({ ...prev, email: undefined }));
             }}
             aria-invalid={fieldErrors.email !== undefined}
             aria-describedby={fieldErrors.email ? "email-error" : undefined}
@@ -85,8 +85,8 @@ export function RegisterPage() {
             placeholder="Mindestens 6 Zeichen"
             value={password}
             onChange={(event) => {
-              setPassword(event.target.value)
-              setFieldErrors((prev) => ({ ...prev, password: undefined }))
+              setPassword(event.target.value);
+              setFieldErrors((prev) => ({ ...prev, password: undefined }));
             }}
             aria-invalid={fieldErrors.password !== undefined}
             aria-describedby={
@@ -107,8 +107,11 @@ export function RegisterPage() {
             autoComplete="new-password"
             value={passwordRepeat}
             onChange={(event) => {
-              setPasswordRepeat(event.target.value)
-              setFieldErrors((prev) => ({ ...prev, passwordRepeat: undefined }))
+              setPasswordRepeat(event.target.value);
+              setFieldErrors((prev) => ({
+                ...prev,
+                passwordRepeat: undefined,
+              }));
             }}
             aria-invalid={fieldErrors.passwordRepeat !== undefined}
             aria-describedby={
@@ -139,5 +142,5 @@ export function RegisterPage() {
         </Link>
       </form>
     </main>
-  )
+  );
 }
