@@ -1,0 +1,111 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+@import "@fontsource-variable/inter";
+@import "@fontsource-variable/dm-sans";
+
+@custom-variant dark (&:is(.dark *));
+
+/* Farben aus design.md auf die shadcn-Variablen abgebildet – nur Dark Theme */
+:root {
+  color-scheme: dark;
+  --background: #0b1120; /* Hintergrund App */
+  --foreground: #e8eef6; /* Text primär */
+  --card: #141e2e; /* Fläche / Karte, Eingabefeld */
+  --card-foreground: #e8eef6;
+  --popover: #141e2e;
+  --popover-foreground: #e8eef6;
+  --primary: #e8963a; /* Akzent primär */
+  --primary-foreground: #1a0f0a; /* Text auf Akzent */
+  --secondary: #1c2839; /* Fläche erhöht, Sekundärbutton */
+  --secondary-foreground: #e8eef6;
+  --muted: #1c2839;
+  --muted-foreground: #93a4bc; /* Text sekundär */
+  --accent: #1c2839; /* shadcn: Hover-Fläche, nicht „Akzent" aus design.md */
+  --accent-foreground: #e8eef6;
+  --destructive: #f2685e; /* Fehler, „Abmelden" */
+  --border: #2a3a50; /* Rahmen / Trennlinie */
+  --input: #2a3a50;
+  --ring: #e8963a;
+  --radius: 0.625rem; /* 10 px */
+  --chart-1: oklch(0.865 0.127 207.078);
+  --chart-2: oklch(0.715 0.143 215.221);
+  --chart-3: oklch(0.609 0.126 221.723);
+  --chart-4: oklch(0.52 0.105 223.128);
+  --chart-5: oklch(0.45 0.085 224.283);
+}
+
+@theme inline {
+  --font-sans: "Inter Variable", sans-serif;
+  --font-heading: "DM Sans Variable", sans-serif;
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+/* Werte aus design.md ohne shadcn-Gegenstück */
+@theme {
+  --color-ink-3: #808fa2; /* Placeholder, „keine Angabe" */
+  --color-accent-hover: #f2a851;
+  --color-teal: #2dd4bf;
+  --color-warn: #f5b54a;
+  --color-status-bestand: #3fbf3f;
+  --color-status-abgabe: #ec3fb0;
+  --color-status-abgegeben: #93a4bc;
+  --color-status-verendet: #ff4438;
+
+  --text-display: 24px;
+  --text-display--line-height: 32px;
+  --text-h1: 20px;
+  --text-h1--line-height: 28px;
+  --text-h2: 17px;
+  --text-h2--line-height: 24px;
+  --text-body: 15px;
+  --text-body--line-height: 22px;
+  --text-label: 13px;
+  --text-label--line-height: 18px;
+  --text-caption: 12px;
+  --text-caption--line-height: 16px;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  html {
+    @apply font-sans;
+  }
+  #root {
+    @apply mx-auto w-full max-w-md;
+  }
+}

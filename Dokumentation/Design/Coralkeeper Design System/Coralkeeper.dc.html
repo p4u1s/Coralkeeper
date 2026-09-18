@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  html, body { margin:0; padding:0; background:#080D18; }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  a { color:#E8963A; }
+  a:hover { color:#F2A851; }
+  button { font: inherit; }
+  ::placeholder { color:#6B7C93; }
+  .om-scroll::-webkit-scrollbar { width:0; }
+</style>
+</helmet>
+<div style="min-height:100vh;display:flex;justify-content:center;align-items:flex-start;padding:24px 12px;background:#080D18;font-family:Inter, system-ui, sans-serif">
+  <div style="width:390px;max-width:100%;height:844px;position:relative;overflow:hidden;background:#0B1120;border:1px solid #2A3A50;border-radius:24px;display:flex;flex-direction:column">
+
+    <div class="om-scroll" style="flex:1;overflow-y:auto;overflow-x:hidden">
+
+      <!-- BESTAND -->
+      <sc-if value="{{ isBestand }}" hint-placeholder-val="{{ true }}">
+        <div style="padding:24px 16px 104px 16px;display:flex;flex-direction:column;gap:16px">
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div style="font-size:24px;line-height:32px;font-weight:600;color:#E8EEF6">Bestand</div>
+            <div style="font-size:13px;line-height:18px;font-weight:500;color:#93A4BC;font-variant-numeric:tabular-nums">{{ anzahlText }}</div>
+          </div>
+
+          <div style="display:flex;gap:8px;flex-wrap:wrap;align-items:center">
+          <button onClick="{{ goNeu }}" style="min-height:44px;border:none;border-radius:10px;background:#E8963A;color:#1A0F0A;font-size:13px;line-height:18px;font-weight:600;display:flex;align-items:center;justify-content:center;gap:6px;cursor:pointer;padding:10px 14px">
+            <svg width="16" height="16" viewBox="0 0 18 18" aria-hidden="true"><rect x="8" y="2" width="2" height="14" fill="currentColor"></rect><rect x="2" y="8" width="14" height="2" fill="currentColor"></rect></svg>
+            Koralle hinzufügen
+          </button>
+
+          </div>
+
+          <div style="display:flex;gap:6px;flex-wrap:wrap">
+            <button onClick="{{ setFilterAlle }}" style="min-height:44px;padding:8px 10px;border-radius:999px;border:1px solid {{ f0b }};background:{{ f0bg }};color:{{ f0c }};font-size:13px;line-height:18px;font-weight:500;cursor:pointer">Alle</button>
+            <button onClick="{{ setFilterBestand }}" style="min-height:44px;padding:8px 10px;border-radius:999px;border:1px solid {{ f1b }};background:{{ f1bg }};color:{{ f1c }};font-size:13px;line-height:18px;font-weight:500;cursor:pointer">Bestand</button>
+            <button onClick="{{ setFilterAbgabe }}" style="min-height:44px;padding:8px 10px;border-radius:999px;border:1px solid {{ f2b }};background:{{ f2bg }};color:{{ f2c }};font-size:13px;line-height:18px;font-weight:500;cursor:pointer">Abgabe</button>
+            <button onClick="{{ setFilterRest }}" style="min-height:44px;padding:8px 10px;border-radius:999px;border:1px solid {{ f3b }};background:{{ f3bg }};color:{{ f3c }};font-size:13px;line-height:18px;font-weight:500;cursor:pointer">Archiv</button>
+            <button onClick="{{ toggleSuche }}" aria-label="Suchen" title="Suchen" style="width:44px;height:44px;flex:0 0 44px;border-radius:999px;border:1px solid #2A3A50;background:#141E2E;color:#E8EEF6;cursor:pointer;display:flex;align-items:center;justify-content:center;padding:0">
+              <svg width="20" height="20" viewBox="0 0 16 16" aria-hidden="true"><circle cx="7" cy="7" r="4.5" fill="none" stroke="currentColor" stroke-width="1.8"></circle><rect x="10.2" y="11" width="5" height="1.8" rx="0.9" transform="rotate(45 10.2 11)" fill="currentColor"></rect></svg>
+            </button>
+          </div>
+
+          <sc-if value="{{ sucheOffen }}">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <label style="font-size:13px;line-height:18px;font-weight:500;color:#E8EEF6">Suche nach Handelsname oder Art</label>
+              <input value="{{ suchtext }}" onChange="{{ setSuchtext }}" placeholder="z. B. Torch oder Acropora" style="min-height:48px;width:100%;padding:12px;border-radius:10px;border:1px solid #2A3A50;background:#141E2E;color:#E8EEF6;font-size:15px;line-height:22px">
+            </div>
+          </sc-if>
+
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <sc-for list="{{ liste }}" as="k" hint-placeholder-count="4">
+              <button onClick="{{ k.open }}" style="width:100%;text-align:left;display:flex;gap:12px;align-items:stretch;padding:12px;background:#141E2E;border:1px solid #2A3A50;border-radius:14px;cursor:pointer;min-height:96px">
+                <div style="width:72px;flex:0 0 72px;border-radius:10px;border:2px solid {{ k.statusFarbe }};background:#1C2839;overflow:hidden">
+                  <img src="{{ k.bild }}" alt="Foto der Koralle" style="width:100%;height:100%;object-fit:cover;display:block">
+                </div>
+                <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px">
+                  <div style="font-size:17px;line-height:24px;font-weight:600;color:#E8EEF6">{{ k.handelsname }}</div>
+                  <div style="font-size:13px;line-height:18px;color:#93A4BC">{{ k.art }}</div>
+                  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                    <span style="font-size:12px;line-height:16px;color:#93A4BC;font-variant-numeric:tabular-nums">{{ k.becken }}</span>
+                  </div>
+                </div>
+              </button>
+            </sc-for>
+          </div>
+
+          <sc-if value="{{ zeigeLegende }}" hint-placeholder-val="{{ true }}">
+            <div style="padding:12px;border:1px solid #2A3A50;border-radius:14px;background:#141E2E;display:flex;flex-direction:column;gap:8px">
+              <div style="font-size:13px;line-height:18px;font-weight:500;color:#93A4BC">Legende Status</div>
+              <div style="display:flex;flex-wrap:wrap;gap:12px">
+                <span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:999px;background:#3FBF3F"></span><span style="font-size:12px;line-height:16px;color:#E8EEF6">Im Bestand</span></span>
+                <span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:999px;background:#EC3FB0"></span><span style="font-size:12px;line-height:16px;color:#E8EEF6">Zur Abgabe</span></span>
+                <span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:999px;background:#93A4BC"></span><span style="font-size:12px;line-height:16px;color:#E8EEF6">Abgegeben</span></span>
+                <span style="display:flex;align-items:center;gap:6px"><span style="width:10px;height:10px;border-radius:999px;background:#FF4438"></span><span style="font-size:12px;line-height:16px;color:#E8EEF6">Verendet</span></span>
+              </div>
+            </div>
+          </sc-if>
+        </div>
+      </sc-if>
+
+      <!-- KORALLE DETAIL -->
+      <sc-if value="{{ isDetail }}">
+        <div style="padding:16px 16px 104px 16px;display:flex;flex-direction:column;gap:16px">
+          <button onClick="{{ goBestand }}" style="min-height:44px;align-self:flex-start;display:flex;align-items:center;gap:8px;padding:8px 12px 8px 8px;background:#141E2E;border:1px solid #2A3A50;border-radius:10px;color:#E8EEF6;font-size:13px;line-height:18px;font-weight:500;cursor:pointer">
+            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="2" fill="currentColor"></rect><rect x="3" y="4.5" width="2" height="7" fill="currentColor"></rect></svg>
+            Zurück zum Bestand
+          </button>
+
+          <div style="height:200px;border-radius:14px;border:2px solid {{ dStatusFarbe }};background:#1C2839;overflow:hidden">
+            <img src="{{ dBild }}" alt="Foto der Koralle" style="width:100%;height:100%;object-fit:cover;display:block">
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:24px;line-height:32px;font-weight:600;color:#E8EEF6">{{ dHandelsname }}</div>
+            <div style="font-size:15px;line-height:22px;color:#93A4BC">{{ dArt }}</div>
+            <span style="align-self:flex-start;display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;background:#1C2839;border:1px solid #2A3A50">
+              <span style="width:10px;height:10px;border-radius:999px;background:{{ dStatusFarbe }}"></span>
+              <span style="font-size:13px;line-height:18px;font-weight:500;color:#E8EEF6">{{ dStatus }}</span>
+            </span>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(2, minmax(0,1fr));gap:12px">
+            <div style="padding:12px;background:#141E2E;border:1px solid #2A3A50;border-radius:14px;display:flex;flex-direction:column;gap:4px">
+              <div style="font-size:12px;line-height:16px;color:#93A4BC">Becken</div>
+              <div style="font-size:15px;line-height:22px;color:#E8EEF6;font-variant-numeric:tabular-nums">{{ dBecken }}</div>
+            </div>
+            <div style="padding:12px;background:#141E2E;border:1px solid #2A3A50;border-radius:14px;display:flex;flex-direction:column;gap:4px">
+              <div style="font-size:12px;line-height:16px;color:#93A4BC">Zugang am</div>
+              <div style="font-size:15px;line-height:22px;color:#E8EEF6;font-variant-numeric:tabular-nums">{{ dZugang }}</div>
+            </div>
+            <div style="padding:12px;background:#141E2E;border:1px solid #2A3A50;border-radius:14px;display:flex;flex-direction:column;gap:4px">
+              <div style="font-size:12px;line-height:16px;color:#93A4BC">Größe</div>
+              <div style="font-size:15px;line-height:22px;color:#E8EEF6;font-variant-numeric:tabular-nums">{{ dGroesse }}</div>
+            </div>
+            <div style="padding:12px;background:#141E2E;border:1px solid #2A3A50;border-radius:14px;display:flex;flex-direction:column;gap:4px">
+              <div style="font-size:12px;line-height:16px;color:#93A4BC">Ableger insgesamt</div>
+              <div style="font-size:15px;line-height:22px;color:#E8EEF6;font-variant-numeric:tabular-nums">{{ dAbleger }}</div>
+            </div>
+            <div style="grid-column:1 / -1;padding:12px;background:#141E2E;border:1px solid #2A3A50;border-radius:14px;display:flex;flex-direction:column;gap:4px">
+              <div style="font-size:12px;line-height:16px;color:#93A4BC">Herkunft</div>
+              <div style="font-size:15px;line-height:22px;color:#E8EEF6">{{ dHerkunft }}</div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <button style="min-height:48px;width:100%;border:none;border-radius:10px;background:#E8963A;color:#1A0F0A;font-size:15px;line-height:22px;font-weight:600;cursor:pointer;padding:12px 16px">Koralle bearbeiten</button>
+            <button style="min-height:48px;width:100%;border:1px solid #2A3A50;border-radius:10px;background:#1C2839;color:#E8EEF6;font-size:15px;line-height:22px;font-weight:500;cursor:pointer;padding:12px 16px">Zur Abgabe markieren</button>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="font-size:17px;line-height:24px;font-weight:600;color:#E8EEF6">Diary-Einträge</div>
+            <sc-for list="{{ dDiary }}" as="e" hint-placeholder-count="2">
+              <div style="padding:12px;background:#141E2E;border:1px solid #2A3A50;border-radius:14px;display:flex;flex-direction:column;gap:4px">
+                <div style="font-size:12px;line-height:16px;color:#93A4BC;font-variant-numeric:tabular-nums">{{ e.datum }}</div>
+                <div style="font-size:15px;line-height:22px;color:#E8EEF6">{{ e.titel }}</div>
+              </div>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- FORMULAR NEUE KORALLE -->
+      <sc-if value="{{ isNeu }}">
+        <div style="padding:16px 16px 32px 16px;display:flex;flex-direction:column;gap:24px">
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:24px;line-height:32px;font-weight:600;color:#E8EEF6">Koralle anlegen</div>
+            <div style="font-size:13px;line-height:18px;color:#93A4BC">* Pflichtfeld</div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <label style="font-size:13px;line-height:18px;font-weight:500;color:#E8EEF6">Art (wissenschaftlicher Name) *</label>
+              <input value="Acropora tenuis" style="min-height:48px;width:100%;padding:12px;border-radius:10px;border:1px solid #2A3A50;background:#141E2E;color:#E8EEF6;font-size:15px;line-height:22px">
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <label style="font-size:13px;line-height:18px;font-weight:500;color:#E8EEF6">Handelsname</label>
+              <input placeholder="z. B. Green Slimer" style="min-height:48px;width:100%;padding:12px;border-radius:10px;border:1px solid #2A3A50;background:#141E2E;color:#E8EEF6;font-size:15px;line-height:22px">
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <label style="font-size:13px;line-height:18px;font-weight:500;color:#E8EEF6">Becken *</label>
+              <select style="min-height:48px;width:100%;padding:12px;border-radius:10px;border:1px solid #2A3A50;background:#141E2E;color:#E8EEF6;font-size:15px;line-height:22px">
+                <option>Riffbecken 250 l</option>
+                <option>Ablegerbecken 60 l</option>
+              </select>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <label style="font-size:13px;line-height:18px;font-weight:500;color:#E8EEF6">Status *</label>
+              <div style="display:flex;flex-direction:column;gap:8px">
+                <button onClick="{{ setNeuBestand }}" style="min-height:48px;width:100%;display:flex;align-items:center;gap:12px;padding:12px;border-radius:10px;border:1px solid {{ nb1 }};background:{{ nbg1 }};color:#E8EEF6;font-size:15px;line-height:22px;font-weight:500;cursor:pointer;text-align:left">
+                  <span style="width:12px;height:12px;border-radius:999px;background:#3FBF3F"></span>Im Bestand
+                </button>
+                <button onClick="{{ setNeuAbgabe }}" style="min-height:48px;width:100%;display:flex;align-items:center;gap:12px;padding:12px;border-radius:10px;border:1px solid {{ nb2 }};background:{{ nbg2 }};color:#E8EEF6;font-size:15px;line-height:22px;font-weight:500;cursor:pointer;text-align:left">
+                  <span style="width:12px;height:12px;border-radius:999px;background:#EC3FB0"></span>Zur Abgabe
+                </button>
+              </div>
+            </div>
+            <div style="display:flex;gap:12px;flex-wrap:wrap">
+              <div style="flex:1 1 140px;min-width:0;display:flex;flex-direction:column;gap:8px">
+                <label style="font-size:13px;line-height:18px;font-weight:500;color:#E8EEF6">Zugang am *</label>
+                <input value="12.03.2026" style="min-height:48px;width:100%;padding:12px;border-radius:10px;border:1px solid #2A3A50;background:#141E2E;color:#E8EEF6;font-size:15px;line-height:22px;font-variant-numeric:tabular-nums">
+              </div>
+              <div style="flex:1 1 120px;min-width:0;display:flex;flex-direction:column;gap:8px">
+                <label style="font-size:13px;line-height:18px;font-weight:500;color:#E8EEF6">Größe in cm</label>
+                <input placeholder="4,5" style="min-height:48px;width:100%;padding:12px;border-radius:10px;border:1px solid #2A3A50;background:#141E2E;color:#E8EEF6;font-size:15px;line-height:22px;font-variant-numeric:tabular-nums">
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <label style="font-size:13px;line-height:18px;font-weight:500;color:#E8EEF6">Notiz</label>
+              <textarea rows="3" placeholder="Platzierung, Herkunft, Beobachtungen" style="width:100%;padding:12px;border-radius:10px;border:1px solid #2A3A50;background:#141E2E;color:#E8EEF6;font-size:15px;line-height:22px;resize:vertical"></textarea>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <label style="font-size:13px;line-height:18px;font-weight:500;color:#E8EEF6">Bild</label>
+              <button style="min-height:96px;width:100%;border:1px dashed #2A3A50;border-radius:10px;background:#141E2E;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:8px;cursor:pointer;color:#93A4BC">
+                <svg width="22" height="22" viewBox="0 0 18 18" aria-hidden="true"><rect x="1" y="3" width="16" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.5"></rect><circle cx="6" cy="7.5" r="1.5" fill="currentColor"></circle></svg>
+                <span style="font-size:13px;line-height:18px;font-weight:500">Bild auswählen</span>
+              </button>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <button onClick="{{ goBestand }}" style="min-height:48px;width:100%;border:none;border-radius:10px;background:#E8963A;color:#1A0F0A;font-size:15px;line-height:22px;font-weight:600;cursor:pointer;padding:12px 16px">Speichern</button>
+            <button onClick="{{ goBestand }}" style="min-height:48px;width:100%;border:1px solid #2A3A50;border-radius:10px;background:#1C2839;color:#E8EEF6;font-size:15px;line-height:22px;font-weight:500;cursor:pointer;padding:12px 16px">Abbrechen</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- BECKEN -->
+      <sc-if value="{{ isBecken }}">
+        <div style="padding:24px 16px 104px 16px;display:flex;flex-direction:column;gap:16px">
+          <div style="font-size:24px;line-height:32px;font-weight:600;color:#E8EEF6">Becken</div>
+          <sc-for list="{{ becken }}" as="b" hint-placeholder-count="2">
+            <button onClick="{{ b.open }}" style="width:100%;text-align:left;padding:16px;background:#141E2E;border:1px solid #2A3A50;border-radius:14px;cursor:pointer;display:flex;flex-direction:column;gap:12px;min-height:44px">
+              <div style="display:flex;gap:12px;align-items:center;width:100%">
+                <div style="width:64px;height:64px;flex:0 0 64px;border-radius:10px;border:1px solid #2A3A50;background:#1C2839;overflow:hidden">
+                  <img src="assets/zuchtanlage.png" alt="Foto der Zuchtanlage" style="width:100%;height:100%;object-fit:cover;display:block">
+                </div>
+                <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px">
+                  <div style="font-size:17px;line-height:24px;font-weight:600;color:#E8EEF6;font-variant-numeric:tabular-nums">{{ b.name }}</div>
+                  <div style="font-size:13px;line-height:18px;color:#93A4BC;font-variant-numeric:tabular-nums">{{ b.meta }}</div>
+                </div>
+              </div>
+              <div style="display:flex;gap:8px;flex-wrap:wrap">
+                <sc-for list="{{ b.werte }}" as="w" hint-placeholder-count="3">
+                  <span style="padding:6px 12px;border-radius:999px;background:#1C2839;border:1px solid #2A3A50;font-size:12px;line-height:16px;color:#E8EEF6;font-variant-numeric:tabular-nums">{{ w }}</span>
+                </sc-for>
+              </div>
+            </button>
+          </sc-for>
+          <button style="min-height:48px;width:100%;border:1px solid #2A3A50;border-radius:10px;background:#1C2839;color:#E8EEF6;font-size:15px;line-height:22px;font-weight:500;cursor:pointer;padding:12px 16px;display:flex;align-items:center;justify-content:center;gap:8px">
+            <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><rect x="8" y="2" width="2" height="14" fill="currentColor"></rect><rect x="2" y="8" width="14" height="2" fill="currentColor"></rect></svg>
+            Becken anlegen
+          </button>
+        </div>
+      </sc-if>
+
+      <!-- BECKEN DETAIL -->
+      <sc-if value="{{ isBeckenDetail }}">
+        <div style="padding:16px 16px 104px 16px;display:flex;flex-direction:column;gap:16px">
+          <button onClick="{{ goBecken }}" style="min-height:44px;align-self:flex-start;display:flex;align-items:center;gap:8px;padding:8px 12px 8px 8px;background:#141E2E;border:1px solid #2A3A50;border-radius:10px;color:#E8EEF6;font-size:13px;line-height:18px;font-weight:500;cursor:pointer">
+            <svg width="16" height="16" viewBox="0 0 16 16" aria-hidden="true"><rect x="3" y="7" width="10" height="2" fill="currentColor"></rect><rect x="3" y="4.5" width="2" height="7" fill="currentColor"></rect></svg>
+            Zurück zu Becken
+          </button>
+          <div style="height:140px;border-radius:14px;border:1px solid #2A3A50;background:#1C2839;overflow:hidden">
+            <img src="assets/zuchtanlage.png" alt="Foto der Zuchtanlage" style="width:100%;height:100%;object-fit:cover;display:block">
+          </div>
+          <div style="display:flex;flex-direction:column;gap:4px">
+            <div style="font-size:24px;line-height:32px;font-weight:600;color:#E8EEF6;font-variant-numeric:tabular-nums">{{ bdName }}</div>
+            <div style="font-size:13px;line-height:18px;color:#93A4BC;font-variant-numeric:tabular-nums">{{ bdMeta }}</div>
+          </div>
+
+          <div style="padding:16px;background:#141E2E;border:1px solid #2A3A50;border-radius:14px;display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;flex-direction:column;gap:4px">
+              <div style="font-size:17px;line-height:24px;font-weight:600;color:#E8EEF6">Letzte Messung</div>
+              <div style="font-size:12px;line-height:16px;color:#93A4BC;font-variant-numeric:tabular-nums">{{ bdDatum }}</div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(2, minmax(0,1fr));gap:12px">
+              <sc-for list="{{ bdMesswerte }}" as="m" hint-placeholder-count="4">
+                <div style="padding:12px;background:#1C2839;border:1px solid #2A3A50;border-radius:10px;display:flex;flex-direction:column;gap:4px">
+                  <div style="font-size:12px;line-height:16px;color:#93A4BC">{{ m.label }}</div>
+                  <div style="font-size:20px;line-height:28px;font-weight:600;color:#E8EEF6;font-variant-numeric:tabular-nums">{{ m.wert }}</div>
+                </div>
+              </sc-for>
+            </div>
+            <button style="min-height:48px;width:100%;border:none;border-radius:10px;background:#E8963A;color:#1A0F0A;font-size:15px;line-height:22px;font-weight:600;cursor:pointer;padding:12px 16px">Messwert erfassen</button>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="font-size:17px;line-height:24px;font-weight:600;color:#E8EEF6">{{ kurveTitel }}</div>
+            <div style="display:flex;gap:6px;flex-wrap:wrap">
+              <sc-for list="{{ metriken }}" as="m" hint-placeholder-count="6">
+                <button onClick="{{ m.waehlen }}" style="min-height:44px;padding:8px 12px;border-radius:999px;border:1px solid {{ m.rahmen }};background:{{ m.flaeche }};color:{{ m.schrift }};font-size:13px;line-height:18px;font-weight:500;cursor:pointer">{{ m.label }}</button>
+              </sc-for>
+            </div>
+            <div style="padding:16px;background:#141E2E;border:1px solid #2A3A50;border-radius:14px;display:flex;flex-direction:column;gap:12px">
+              <div style="display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap">
+                <div style="font-size:12px;line-height:16px;color:#93A4BC">{{ kurveAchse }}</div>
+                <div style="font-size:12px;line-height:16px;color:#93A4BC;font-variant-numeric:tabular-nums">{{ kurveSpanne }}</div>
+              </div>
+              <div style="display:flex;gap:8px;align-items:stretch">
+                <div style="flex:0 0 auto;display:flex;flex-direction:column;justify-content:space-between;height:136px;margin:-8px 0;font-size:12px;line-height:16px;color:#93A4BC;font-variant-numeric:tabular-nums;text-align:right">
+                  <sc-for list="{{ kurveTicks }}" as="t" hint-placeholder-count="5">
+                    <div>{{ t }}</div>
+                  </sc-for>
+                </div>
+                <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:8px">
+                  <svg viewBox="0 0 260 120" width="100%" height="120" preserveAspectRatio="none" overflow="visible" role="img" aria-label="Kurvenverlauf der Karbonathärte in dKH über die Zeit">
+                    <sc-for list="{{ kurveGitter }}" as="g" hint-placeholder-count="5">
+                      <line x1="0" y1="{{ g.y }}" x2="260" y2="{{ g.y }}" stroke="#2A3A50" stroke-width="1" stroke-dasharray="{{ g.strich }}" vector-effect="non-scaling-stroke"></line>
+                    </sc-for>
+                    <path d="{{ kurveFlaeche }}" fill="#2DD4BF" opacity="0.16"></path>
+                    <path d="{{ kurvePfad }}" fill="none" stroke="#2DD4BF" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" vector-effect="non-scaling-stroke"></path>
+                    <sc-for list="{{ kurvePunkte }}" as="p" hint-placeholder-count="6">
+                      <circle cx="{{ p.x }}" cy="{{ p.y }}" r="4" fill="#0B1120" stroke="#2DD4BF" stroke-width="2.5" vector-effect="non-scaling-stroke"></circle>
+                    </sc-for>
+                  </svg>
+                  <div style="display:grid;grid-template-columns:repeat(6, minmax(0,1fr));gap:2px">
+                    <sc-for list="{{ kurvePunkte }}" as="p" hint-placeholder-count="6">
+                      <div style="display:flex;flex-direction:column;align-items:center;gap:2px">
+                        <span style="font-size:12px;line-height:16px;color:#93A4BC;font-variant-numeric:tabular-nums">{{ p.kurz }}</span>
+                        <span style="font-size:12px;line-height:16px;font-weight:500;color:#E8EEF6;font-variant-numeric:tabular-nums">{{ p.zahl }}</span>
+                      </div>
+                    </sc-for>
+                  </div>
+                  <div style="font-size:12px;line-height:16px;color:#93A4BC;text-align:center">Datum</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="font-size:17px;line-height:24px;font-weight:600;color:#E8EEF6">Korallen in diesem Becken</div>
+            <sc-for list="{{ bdKorallen }}" as="k" hint-placeholder-count="3">
+              <button onClick="{{ k.open }}" style="width:100%;min-height:56px;text-align:left;display:flex;align-items:center;gap:12px;padding:12px;background:#141E2E;border:1px solid #2A3A50;border-radius:14px;cursor:pointer">
+                <span style="width:44px;height:44px;flex:0 0 44px;border-radius:10px;border:2px solid {{ k.statusFarbe }};background:#1C2839;overflow:hidden;display:block">
+                  <img src="{{ k.bild }}" alt="Foto der Koralle" style="width:100%;height:100%;object-fit:cover;display:block">
+                </span>
+                <span style="flex:1;min-width:0;display:flex;flex-direction:column;gap:2px">
+                  <span style="font-size:15px;line-height:22px;color:#E8EEF6">{{ k.handelsname }}</span>
+                  <span style="font-size:12px;line-height:16px;color:#93A4BC">{{ k.art }}</span>
+                </span>
+              </button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- DIARY -->
+      <sc-if value="{{ isDiary }}">
+        <div style="padding:24px 16px 104px 16px;display:flex;flex-direction:column;gap:16px">
+          <div style="font-size:24px;line-height:32px;font-weight:600;color:#E8EEF6">Diary</div>
+          <button style="min-height:48px;width:100%;border:none;border-radius:10px;background:#E8963A;color:#1A0F0A;font-size:15px;line-height:22px;font-weight:600;cursor:pointer;padding:12px 16px;display:flex;align-items:center;justify-content:center;gap:8px">
+            <svg width="18" height="18" viewBox="0 0 18 18" aria-hidden="true"><rect x="8" y="2" width="2" height="14" fill="currentColor"></rect><rect x="2" y="8" width="14" height="2" fill="currentColor"></rect></svg>
+            Eintrag hinzufügen
+          </button>
+          <sc-for list="{{ diary }}" as="g" hint-placeholder-count="3">
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <div style="font-size:13px;line-height:18px;font-weight:500;color:#93A4BC;font-variant-numeric:tabular-nums">{{ g.datum }}</div>
+              <sc-for list="{{ g.items }}" as="e" hint-placeholder-count="2">
+                <div style="padding:12px;background:#141E2E;border:1px solid #2A3A50;border-radius:14px;display:flex;flex-direction:column;gap:6px">
+                  <div style="display:flex;align-items:center;gap:8px;flex-wrap:wrap">
+                    <span style="display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:999px;background:#1C2839;border:1px solid #2A3A50;font-size:12px;line-height:16px;color:#93A4BC">
+                      <sc-if value="{{ e.istAbleger }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M11 21v-6l-3.5-4"></path><path d="M11 16l2.5-3.5"></path><path d="M12.5 9.5l7-3.5" stroke-dasharray="2.4 2"></path><path d="M20.5 3.5l1.5 1.5-1 1.8"></path></svg></sc-if>
+                      <sc-if value="{{ e.istPflege }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21v-5l-2.5-3"></path><path d="M12 17l2.2-3"></path><path d="M6 21c-2-2.8-1.8-6.6.8-8.6"></path><path d="M18 21c2-2.8 1.8-6.6-.8-8.6"></path></svg></sc-if>
+                      <sc-if value="{{ e.istAbgabe }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12.5c0 3.6 2.6 6 6 6h7c3.4 0 6-2.4 6-6"></path><path d="M6.5 12.5V8l-2 -2.4"></path><path d="M6.5 9.4l2.2-2.2"></path></svg></sc-if>
+                      <sc-if value="{{ e.istZugang }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="6.5" width="18" height="13.5" rx="2"></rect><path d="M3 11h18"></path><path d="M12 18v-3.5l-2-2"></path><path d="M12 15.2l2-2"></path></svg></sc-if>
+                      <sc-if value="{{ e.istMessung }}"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9.5 3.5h4"></path><path d="M10.5 3.5v4l-3 6.6a1.8 1.8 0 0 0 1.6 2.7h4.8a1.8 1.8 0 0 0 1.6-2.7l-3-6.6v-4"></path><rect x="17.5" y="9.5" width="4" height="10.5" rx="1.2"></rect><rect x="2" y="18" width="4.4" height="3.4" rx="1.4"></rect><rect x="7.6" y="18" width="4.4" height="3.4" rx="1.4"></rect><path d="M6.4 19.7h1.2"></path></svg></sc-if>
+                      {{ e.typ }}
+                    </span>
+                    <span style="font-size:12px;line-height:16px;color:#93A4BC;font-variant-numeric:tabular-nums">{{ e.bezug }}</span>
+                  </div>
+                  <div style="font-size:15px;line-height:22px;color:#E8EEF6">{{ e.titel }}</div>
+                </div>
+              </sc-for>
+            </div>
+          </sc-for>
+        </div>
+      </sc-if>
+
+      <!-- PROFIL -->
+      <sc-if value="{{ isProfil }}">
+        <div style="padding:24px 16px 104px 16px;display:flex;flex-direction:column;gap:24px">
+          <div style="font-size:24px;line-height:32px;font-weight:600;color:#E8EEF6">Profil</div>
+          <div style="padding:16px;background:#141E2E;border:1px solid #2A3A50;border-radius:14px;display:flex;align-items:center;gap:12px">
+            <div style="width:56px;height:56px;flex:0 0 56px;border-radius:999px;background:#1C2839;border:1px solid #2A3A50;display:flex;align-items:center;justify-content:center;font-size:17px;line-height:24px;font-weight:600;color:#E8963A">MK</div>
+            <div style="flex:1;min-width:0;display:flex;flex-direction:column;gap:4px">
+              <div style="font-size:17px;line-height:24px;font-weight:600;color:#E8EEF6">Mareike Kranz</div>
+              <div style="font-size:13px;line-height:18px;color:#93A4BC">mareike.kranz@example.de</div>
+            </div>
+          </div>
+
+          <div style="display:grid;grid-template-columns:repeat(3, minmax(0,1fr));gap:12px">
+            <div style="padding:12px;background:#141E2E;border:1px solid #2A3A50;border-radius:14px;display:flex;flex-direction:column;gap:4px">
+              <div style="font-size:20px;line-height:28px;font-weight:600;color:#E8EEF6;font-variant-numeric:tabular-nums">6</div>
+              <div style="font-size:12px;line-height:16px;color:#93A4BC">Korallen</div>
+            </div>
+            <div style="padding:12px;background:#141E2E;border:1px solid #2A3A50;border-radius:14px;display:flex;flex-direction:column;gap:4px">
+              <div style="font-size:20px;line-height:28px;font-weight:600;color:#E8EEF6;font-variant-numeric:tabular-nums">2</div>
+              <div style="font-size:12px;line-height:16px;color:#93A4BC">Becken</div>
+            </div>
+            <div style="padding:12px;background:#141E2E;border:1px solid #2A3A50;border-radius:14px;display:flex;flex-direction:column;gap:4px">
+              <div style="font-size:20px;line-height:28px;font-weight:600;color:#E8EEF6;font-variant-numeric:tabular-nums">14</div>
+              <div style="font-size:12px;line-height:16px;color:#93A4BC">Einträge</div>
+            </div>
+          </div>
+
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <button style="min-height:56px;width:100%;text-align:left;padding:16px;background:#141E2E;border:1px solid #2A3A50;border-radius:14px;color:#E8EEF6;font-size:15px;line-height:22px;cursor:pointer;display:flex;flex-direction:column;gap:2px">
+              <span>Einheiten und Formate</span>
+              <span style="font-size:12px;line-height:16px;color:#93A4BC;font-variant-numeric:tabular-nums">dKH · Liter · 12.03.2026</span>
+            </button>
+            <button style="min-height:56px;width:100%;text-align:left;padding:16px;background:#141E2E;border:1px solid #2A3A50;border-radius:14px;color:#E8EEF6;font-size:15px;line-height:22px;cursor:pointer;display:flex;flex-direction:column;gap:2px">
+              <span>Daten exportieren</span>
+              <span style="font-size:12px;line-height:16px;color:#93A4BC">Bestand und Diary als CSV-Datei</span>
+            </button>
+            <button onClick="{{ goLogin }}" style="min-height:48px;width:100%;border:1px solid #2A3A50;border-radius:10px;background:#1C2839;color:#F2685E;font-size:15px;line-height:22px;font-weight:500;cursor:pointer;padding:12px 16px">Abmelden</button>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- LOGIN -->
+      <sc-if value="{{ isLogin }}">
+        <div style="padding:32px 16px;display:flex;flex-direction:column;gap:32px;min-height:100%">
+          <div style="display:flex;flex-direction:column;gap:8px;padding-top:32px">
+            <div style="font-size:24px;line-height:32px;font-weight:600;color:#E8EEF6">Coralkeeper</div>
+            <div style="font-size:15px;line-height:22px;color:#93A4BC">Bestand, Becken und Diary für Korallenzüchter.</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:16px">
+            <div style="font-size:13px;line-height:18px;color:#93A4BC">* Pflichtfeld</div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <label style="font-size:13px;line-height:18px;font-weight:500;color:#E8EEF6">E-Mail-Adresse *</label>
+              <input placeholder="name@example.de" style="min-height:48px;width:100%;padding:12px;border-radius:10px;border:1px solid #2A3A50;background:#141E2E;color:#E8EEF6;font-size:15px;line-height:22px">
+            </div>
+            <div style="display:flex;flex-direction:column;gap:8px">
+              <label style="font-size:13px;line-height:18px;font-weight:500;color:#E8EEF6">Passwort *</label>
+              <input type="password" placeholder="Mindestens 8 Zeichen" style="min-height:48px;width:100%;padding:12px;border-radius:10px;border:1px solid #2A3A50;background:#141E2E;color:#E8EEF6;font-size:15px;line-height:22px">
+            </div>
+            <button onClick="{{ goBestand }}" style="min-height:48px;width:100%;border:none;border-radius:10px;background:#E8963A;color:#1A0F0A;font-size:15px;line-height:22px;font-weight:600;cursor:pointer;padding:12px 16px">Anmelden</button>
+            <button style="min-height:48px;width:100%;border:1px solid #2A3A50;border-radius:10px;background:#1C2839;color:#E8EEF6;font-size:15px;line-height:22px;font-weight:500;cursor:pointer;padding:12px 16px">Neues Konto erstellen</button>
+          </div>
+        </div>
+      </sc-if>
+
+    </div>
+
+    <!-- BOTTOM NAVIGATION -->
+    <sc-if value="{{ zeigeNav }}" hint-placeholder-val="{{ true }}">
+      <div style="position:absolute;left:0;right:0;bottom:0;height:64px;background:#141E2E;border-top:1px solid #2A3A50;display:flex;align-items:stretch">
+        <button onClick="{{ goBestand }}" style="flex:1;min-width:0;min-height:64px;background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:{{ navBestand }}">
+          <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><rect x="2" y="2" width="7" height="7" rx="1.5" fill="currentColor"></rect><rect x="11" y="2" width="7" height="7" rx="1.5" fill="currentColor"></rect><rect x="2" y="11" width="7" height="7" rx="1.5" fill="currentColor"></rect><rect x="11" y="11" width="7" height="7" rx="1.5" fill="currentColor"></rect></svg>
+          <span style="font-size:12px;line-height:16px;font-weight:500">Bestand</span>
+        </button>
+        <button onClick="{{ goBecken }}" style="flex:1;min-width:0;min-height:64px;background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:{{ navBecken }}">
+          <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><rect x="2.5" y="3.5" width="15" height="13" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"></rect><rect x="2.5" y="9" width="15" height="7.5" fill="currentColor" opacity="0.45"></rect></svg>
+          <span style="font-size:12px;line-height:16px;font-weight:500">Becken</span>
+        </button>
+        <button onClick="{{ goDiary }}" style="flex:1;min-width:0;min-height:64px;background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:{{ navDiary }}">
+          <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><rect x="3.5" y="2.5" width="13" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.8"></rect><rect x="6" y="6" width="8" height="1.8" fill="currentColor"></rect><rect x="6" y="10" width="8" height="1.8" fill="currentColor"></rect></svg>
+          <span style="font-size:12px;line-height:16px;font-weight:500">Diary</span>
+        </button>
+        <button onClick="{{ goProfil }}" style="flex:1;min-width:0;min-height:64px;background:none;border:none;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;color:{{ navProfil }}">
+          <svg width="20" height="20" viewBox="0 0 20 20" aria-hidden="true"><circle cx="10" cy="6.5" r="3.5" fill="currentColor"></circle><rect x="3" y="12" width="14" height="6" rx="3" fill="currentColor"></rect></svg>
+          <span style="font-size:12px;line-height:16px;font-weight:500">Profil</span>
+        </button>
+      </div>
+    </sc-if>
+
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;$preview&quot;:{&quot;width&quot;:440,&quot;height&quot;:900},&quot;startScreen&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;bestand&quot;,&quot;detail&quot;,&quot;neu&quot;,&quot;becken&quot;,&quot;beckenDetail&quot;,&quot;diary&quot;,&quot;profil&quot;,&quot;login&quot;],&quot;default&quot;:&quot;bestand&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Prototyp&quot;},&quot;statusLegende&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Prototyp&quot;},&quot;diarySymbole&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Prototyp&quot;}}">
+const STATUS = {
+  bestand: { label: "Im Bestand", farbe: "#3FBF3F" },
+  abgabe: { label: "Zur Abgabe", farbe: "#EC3FB0" },
+  abgegeben: { label: "Abgegeben", farbe: "#93A4BC" },
+  verendet: { label: "Verendet", farbe: "#FF4438" }
+};
+
+const KORALLEN = [
+  { bild: "assets/green-slimer.png", handelsname: "Green Slimer", art: "Acropora tenuis", becken: "Riffbecken 250 l", status: "bestand", farbe: "#4FD98A", zugang: "12.03.2026", groesse: "6,5 cm", ableger: "3", herkunft: "Eigene Nachzucht, Mutterkoralle Riffbecken 250 l",
+    diary: [{ datum: "02.04.2026", titel: "Zwei Ableger geschnitten und in Ablegerbecken 60 l gesetzt" }, { datum: "12.03.2026", titel: "Zugang, auf Riffkeramik aufgeklebt" }] },
+  { bild: "assets/gold-torch.png", handelsname: "Gold Torch", art: "Euphyllia paradivisa", becken: "Riffbecken 250 l", status: "abgabe", farbe: "#F5B54A", zugang: "18.11.2025", groesse: "9,0 cm", ableger: "1", herkunft: "Tausch mit Meerwasserverein Nord",
+    diary: [{ datum: "28.03.2026", titel: "Kopf abgesetzt, zur Abgabe vorgemerkt" }] },
+  { bild: "assets/forest-fire.png", handelsname: "Forest Fire", art: "Montipora digitata", becken: "Ablegerbecken 60 l", status: "bestand", farbe: "#F2685E", zugang: "05.01.2026", groesse: "4,5 cm", ableger: "5", herkunft: "Ableger von Green Slimer Nachbarkolonie",
+    diary: [{ datum: "20.03.2026", titel: "Wächst gut, Färbung dunkler geworden" }] },
+  { bild: "assets/milka.png", handelsname: "Milka", art: "Stylophora pistillata", becken: "Ablegerbecken 60 l", status: "abgabe", farbe: "#B79BE8", zugang: "22.02.2026", groesse: "3,0 cm", ableger: "2", herkunft: "Eigene Nachzucht",
+    diary: [{ datum: "30.03.2026", titel: "Für Börse am 18.04.2026 reserviert" }] },
+  { bild: "assets/rasta.png", handelsname: "Rasta", art: "Zoanthus sp.", becken: "Riffbecken 250 l", status: "abgegeben", farbe: "#2DD4BF", zugang: "09.09.2025", groesse: "12 Polypen", ableger: "4", herkunft: "Kauf im Fachhandel",
+    diary: [{ datum: "14.03.2026", titel: "Zehn Polypen abgegeben an Vereinsmitglied" }] },
+  { bild: "assets/duncan.png", handelsname: "Duncan", art: "Duncanopsammia axifuga", becken: "Riffbecken 250 l", status: "verendet", farbe: "#8FA6C2", zugang: "01.07.2025", groesse: "keine Angabe", ableger: "0", herkunft: "Kauf im Fachhandel",
+    diary: [{ datum: "06.03.2026", titel: "Gewebe zurückgegangen, als verendet erfasst" }] }
+];
+
+const BECKEN = [
+  { bild: "assets/zuchtanlage.png", name: "Riffbecken 250 l", meta: "4 Korallen · Messung 12.03.2026", werte: ["8,1 dKH", "425 mg/l Ca", "1.320 mg/l Mg"], datum: "Messung am 12.03.2026",
+    messwerte: [{ label: "Karbonathärte", wert: "8,1 dKH" }, { label: "Calcium", wert: "425 mg/l" }, { label: "Magnesium", wert: "1.320 mg/l" }, { label: "Nitrat", wert: "4,2 mg/l" }, { label: "Phosphat", wert: "0,04 mg/l" }, { label: "Temperatur", wert: "25,6 °C" }],
+    verlauf: {
+      kh: { taste: "Kh", kurz: "°dKH", label: "Karbonathärte", einheit: "dKH", dez: 1, punkte: [{ datum: "05.02.2026", zahl: 7.4 }, { datum: "12.02.2026", zahl: 7.7 }, { datum: "19.02.2026", zahl: 7.6 }, { datum: "26.02.2026", zahl: 8.4 }, { datum: "05.03.2026", zahl: 7.9 }, { datum: "12.03.2026", zahl: 8.1 }] },
+      ca: { taste: "Ca", kurz: "Ca", label: "Calcium", einheit: "mg/l", dez: 0, punkte: [{ datum: "05.02.2026", zahl: 415 }, { datum: "12.02.2026", zahl: 420 }, { datum: "19.02.2026", zahl: 418 }, { datum: "26.02.2026", zahl: 430 }, { datum: "05.03.2026", zahl: 422 }, { datum: "12.03.2026", zahl: 425 }] },
+      mg: { taste: "Mg", kurz: "Mg", label: "Magnesium", einheit: "mg/l", dez: 0, punkte: [{ datum: "05.02.2026", zahl: 1290 }, { datum: "12.02.2026", zahl: 1300 }, { datum: "19.02.2026", zahl: 1310 }, { datum: "26.02.2026", zahl: 1305 }, { datum: "05.03.2026", zahl: 1315 }, { datum: "12.03.2026", zahl: 1320 }] },
+      no3: { taste: "No3", kurz: "NO₃", label: "Nitrat", einheit: "mg/l", dez: 1, punkte: [{ datum: "05.02.2026", zahl: 5.4 }, { datum: "12.02.2026", zahl: 5 }, { datum: "19.02.2026", zahl: 4.8 }, { datum: "26.02.2026", zahl: 4.5 }, { datum: "05.03.2026", zahl: 4.4 }, { datum: "12.03.2026", zahl: 4.2 }] },
+      po4: { taste: "Po4", kurz: "PO₄", label: "Phosphat", einheit: "mg/l", dez: 2, punkte: [{ datum: "05.02.2026", zahl: 0.07 }, { datum: "12.02.2026", zahl: 0.06 }, { datum: "19.02.2026", zahl: 0.06 }, { datum: "26.02.2026", zahl: 0.05 }, { datum: "05.03.2026", zahl: 0.05 }, { datum: "12.03.2026", zahl: 0.04 }] },
+      temp: { taste: "Tmp", kurz: "°C", label: "Temperatur", einheit: "°C", dez: 1, punkte: [{ datum: "05.02.2026", zahl: 25.4 }, { datum: "12.02.2026", zahl: 25.5 }, { datum: "19.02.2026", zahl: 25.3 }, { datum: "26.02.2026", zahl: 25.7 }, { datum: "05.03.2026", zahl: 25.5 }, { datum: "12.03.2026", zahl: 25.6 }] }
+    } },
+  { bild: "assets/zuchtanlage.png", name: "Ablegerbecken 60 l", meta: "2 Korallen · Messung 11.03.2026", werte: ["7,8 dKH", "410 mg/l Ca", "1.290 mg/l Mg"], datum: "Messung am 11.03.2026",
+    messwerte: [{ label: "Karbonathärte", wert: "7,8 dKH" }, { label: "Calcium", wert: "410 mg/l" }, { label: "Magnesium", wert: "1.290 mg/l" }, { label: "Nitrat", wert: "6,0 mg/l" }, { label: "Phosphat", wert: "0,06 mg/l" }, { label: "Temperatur", wert: "25,2 °C" }],
+    verlauf: {
+      kh: { taste: "Kh", kurz: "°dKH", label: "Karbonathärte", einheit: "dKH", dez: 1, punkte: [{ datum: "04.02.2026", zahl: 8.2 }, { datum: "11.02.2026", zahl: 7.9 }, { datum: "18.02.2026", zahl: 7.7 }, { datum: "25.02.2026", zahl: 7.5 }, { datum: "04.03.2026", zahl: 8 }, { datum: "11.03.2026", zahl: 7.8 }] },
+      ca: { taste: "Ca", kurz: "Ca", label: "Calcium", einheit: "mg/l", dez: 0, punkte: [{ datum: "04.02.2026", zahl: 400 }, { datum: "11.02.2026", zahl: 405 }, { datum: "18.02.2026", zahl: 402 }, { datum: "25.02.2026", zahl: 408 }, { datum: "04.03.2026", zahl: 412 }, { datum: "11.03.2026", zahl: 410 }] },
+      mg: { taste: "Mg", kurz: "Mg", label: "Magnesium", einheit: "mg/l", dez: 0, punkte: [{ datum: "04.02.2026", zahl: 1270 }, { datum: "11.02.2026", zahl: 1275 }, { datum: "18.02.2026", zahl: 1280 }, { datum: "25.02.2026", zahl: 1285 }, { datum: "04.03.2026", zahl: 1288 }, { datum: "11.03.2026", zahl: 1290 }] },
+      no3: { taste: "No3", kurz: "NO₃", label: "Nitrat", einheit: "mg/l", dez: 1, punkte: [{ datum: "04.02.2026", zahl: 6.8 }, { datum: "11.02.2026", zahl: 6.5 }, { datum: "18.02.2026", zahl: 6.4 }, { datum: "25.02.2026", zahl: 6.2 }, { datum: "04.03.2026", zahl: 6.1 }, { datum: "11.03.2026", zahl: 6 }] },
+      po4: { taste: "Po4", kurz: "PO₄", label: "Phosphat", einheit: "mg/l", dez: 2, punkte: [{ datum: "04.02.2026", zahl: 0.08 }, { datum: "11.02.2026", zahl: 0.07 }, { datum: "18.02.2026", zahl: 0.07 }, { datum: "25.02.2026", zahl: 0.06 }, { datum: "04.03.2026", zahl: 0.06 }, { datum: "11.03.2026", zahl: 0.06 }] },
+      temp: { taste: "Tmp", kurz: "°C", label: "Temperatur", einheit: "°C", dez: 1, punkte: [{ datum: "04.02.2026", zahl: 25 }, { datum: "11.02.2026", zahl: 25.1 }, { datum: "18.02.2026", zahl: 25.3 }, { datum: "25.02.2026", zahl: 25.2 }, { datum: "04.03.2026", zahl: 25.4 }, { datum: "11.03.2026", zahl: 25.2 }] }
+    } }
+];
+
+const DIARY = [
+  { datum: "02.04.2026", items: [
+    { typ: "Ableger", bezug: "Green Slimer · Ablegerbecken 60 l", titel: "Zwei Ableger geschnitten und aufgeklebt" },
+    { typ: "Pflege", bezug: "Riffbecken 250 l", titel: "Wasserwechsel 25 l, Scheiben gereinigt" } ] },
+  { datum: "30.03.2026", items: [
+    { typ: "Abgabe", bezug: "Milka · Ablegerbecken 60 l", titel: "Für Börse am 18.04.2026 reserviert" } ] },
+  { datum: "12.03.2026", items: [
+    { typ: "Messung", bezug: "Riffbecken 250 l", titel: "8,1 dKH · 425 mg/l Ca · 1.320 mg/l Mg" },
+    { typ: "Zugang", bezug: "Green Slimer · Riffbecken 250 l", titel: "Neue Koralle erfasst" } ] }
+];
+
+const fmt = (n, dez) => {
+  const teile = n.toFixed(dez).split(".");
+  const ganz = teile[0].replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+  return teile[1] ? ganz + "," + teile[1] : ganz;
+};
+
+function berechneKurve(serie) {
+  const X0 = 260 / 12, X1 = 260 - 260 / 12, Y0 = 0, Y1 = 120;
+  const verlauf = serie.punkte;
+  const werte = verlauf.map(v => v.zahl);
+  const roh = Math.max.apply(null, werte) - Math.min.apply(null, werte);
+  const kandidaten = [0.01, 0.02, 0.05, 0.1, 0.2, 0.5, 1, 2, 5, 10, 20, 25, 50, 100];
+  let schritt = kandidaten[kandidaten.length - 1];
+  for (let i = 0; i < kandidaten.length; i++) {
+    if ((roh || kandidaten[i]) / kandidaten[i] <= 4) { schritt = kandidaten[i]; break; }
+  }
+  const min = Math.floor(Math.min.apply(null, werte) / schritt) * schritt - schritt;
+  const max = Math.ceil(Math.max.apply(null, werte) / schritt) * schritt + schritt;
+  const stufen = Math.max(2, Math.round((max - min) / schritt));
+  const ticks = [], gitter = [];
+  for (let i = 0; i <= stufen; i++) {
+    const wert = max - i * (max - min) / stufen;
+    const y = Math.round((Y0 + (Y1 - Y0) * (i / stufen)) * 10) / 10;
+    ticks.push(fmt(wert, serie.dez));
+    gitter.push({ y: y, strich: (i === 0 || i === stufen) ? "none" : "3 4" });
+  }
+  const n = verlauf.length;
+  const punkte = verlauf.map((v, i) => ({
+    x: Math.round((X0 + (X1 - X0) * (n === 1 ? 0.5 : i / (n - 1))) * 10) / 10,
+    y: Math.round((Y1 - (Y1 - Y0) * ((v.zahl - min) / (max - min))) * 10) / 10,
+    kurz: v.datum.slice(0, 6),
+    zahl: fmt(v.zahl, serie.dez)
+  }));
+  let pfad = "M " + punkte[0].x + " " + punkte[0].y;
+  for (let i = 0; i < punkte.length - 1; i++) {
+    const p0 = punkte[i - 1] || punkte[i], p1 = punkte[i], p2 = punkte[i + 1], p3 = punkte[i + 2] || p2;
+    const c1x = p1.x + (p2.x - p0.x) / 6, c1y = p1.y + (p2.y - p0.y) / 6;
+    const c2x = p2.x - (p3.x - p1.x) / 6, c2y = p2.y - (p3.y - p1.y) / 6;
+    pfad += " C " + c1x.toFixed(1) + " " + c1y.toFixed(1) + ", " + c2x.toFixed(1) + " " + c2y.toFixed(1) + ", " + p2.x + " " + p2.y;
+  }
+  return {
+    punkte: punkte,
+    pfad: pfad,
+    ticks: ticks,
+    gitter: gitter,
+    flaeche: pfad + " L " + punkte[punkte.length - 1].x + " " + Y1 + " L " + punkte[0].x + " " + Y1 + " Z",
+    achse: serie.kurz,
+    titel: "Verlauf " + serie.label,
+    spanne: verlauf[0].datum + " bis " + verlauf[verlauf.length - 1].datum
+  };
+}
+
+class Component extends DCLogic {
+  state = {
+    screen: this.props.startScreen || "bestand",
+    filter: "alle",
+    koralle: 0,
+    becken: 0,
+    metrik: "kh",
+    neuStatus: "bestand"
+  };
+
+  go(screen) { this.setState({ screen }); }
+
+  renderVals() {
+    const s = this.state.screen;
+    const f = this.state.filter;
+    const chip = (aktiv) => aktiv
+      ? { b: "#E8963A", bg: "#E8963A", c: "#1A0F0A" }
+      : { b: "#2A3A50", bg: "#141E2E", c: "#E8EEF6" };
+    const c0 = chip(f === "alle"), c1 = chip(f === "bestand"), c2 = chip(f === "abgabe"), c3 = chip(f === "rest");
+
+    const q = (this.state.suchtext || "").trim().toLowerCase();
+    const gefiltert = KORALLEN.filter(k => {
+      const passtStatus = f === "alle" ? true
+        : f === "rest" ? (k.status === "abgegeben" || k.status === "verendet")
+        : k.status === f;
+      const passtSuche = !q || (k.handelsname + " " + k.art).toLowerCase().indexOf(q) !== -1;
+      return passtStatus && passtSuche;
+    });
+
+    const mapKoralle = (k) => {
+      const i = KORALLEN.indexOf(k);
+      return Object.assign({}, k, {
+        status: STATUS[k.status].label,
+        statusFarbe: STATUS[k.status].farbe,
+        open: () => this.setState({ screen: "detail", koralle: i })
+      });
+    };
+
+    const d = KORALLEN[this.state.koralle];
+    const b = BECKEN[this.state.becken];
+    const metrikSchluessel = ["kh", "ca", "mg", "no3", "po4", "temp"];
+    const aktiveMetrik = b.verlauf[this.state.metrik] ? this.state.metrik : "kh";
+    const kurve = berechneKurve(b.verlauf[aktiveMetrik]);
+    const symbole = this.props.diarySymbole !== false;
+    const metriken = metrikSchluessel.map(key => ({
+      key: key,
+      label: b.verlauf[key].taste,
+      aktiv: key === aktiveMetrik,
+      rahmen: key === aktiveMetrik ? "#E8963A" : "#2A3A50",
+      flaeche: key === aktiveMetrik ? "#E8963A" : "#141E2E",
+      schrift: key === aktiveMetrik ? "#1A0F0A" : "#E8EEF6",
+      waehlen: () => this.setState({ metrik: key })
+    }));
+
+    return {
+      isBestand: s === "bestand", isDetail: s === "detail", isNeu: s === "neu",
+      isBecken: s === "becken", isBeckenDetail: s === "beckenDetail",
+      isDiary: s === "diary", isProfil: s === "profil", isLogin: s === "login",
+      zeigeNav: ["bestand", "detail", "becken", "beckenDetail", "diary", "profil"].indexOf(s) !== -1,
+      zeigeLegende: this.props.statusLegende !== false,
+
+      navBestand: (s === "bestand" || s === "detail") ? "#E8963A" : "#93A4BC",
+      navBecken: (s === "becken" || s === "beckenDetail") ? "#E8963A" : "#93A4BC",
+      navDiary: s === "diary" ? "#E8963A" : "#93A4BC",
+      navProfil: s === "profil" ? "#E8963A" : "#93A4BC",
+
+      anzahlText: gefiltert.length + " von " + KORALLEN.length + " Korallen · 2 Becken",
+      liste: gefiltert.map(mapKoralle),
+      f0b: c0.b, f0bg: c0.bg, f0c: c0.c,
+      f1b: c1.b, f1bg: c1.bg, f1c: c1.c,
+      f2b: c2.b, f2bg: c2.bg, f2c: c2.c,
+      f3b: c3.b, f3bg: c3.bg, f3c: c3.c,
+      sucheOffen: !!this.state.sucheOffen,
+      suchtext: this.state.suchtext || "",
+      toggleSuche: () => this.setState(s => ({ sucheOffen: !s.sucheOffen, suchtext: s.sucheOffen ? "" : s.suchtext })),
+      setSuchtext: (e) => this.setState({ suchtext: e.target.value }),
+      setFilterAlle: () => this.setState({ filter: "alle" }),
+      setFilterBestand: () => this.setState({ filter: "bestand" }),
+      setFilterAbgabe: () => this.setState({ filter: "abgabe" }),
+      setFilterRest: () => this.setState({ filter: "rest" }),
+
+      dHandelsname: d.handelsname, dArt: d.art, dBecken: d.becken, dZugang: d.zugang,
+      dGroesse: d.groesse, dAbleger: d.ableger, dHerkunft: d.herkunft, dBild: d.bild,
+      dStatus: STATUS[d.status].label, dStatusFarbe: STATUS[d.status].farbe, dDiary: d.diary,
+
+      becken: BECKEN.map((x, i) => Object.assign({}, x, {
+        open: () => this.setState({ screen: "beckenDetail", becken: i })
+      })),
+      bdName: b.name, bdMeta: b.meta, bdDatum: b.datum, bdBild: b.bild,
+      bdMesswerte: b.messwerte,
+      kurvePfad: kurve.pfad, kurveFlaeche: kurve.flaeche, kurvePunkte: kurve.punkte,
+      kurveTicks: kurve.ticks, kurveGitter: kurve.gitter, kurveSpanne: kurve.spanne,
+      kurveAchse: kurve.achse, kurveTitel: kurve.titel, metriken: metriken,
+      bdKorallen: KORALLEN.filter(k => k.becken === b.name).map(mapKoralle),
+
+      diary: DIARY.map(g => ({
+        datum: g.datum,
+        items: g.items.map(e => Object.assign({}, e, {
+          istAbleger: symbole && e.typ === "Ableger",
+          istPflege: symbole && e.typ === "Pflege",
+          istAbgabe: symbole && e.typ === "Abgabe",
+          istZugang: symbole && e.typ === "Zugang",
+          istMessung: symbole && e.typ === "Messung"
+        }))
+      })),
+
+      nb1: this.state.neuStatus === "bestand" ? "#E8963A" : "#2A3A50",
+      nbg1: this.state.neuStatus === "bestand" ? "#1C2839" : "#141E2E",
+      nb2: this.state.neuStatus === "abgabe" ? "#E8963A" : "#2A3A50",
+      nbg2: this.state.neuStatus === "abgabe" ? "#1C2839" : "#141E2E",
+      setNeuBestand: () => this.setState({ neuStatus: "bestand" }),
+      setNeuAbgabe: () => this.setState({ neuStatus: "abgabe" }),
+
+      goBestand: () => this.go("bestand"),
+      goBecken: () => this.go("becken"),
+      goDiary: () => this.go("diary"),
+      goProfil: () => this.go("profil"),
+      goNeu: () => this.go("neu"),
+      goLogin: () => this.go("login")
+    };
+  }
+}
+
+</script>
+</body>
+</html>

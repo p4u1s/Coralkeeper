@@ -1,0 +1,10 @@
+node_modules/
+coverage/
+.pnpm-store/
+pnpm-lock.yaml
+package-lock.json
+pnpm-lock.yaml
+yarn.lock
+
+# generiert mit npm run gen:types – nie von Hand ändern
+src/types/database.types.ts
