@@ -68,8 +68,7 @@ Diese Punkte sind in den Quelldokumenten nicht festgelegt. Sie stehen jeweils im
 | 10  | Repo-Name und Sichtbarkeit des GitHub-Repos (bestimmt den `base`-Pfad)                | TASK-03-10 |
 
 > **Hinweis zum Deployment:** Am 11.09.2026 ist GitHub Pages als Ziel festgelegt worden (wie in `CLAUDE.md`).
-> `MS-03_Fundament-Auth.md` nennt noch „Vercel oder Netlify"; NFR-4.5 nennt beide nur als Beispiel.
-> Das Meilensteindokument ist dazu noch nicht angepasst.
+> `MS-03_Fundament-Auth.md`, `Milestones.md` und NFR-4.5 sind am 18.09.2026 entsprechend angepasst worden.
 
 ---
 

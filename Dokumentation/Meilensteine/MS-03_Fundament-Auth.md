@@ -52,7 +52,7 @@ Diese Anforderungen sind Teil der Definition of Done von MS-3 und werden nicht a
 - Profil-Trigger auf `auth.users` (FR-6.10); E-Mail-Bestätigung deaktiviert (FR-6.1)
 - Datenbanktypen generiert (NFR-4.4), Skelett der Service-Schicht `src/services/*` (NFR-4.3)
 - Registrierung, Anmeldung, Abmelden, geschützte Routen (FR-6.1, FR-6.3)
-- **Erstes Deployment live** (Vercel oder Netlify)
+- **Erstes Deployment live** (GitHub Pages)
 
 **Definition of Done:** Registrierung → Anmeldung → geschützte Route funktioniert auf dem deployten Stand; ein direkter Aufruf einer geschützten Route ohne Session leitet zur Anmeldung.
 

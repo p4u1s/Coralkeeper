@@ -9,4 +9,4 @@
 - [x] **TASK-03-07** Datenbanktypen generieren und Service-Schicht anlegen.
 - [x] **TASK-03-08** Registrierung, Anmeldung, Abmeldung und Session umsetzen.
 - [x] **TASK-03-09** Geschützte Routen sowie Lade-, Fehler- und Validierungszustände umsetzen.
-- [ ] **TASK-03-10** Responsive prüfen, deployen und am deployten Stand testen.
+- [x] **TASK-03-10** Responsive prüfen, deployen und am deployten Stand testen.

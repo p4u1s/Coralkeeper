@@ -285,7 +285,7 @@ Die Zielwerte sind auf ein Abschlussprojekt und den Supabase-Free-Tier ausgelegt
 | NFR-4.2 | UI-Komponenten aus shadcn/ui; keine zweite UI-Bibliothek.                                                                                                                                                             |
 | NFR-4.3 | Datenzugriff ausschließlich über eine schmale Service-Schicht (`src/services/*`), keine Supabase-Aufrufe direkt in Komponenten. Serverstate über eigene Hooks auf dieser Schicht; keine zusätzliche State-Bibliothek. |
 | NFR-4.4 | Datenbanktypen werden aus dem Supabase-Schema generiert und im Frontend verwendet.                                                                                                                                    |
-| NFR-4.5 | Lauffähiges Deployment (z. B. Vercel oder Netlify) mit Demo-Konto und Beispieldaten für die Abgabe, inklusive 10–20 Korallenfotos als Bildmaterial.                                                                   |
+| NFR-4.5 | Lauffähiges Deployment (GitHub Pages) mit Demo-Konto und Beispieldaten für die Abgabe, inklusive 10–20 Korallenfotos als Bildmaterial.                                                                   |
 | NFR-4.6 | Unterstützte Browser: aktuelle Versionen von Chrome, Firefox und Safari (mobil und Desktop).                                                                                                                          |
 | NFR-4.7 | Referenzielle Integrität in der Datenbank statt nur in der UI: `koralle.becken_id NOT NULL`, `mutter_id` mit `ON DELETE SET NULL`, `anfrage.angebot_id` mit `ON DELETE CASCADE`.                                      |
 
