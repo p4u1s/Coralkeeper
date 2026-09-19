@@ -23,11 +23,12 @@ erreichbar (NFR-1.2). Aussehen und Maße sind in `design.md` Abschnitt 4 vollst�
 1. [ ] Komponente `BottomNav` (z. B. `src/components/BottomNav.tsx`) mit `<nav aria-label="Hauptnavigation">`
        und vier `NavLink`-Einträgen auf die Pfade aus TASK-04-01.
 2. [ ] Jeder Eintrag: Icon 20 px mit `aria-hidden="true"`, darunter Textlabel 12/16/500 (`text-caption font-medium`).
-       Aktiv `accent`, inaktiv `ink-2` – über den `isActive`-Wert von `NavLink`.
+       Aktiv `text-primary` (`#E8963A`), inaktiv `text-muted-foreground` (`#93A4BC`) – über den `isActive`-Wert
+       von `NavLink`. Nicht `text-accent`: `accent` ist in shadcn die Hover-Fläche `#1C2839`.
 3. [ ] **Aktiv-Logik prüfen:**
    - „Bestand" (`/`) mit `end`, sonst ist der Eintrag auf jeder Seite aktiv
    - „Becken" muss auch auf `/becken/:id` aktiv sein – `NavLink` erledigt das ohne `end` von selbst
-4. [ ] **Position und Maße:** `fixed` am unteren Rand, Höhe 64, Fläche `surface`, Oberkante 1 px `border`.
+4. [ ] **Position und Maße:** `fixed` am unteren Rand, Höhe 64, Fläche `bg-card` (`#141E2E`), Oberkante 1 px `border-border`.
        Die vier Einträge teilen sich die Breite gleichmäßig (`flex-1 min-w-0`), jeder Eintrag volle Höhe.
 5. [ ] **Breite am Desktop:** `#root` hat `max-w-md`, das wirkt auf `fixed`-Elemente nicht. Die Navigation selbst
        auf dieselbe Breite begrenzen und zentrieren (z. B. `inset-x-0 mx-auto max-w-md`).
