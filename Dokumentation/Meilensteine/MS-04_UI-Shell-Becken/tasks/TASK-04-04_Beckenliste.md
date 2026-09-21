@@ -1,6 +1,6 @@
 # TASK-04-04 · Beckenliste
 
-**Status:** offen
+**Status:** erledigt
 **Bezug:** FR-1.1, FR-6.4 (Lade-, Leer-, Fehlerzustand), NFR-1.5 (de-DE-Formate), NFR-1.7 (nächste Aktion sichtbar)
 **Voraussetzung:** TASK-04-03
 
@@ -13,26 +13,26 @@
 
 ## Schritte
 
-1. [ ] **Formatierung** in einer Hilfsdatei (z. B. `src/lib/format.ts`), damit alle Screens gleich formatieren:
+1. [x] **Formatierung** in einer Hilfsdatei (z. B. `src/lib/format.ts`), damit alle Screens gleich formatieren:
    - Datum `2026-03-12` → `12.03.2026`
    - Volumen `1320` → `1.320 l`
-2. [ ] Seite `/becken` mit Überschrift „Becken" (Display).
-3. [ ] **Ladezustand:** „Wird geladen …" wie im `LoadingScreen` aus TASK-03-09.
-4. [ ] **Fehlerzustand:** Meldung aus dem Service mit `role="alert"` und Button „Erneut versuchen" (`reload()`).
-5. [ ] **Leerzustand:** kurzer Satz (z. B. „Noch kein Becken angelegt.") und Primärbutton „Becken anlegen" → `/becken/neu`.
-6. [ ] **Liste:** je Becken eine Karte (`surface`, Rahmen, Radius 14, Innenabstand 16) als Link auf `/becken/:id`:
+2. [x] Seite `/becken` mit Überschrift „Becken" (Display).
+3. [x] **Ladezustand:** „Wird geladen …" wie im `LoadingScreen` aus TASK-03-09.
+4. [x] **Fehlerzustand:** Meldung aus dem Service mit `role="alert"` und Button „Erneut versuchen" (`reload()`).
+5. [x] **Leerzustand:** kurzer Satz (z. B. „Noch kein Becken angelegt.") und Primärbutton „Becken anlegen" → `/becken/neu`.
+6. [x] **Liste:** je Becken eine Karte (`surface`, Rahmen, Radius 14, Innenabstand 16) als Link auf `/becken/:id`:
    - Name (H2)
    - Metazeile nur aus den gefüllten Werten, z. B. „250 l · seit 12.03.2026"
-7. [ ] Unter der Liste Sekundärbutton „Becken anlegen" → `/becken/neu`.
+7. [x] Unter der Liste Sekundärbutton „Becken anlegen" → `/becken/neu`.
 
 ## Fertig, wenn
 
-- [ ] Alle vier Zustände sind sichtbar zu machen: Laden, Fehler (DevTools → Netzwerk → Offline), leer, gefüllt (FR-6.4)
-- [ ] Die ganze Karte ist anklickbar und mindestens 44 px hoch (NFR-1.3)
-- [ ] Datum und Volumen erscheinen im de-DE-Format (NFR-1.5)
-- [ ] Ein sehr langer Beckenname bricht bei 360 px um, statt waagerechtes Scrollen zu erzeugen (NFR-1.6)
-- [ ] Becken fehlender Felder zeigen keine leeren Trenner („ · ")
-- [ ] `npm run build`, `npm run lint`, `npm run format` ohne Fehler
+- [x] Alle vier Zustände sind sichtbar zu machen: Laden, Fehler (DevTools → Netzwerk → Offline), leer, gefüllt (FR-6.4)
+- [x] Die ganze Karte ist anklickbar und mindestens 44 px hoch (NFR-1.3)
+- [x] Datum und Volumen erscheinen im de-DE-Format (NFR-1.5)
+- [x] Ein sehr langer Beckenname bricht bei 360 px um, statt waagerechtes Scrollen zu erzeugen (NFR-1.6)
+- [x] Becken fehlender Felder zeigen keine leeren Trenner („ · ")
+- [x] `npm run build`, `npm run lint`, `npm run format` ohne Fehler
 
 ## Hinweise
 

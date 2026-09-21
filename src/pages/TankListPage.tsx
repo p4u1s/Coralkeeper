@@ -16,7 +16,6 @@ export function TankListPage() {
         <p className="text-muted-foreground">Wird geladen …</p>
       )}
 
-
       {status === "error" && (
         <>
           <p role="alert" className="text-destructive">
@@ -31,7 +30,10 @@ export function TankListPage() {
       {status === "success" && tanks.length === 0 && (
         <>
           <p className="text-muted-foreground">Noch kein Becken angelegt.</p>
-          <Link to="/becken/neu" className={buttonVariants({ className: "w-full" })}>
+          <Link
+            to="/becken/neu"
+            className={buttonVariants({ className: "w-full" })}
+          >
             <Plus aria-hidden="true" />
             Becken anlegen
           </Link>
@@ -49,14 +51,16 @@ export function TankListPage() {
           </ul>
           <Link
             to="/becken/neu"
-            className={buttonVariants({ variant: "secondary", className: "w-full" })}
+            className={buttonVariants({
+              variant: "secondary",
+              className: "w-full",
+            })}
           >
             <Plus aria-hidden="true" />
             Becken anlegen
           </Link>
         </>
       )}
-
     </main>
   );
 }
