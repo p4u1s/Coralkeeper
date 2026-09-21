@@ -3,7 +3,7 @@ import { Plus } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { useTanks } from "@/hooks/useTanks.ts";
 import type { Tank } from "@/services/tank.ts";
-import { formatDate, formatVolume } from "@/lib/format.ts";
+import { formatTankDetails } from "@/lib/format.ts";
 
 //Beckenliste mit Lade-, Fehler-, und Leerzustand (nach FR-1.1, Fr-6.4)
 export function TankListPage() {
@@ -81,20 +81,6 @@ function TankCard({ tank }: { tank: Tank }) {
       )}
     </Link>
   );
-}
-
-// Volumen und Startdatum als eine Zeile, z. B. "250 l · seit 12.03.2026".
-// Nur gefüllte Werte, damit kein leerer Trenner „ · " entsteht
-function formatTankDetails(tank: Tank): string {
-  const parts: string[] = [];
-
-  if (tank.volumen_liter !== null) {
-    parts.push(formatVolume(tank.volumen_liter));
-  }
-  if (tank.startdatum) {
-    parts.push(`seit ${formatDate(tank.startdatum)}`);
-  }
-  return parts.join(" · ");
 }
 
 export default TankListPage;
