@@ -1,10 +1,19 @@
-// Feldprüfung der Auth-Formulare vor dem Absenden (FR-6.6)
+// Feldprüfung der Formulare vor dem Absenden (FR-6.6)
+
+import { formatVolume } from "@/lib/format.ts";
 
 // Gleicher Wert wie in den Supabase-Auth-Einstellungen (TASK-03-06, Schritt 8)
 export const MIN_PASSWORD_LENGTH = 6;
 
 // Bewusst grob: Text@Text.Text ohne Leerzeichen – die genaue Prüfung macht Supabase
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+// Begrenzung der Beckenbezeichnung und des Beckenvolumens
+export const MAX_TANK_NAME_LENGTH = 100;
+export const MAX_TANK_VOLUME = 100_000;
+
+// Nur ganze Zahlen erlaubt: schließt "abc", "-5", "2,5" und "1.320" aus
+const WHOLE_NUMBER_PATTERN = /^\d+$/;
 
 export type LoginErrors = {
   email?: string;
@@ -13,6 +22,12 @@ export type LoginErrors = {
 
 export type RegisterErrors = LoginErrors & {
   passwordRepeat?: string;
+};
+
+export type TankErrors = {
+  name?: string;
+  volume?: string;
+  startDate?: string;
 };
 
 export function validateLogin(email: string, password: string): LoginErrors {
@@ -35,7 +50,7 @@ export function validateRegister(
 }
 
 // true, sobald mindestens ein Feld einen Fehlertext hat
-export function hasErrors(errors: LoginErrors | RegisterErrors): boolean {
+export function hasErrors(errors: Record<string, string | undefined>): boolean {
   return Object.values(errors).some((message) => message !== undefined);
 }
 
@@ -70,4 +85,58 @@ function checkPasswordRepeat(
     return "Die Passwörter stimmen nicht überein.";
   }
   return undefined;
+}
+
+export function validateTank(
+  name: string,
+  volume: string,
+  startDate: string
+): TankErrors {
+  return {
+    name: checkTankName(name),
+    volume: checkVolume(volume),
+    startDate: checkStartDate(startDate),
+  };
+}
+
+function checkTankName(name: string): string | undefined {
+  const trimmed = name.trim();
+  if (trimmed === "") {
+    return "Bitte einen Namen eingeben.";
+  }
+  if (trimmed.length > MAX_TANK_NAME_LENGTH) {
+    return `Der Name darf höchstens ${MAX_TANK_NAME_LENGTH} Zeichen lang sein.`;
+  }
+  return undefined;
+}
+
+function checkVolume(volume: string): string | undefined {
+  const trimmed = volume.trim();
+  if (trimmed === "") {
+    return undefined;
+  }
+  const liters = Number(trimmed);
+  if (!WHOLE_NUMBER_PATTERN.test(trimmed) || liters === 0) {
+    return "Bitte das Volumen als ganze Zahl größer 0 eingeben, z. B. 250.";
+  }
+  if (liters > MAX_TANK_VOLUME) {
+    return `Das Volumen darf höchstens ${formatVolume(MAX_TANK_VOLUME)} betragen.`;
+  }
+  return undefined;
+}
+
+// type="date" liefert "" oder ein gültiges JJJJ-MM-TT – daher reicht der Textvergleich
+function checkStartDate(startDate: string): string | undefined {
+  if (startDate !== "" && startDate > todayIso()) {
+    return "Das Startdatum darf nicht in der Zukunft liegen.";
+  }
+  return undefined;
+}
+
+// Heutiges Datum in lokaler Zeit als JJJJ-MM-TT
+function todayIso(): string {
+  const now = new Date();
+  const month = String(now.getMonth() + 1).padStart(2, "0");
+  const day = String(now.getDate()).padStart(2, "0");
+  return `${now.getFullYear()}-${month}-${day}`;
 }
