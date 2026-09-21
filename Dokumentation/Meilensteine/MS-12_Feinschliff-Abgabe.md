@@ -47,3 +47,7 @@ Diese Anforderungen sind Teil der Definition of Done von MS-12 und werden nicht 
 **Nur bei verbleibender Zeit** (vorgemerkt 17.09.2026 in TASK-03-09): Wiederholungen in den Formularen zusammenfassen –
 Komponente `FormField` (Label, Eingabefeld, `aria-invalid`/`aria-describedby`, Feldfehler) und Hook `useFormSubmit`
 (Prüfen, Ladezustand, Serverfehler). Geht nicht zulasten der Pflichtpunkte oben.
+
+**Nur bei verbleibender Zeit** (vorgemerkt 21.09.2026 in TASK-04-07): Unbekannte Pfade (z. B. `/becken/abc/123`) leiten
+still auf den Bestand um (Catch-all aus TASK-03-09). Ggf. eigene Seite „Seite nicht gefunden“ oder Umleitung je Bereich
+(`/becken/*` → `/becken`).
