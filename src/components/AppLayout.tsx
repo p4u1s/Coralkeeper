@@ -1,4 +1,5 @@
 import { Outlet } from "react-router";
+import { BottomNav } from "@/components/BottomNav.tsx";
 
 // Rahmen für alle Seiten nach der Anmeldung außer Formularen (design.md, Abschnitt 4)
 export function AppLayout() {
@@ -8,7 +9,7 @@ export function AppLayout() {
       <div className="pb-[104px]">
         <Outlet />
       </div>
-      {/* Bottom-Navigation folgt in TASK-04-02 */}
+      <BottomNav />
     </>
   );
 }
