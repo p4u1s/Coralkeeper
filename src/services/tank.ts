@@ -51,15 +51,18 @@ export async function getTank(id: string): Promise<Tank | null> {
 }
 
 export async function createTank(input: TankInput): Promise<Tank> {
-  const { data: userData, error: userError } = await supabase.auth.getUser();
+  // getSession liest die Session lokal. getUser fragt den Server und meldet
+  // ohne Verbindung fälschlich "Nicht angemeldet." (FR-6.4)
+  const { data: sessionData, error: sessionError } =
+    await supabase.auth.getSession();
 
-  if (userError || !userData.user) {
-    throw new Error("Nicht angemeldet.", { cause: userError });
+  if (sessionError || !sessionData.session) {
+    throw new Error("Nicht angemeldet.", { cause: sessionError });
   }
 
   const { data, error } = await supabase
     .from("becken")
-    .insert({ ...toRow(input), nutzer_id: userData.user.id })
+    .insert({ ...toRow(input), nutzer_id: sessionData.session.user.id })
     .select()
     .single();
 
