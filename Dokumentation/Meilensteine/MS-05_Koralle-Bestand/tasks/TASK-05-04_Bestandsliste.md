@@ -29,7 +29,8 @@ Filter, Sortierung und Suche sind **ausdrücklich nicht** Teil von MS-5 (folgen 
 
 1. [ ] **Daten laden** in `src/pages/HomeScreen.tsx`: Becken (`useTanks`, für FR-1.15) **und** Korallen (`useCorals`).
        Aus beiden einen gemeinsamen Zustand bilden: lädt einer → Laden; scheitert einer → Fehler mit „Erneut versuchen"
-       (beide neu laden).
+       (beide neu laden). Den Beckennamen je Koralle über `becken_id` aus den geladenen Becken zuordnen
+       (entschieden in TASK-05-01, kein Join).
 2. [ ] **Zustände** in dieser Reihenfolge:
    - keine Becken → bestehende Karte „Lege zuerst ein Becken an" bleibt unverändert
    - Becken, aber keine Korallen → „Noch keine Korallen angelegt." mit Primär-Link „Koralle hinzufügen" → `/koralle/neu`
