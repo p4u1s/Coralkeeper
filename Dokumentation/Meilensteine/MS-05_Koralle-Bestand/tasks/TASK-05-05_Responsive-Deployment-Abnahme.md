@@ -16,17 +16,17 @@ MS-5 ist fertig, wenn die Definition of Done auf der GitHub-Pages-Adresse funkti
 
 ### A · Querschnittsprüfung (lokal, Build-Stand mit `npm run build` und `npm run preview`)
 
-1. [ ] Bestand (alle Zustände) und Koralle anlegen bei **360 px**, **390 px** und Desktop-Breite:
+1. [x] Bestand (alle Zustände) und Koralle anlegen bei **360 px**, **390 px** und Desktop-Breite:
        kein waagerechtes Scrollen, nichts abgeschnitten (NFR-1.6)
-2. [ ] Trefferflächen ≥ 44 × 44 px, auch das Becken-Auswahlfeld (NFR-1.3)
-3. [ ] Kein Icon ohne Text, jedes Feld mit sichtbarem Label (NFR-1.4)
-4. [ ] Kontrast mit DevTools oder Lighthouse, mindestens WCAG 2.1 AA (NFR-1.4)
-5. [ ] Vom Bestand über „Koralle hinzufügen" bis zum Speichern nur mit der Tastatur bedienbar, Fokus immer sichtbar
-6. [ ] Alle UI-Texte deutsch (NFR-1.5)
+2. [x] Trefferflächen ≥ 44 × 44 px, auch das Becken-Auswahlfeld (NFR-1.3)
+3. [x] Kein Icon ohne Text, jedes Feld mit sichtbarem Label (NFR-1.4)
+4. [x] Kontrast mit DevTools oder Lighthouse, mindestens WCAG 2.1 AA (NFR-1.4)
+5. [x] Vom Bestand über „Koralle hinzufügen" bis zum Speichern nur mit der Tastatur bedienbar, Fokus immer sichtbar
+6. [x] Alle UI-Texte deutsch (NFR-1.5)
 
 ### B · Deployment
 
-7. [ ] `npm run build`, `npm run lint`, `npm run format` ohne Fehler.
+7. [x] `npm run build`, `npm run lint`, `npm run format` ohne Fehler.
 8. [ ] Auf `main` pushen, im Reiter „Actions" prüfen, dass der Lauf grün ist.
 
 ### C · Abnahme am deployten Stand
@@ -53,7 +53,7 @@ Datum: \_\_\_\_ · Adresse: <https://p4u1s.github.io/Coralkeeper/>
 | 11  | Ohne Verbindung eine Koralle speichern                                | Deutsche Fehlermeldung, Eingaben bleiben stehen (FR-6.4)   |          |
 | 12  | Ansicht bei 360 px Breite                                             | kein waagerechtes Scrollen, alles bedienbar                |          |
 
-\* gilt bei der vorgeschlagenen Entscheidung „keine Vorbelegung" aus TASK-05-02; sonst anpassen.
+\* entschieden in TASK-05-02: keine Vorbelegung, erste Option „Becken wählen".
 
 ## Fertig, wenn
 
