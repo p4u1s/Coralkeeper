@@ -71,6 +71,7 @@ Diese Punkte sind in den Quelldokumenten nicht festgelegt oder widersprechen sic
 | 9   | Was zeigt ein Listeneintrag?                                                                       | TASK-05-04 | entschieden: siehe TASK-05-04      |
 | 10  | Status und Legende im Bestand                                                                      | TASK-05-04 | entschieden: erst MS-9             |
 | 11  | Detailseite und anklickbare Einträge                                                               | –          | entschieden: erst MS-6             |
+| 12  | Fokusanzeige der Buttons (orange Ring auf orangem Primär-Button unsichtbar)                        | TASK-05-05 | entschieden: heller Ring, Abstand  |
 
 ---
 

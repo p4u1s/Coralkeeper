@@ -36,22 +36,22 @@ MS-5 ist fertig, wenn die Definition of Done auf der GitHub-Pages-Adresse funkti
 
 ## Abnahmeprotokoll
 
-Datum: \_\_\_\_ · Adresse: <https://p4u1s.github.io/Coralkeeper/>
+Datum: 22.09.2026 · Adresse: <https://p4u1s.github.io/Coralkeeper/>
 
 | #   | Test                                                                  | Erwartet                                                   | Ergebnis |
 | --- | --------------------------------------------------------------------- | ---------------------------------------------------------- | -------- |
-| 1   | Neuer Nutzer ohne Becken: `…/Coralkeeper/koralle/neu` direkt aufrufen | Kein Formular, Weg zur Beckenanlage (FR-1.15)              |          |
-| 2   | Becken anlegen, zurück zum Bestand                                    | „Noch keine Korallen angelegt." mit „Koralle hinzufügen"   |          |
-| 3   | „Koralle hinzufügen" antippen                                         | Formular ohne Bottom-Navigation, kein Becken vorgewählt\*  |          |
-| 4   | Bezeichnung eingeben, **ohne Becken** speichern                       | Feldfehler unter „Becken", keine Anfrage (**DoD**)         |          |
-| 5   | Becken wählen, Bezeichnung leeren, speichern                          | Feldfehler unter „Bezeichnung"                             |          |
-| 6   | Koralle nur mit Bezeichnung und Becken speichern                      | Koralle erscheint in der Liste (**DoD**)                   |          |
-| 7   | Zweite Koralle mit allen Feldern speichern                            | Erscheint in der Liste mit Art/Handelsname und Beckenname  |          |
-| 8   | `…/Coralkeeper/koralle/neu` direkt aufrufen und neu laden (F5)        | Formular erscheint, kein 404                               |          |
-| 9   | Becken mit Korallen löschen                                           | Löschen wird verhindert, verständliche Meldung (FR-1.1)    |          |
-| 10  | Als Testnutzer B den Bestand öffnen                                   | Keine Korallen von Testnutzer A sichtbar (FR-6.2)          |          |
+| 1   | Neuer Nutzer ohne Becken: `…/Coralkeeper/koralle/neu` direkt aufrufen | Kein Formular, Weg zur Beckenanlage (FR-1.15)              | ✓        |
+| 2   | Becken anlegen, zurück zum Bestand                                    | „Noch keine Korallen angelegt." mit „Koralle hinzufügen"   | ✓        |
+| 3   | „Koralle hinzufügen" antippen                                         | Formular ohne Bottom-Navigation, kein Becken vorgewählt\*  | ✓        |
+| 4   | Bezeichnung eingeben, **ohne Becken** speichern                       | Feldfehler unter „Becken", keine Anfrage (**DoD**)         | ✓        |
+| 5   | Becken wählen, Bezeichnung leeren, speichern                          | Feldfehler unter „Bezeichnung"                             | ✓        |
+| 6   | Koralle nur mit Bezeichnung und Becken speichern                      | Koralle erscheint in der Liste (**DoD**)                   | ✓        |
+| 7   | Zweite Koralle mit allen Feldern speichern                            | Erscheint in der Liste mit Art/Handelsname und Beckenname  | ✓        |
+| 8   | `…/Coralkeeper/koralle/neu` direkt aufrufen und neu laden (F5)        | Formular erscheint, kein 404                               | ✓        |
+| 9   | Becken mit Korallen löschen                                           | Löschen wird verhindert, verständliche Meldung (FR-1.1)    | ✓        |
+| 10  | Als Testnutzer B den Bestand öffnen                                   | Keine Korallen von Testnutzer A sichtbar (FR-6.2)          | ✓        |
 | 11  | Ohne Verbindung eine Koralle speichern                                | Deutsche Fehlermeldung, Eingaben bleiben stehen (FR-6.4)   |          |
-| 12  | Ansicht bei 360 px Breite                                             | kein waagerechtes Scrollen, alles bedienbar                |          |
+| 12  | Ansicht bei 360 px Breite                                             | kein waagerechtes Scrollen, alles bedienbar                | ✓        |
 
 \* entschieden in TASK-05-02: keine Vorbelegung, erste Option „Becken wählen".
 
