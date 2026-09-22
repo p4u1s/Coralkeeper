@@ -1,6 +1,6 @@
 # TASK-05-02 · Korallenformular und Validierung
 
-**Status:** offen
+**Status:** erledigt
 **Bezug:** FR-1.2 (Bezeichnung und Becken Pflicht, Art/Handelsname/Erwerbsdatum optional), FR-1.14 (Becken Pflichtfeld im
 Formular), FR-6.6 (Feldfehler), NFR-1.3, NFR-1.4, NFR-4.2
 **Voraussetzung:** TASK-05-01
@@ -28,16 +28,25 @@ einem Feldfehler abgelehnt (Definition of Done).
   | Erwerbsdatum  | nein    | `erwerbsdatum` |
 
   Bild entfällt (Bild-Upload folgt laut MS-5 in MS-9), Status entfällt (Standardwert `im_bestand`).
-- [ ] **Labeltexte.** Z. B. „Art (wissenschaftlicher Name)" wie im Mockup, „Handelsname / Morphe" wie in FR-1.2.
-      → Festlegen.
-- [ ] **Auswahlfeld für das Becken** (NFR-4.2 verlangt shadcn/ui):
+- [x] **Labeltexte.** Z. B. „Art (wissenschaftlicher Name)" wie im Mockup, „Handelsname / Morphe" wie in FR-1.2.
+      → **Entschieden (22.09.2026):**
+
+  | Feld         | Label                           | Platzhalter                  |
+  | ------------ | ------------------------------- | ---------------------------- |
+  | Bezeichnung  | `Bezeichnung *`                 | –                            |
+  | Becken       | `Becken *`                      | erste Option `Becken wählen` |
+  | Art          | `Art (wissenschaftlicher Name)` | `z. B. Acropora tenuis`      |
+  | Handelsname  | `Handelsname / Morphe`          | `z. B. Green Slimer`         |
+  | Erwerbsdatum | `Erwerbsdatum`                  | –                            |
+
+- [x] **Auswahlfeld für das Becken** (NFR-4.2 verlangt shadcn/ui):
   - **(a)** shadcn `native-select` – echtes `<select>`, auf dem Smartphone öffnet die Systemauswahl, wie im Mockup
   - **(b)** shadcn `select` (Radix) – eigene Auswahlliste, einheitliches Aussehen, mehr Code und eigenes Tastaturverhalten
-  → Entscheiden. Vorab prüfen, ob `npx shadcn@latest add native-select` in der installierten shadcn-Version verfügbar ist.
-- [ ] **Vorbelegung.** Vorschlag: kein Becken vorbelegt, erste Option „Becken wählen" ohne Wert. Nur so ist „Speichern
+  → **Entschieden (22.09.2026):** (a) `native-select`, in shadcn 4.21 (Stil `base-lyra`) verfügbar.
+- [x] **Vorbelegung.** Vorschlag: kein Becken vorbelegt, erste Option „Becken wählen" ohne Wert. Nur so ist „Speichern
       ohne Becken" überhaupt möglich und die Definition of Done prüfbar. Alternative: bei genau einem Becken vorbelegen.
-      → Festlegen.
-- [ ] **Validierungsregeln.** Vorschlag in Anlehnung an `validateTank`:
+      → **Entschieden (22.09.2026):** nicht vorbelegt; „Becken wählen" mit `value=""`, bleibt wählbar (nicht `disabled`).
+- [x] **Validierungsregeln.** Vorschlag in Anlehnung an `validateTank`:
 
   | Feld         | Regel (Vorschlag)                                            |
   | ------------ | ------------------------------------------------------------ |
@@ -47,16 +56,18 @@ einem Feldfehler abgelehnt (Definition of Done).
   | Handelsname  | höchstens 100 Zeichen                                        |
   | Erwerbsdatum | nicht in der Zukunft                                         |
 
-  → Festlegen.
+  → **Entschieden (22.09.2026):** wie in der Tabelle. Die 100 Zeichen gelten nur im Frontend, in der Datenbank sind
+  die Felder `text`. `checkStartDate` wird zu `checkNotInFuture(date, fieldName)` mit der Meldung
+  „Das {fieldName} darf nicht in der Zukunft liegen."
 
 ## Schritte
 
-1. [ ] **Auswahlkomponente** per shadcn hinzufügen (nach Entscheidung) und wie `input.tsx` an `design.md` anpassen:
+1. [x] **Auswahlkomponente** per shadcn hinzufügen (nach Entscheidung) und wie `input.tsx` an `design.md` anpassen:
        Fläche `bg-card`, Rahmen 1 px, Radius 10, Höhe 48, `text-body`.
-2. [ ] **Validierung** in `src/lib/validation.ts`: `validateCoral(...)` mit eigenem Fehlertyp `CoralErrors`.
+2. [x] **Validierung** in `src/lib/validation.ts`: `validateCoral(...)` mit eigenem Fehlertyp `CoralErrors`.
        Die Prüfung „nicht in der Zukunft" ist für das Startdatum schon da (`checkStartDate`, `todayIso`) –
        wiederverwenden statt kopieren, ggf. mit neutralem Namen.
-3. [ ] **Formular-Komponente** `src/components/CoralForm.tsx` mit Props: Becken-Liste, Anfangswerte, Beschriftung des
+3. [x] **Formular-Komponente** `src/components/CoralForm.tsx` mit Props: Becken-Liste, Anfangswerte, Beschriftung des
        Speichern-Buttons, `cancelTo`, `onSubmit` – Aufbau wie `TankForm.tsx`:
    - Kopf: Legende „\* Pflichtfeld"
    - Felder in der festgelegten Reihenfolge, sichtbare Labels über dem Feld
@@ -64,15 +75,15 @@ einem Feldfehler abgelehnt (Definition of Done).
    - Erwerbsdatum mit `type="date"`
    - `noValidate`, `aria-invalid`, Fehlertext per `aria-describedby`, Fehler verschwinden nach Korrektur
    - Primärbutton „Speichern", darunter Sekundärbutton „Abbrechen", beide volle Breite
-4. [ ] **Laden und Fehler beim Speichern:** Button deaktiviert mit „Wird gespeichert …"; Serverfehler als Meldung über dem
+4. [x] **Laden und Fehler beim Speichern:** Button deaktiviert mit „Wird gespeichert …"; Serverfehler als Meldung über dem
        Formular (`role="alert"`), Eingaben bleiben erhalten.
 
 ## Fertig, wenn
 
-- [ ] Die Komponente ist fertig und typisiert; eingebunden wird sie erst in TASK-05-03
-- [ ] Speichern ohne Becken und/oder ohne Bezeichnung liefert Feldfehler, `onSubmit` wird nicht aufgerufen (FR-6.6, FR-1.14)
-- [ ] Jedes Feld hat ein sichtbares Label, Auswahlfeld mindestens 44 px hoch (NFR-1.3, NFR-1.4)
-- [ ] `npm run build`, `npm run lint`, `npm run format` ohne Fehler
+- [x] Die Komponente ist fertig und typisiert; eingebunden wird sie erst in TASK-05-03
+- [x] Speichern ohne Becken und/oder ohne Bezeichnung liefert Feldfehler, `onSubmit` wird nicht aufgerufen (FR-6.6, FR-1.14)
+- [x] Jedes Feld hat ein sichtbares Label, Auswahlfeld mindestens 44 px hoch (NFR-1.3, NFR-1.4)
+- [x] `npm run build`, `npm run lint`, `npm run format` ohne Fehler
 
 ## Hinweise
 

@@ -63,9 +63,9 @@ Diese Punkte sind in den Quelldokumenten nicht festgelegt oder widersprechen sic
 | 1   | Dateiname des Korallen-Service                                                                     | TASK-05-01 | entschieden: `coral.ts`            |
 | 2   | Beckenname in der Liste: per Join mitladen oder im Frontend aus den Becken zuordnen?               | TASK-05-01 | entschieden: im Frontend zuordnen  |
 | 3   | Formularfelder: FR-1.2 oder Mockup? (Mockup: Art Pflicht, Status, Größe, Notiz, keine Bezeichnung) | TASK-05-02 | entschieden: FR-1.2                |
-| 4   | Auswahlfeld für das Becken: shadcn `native-select` oder shadcn `select`?                           | TASK-05-02 | offen                              |
-| 5   | Becken vorbelegen oder immer bewusst wählen lassen?                                                | TASK-05-02 | offen                              |
-| 6   | Validierungsregeln und Labeltexte                                                                  | TASK-05-02 | offen                              |
+| 4   | Auswahlfeld für das Becken: shadcn `native-select` oder shadcn `select`?                           | TASK-05-02 | entschieden: `native-select`       |
+| 5   | Becken vorbelegen oder immer bewusst wählen lassen?                                                | TASK-05-02 | entschieden: nicht vorbelegen      |
+| 6   | Validierungsregeln und Labeltexte                                                                  | TASK-05-02 | entschieden: siehe TASK-05-02      |
 | 7   | `/koralle/neu` ohne Becken: Hinweis zeigen oder auf `/` umleiten?                                  | TASK-05-03 | offen                              |
 | 8   | Ziel nach „Speichern" und „Abbrechen"                                                              | TASK-05-03 | offen                              |
 | 9   | Was zeigt ein Listeneintrag?                                                                       | TASK-05-04 | offen                              |
