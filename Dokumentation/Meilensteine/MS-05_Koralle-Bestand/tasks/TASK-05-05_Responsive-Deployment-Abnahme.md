@@ -1,6 +1,6 @@
 # TASK-05-05 · Responsive prüfen, deployen und am deployten Stand abnehmen
 
-**Status:** offen
+**Status:** erledigt
 **Bezug:** Definition of Done MS-5 · FR-1.1 (Löschsperre jetzt über die UI prüfbar) · FR-6.2 · NFR-1.3, NFR-1.4, NFR-1.6 ·
 Abnahmekriterium Abschnitt 7 Punkt 4
 **Voraussetzung:** TASK-05-01 bis 05-04
@@ -27,12 +27,12 @@ MS-5 ist fertig, wenn die Definition of Done auf der GitHub-Pages-Adresse funkti
 ### B · Deployment
 
 7. [x] `npm run build`, `npm run lint`, `npm run format` ohne Fehler.
-8. [ ] Auf `main` pushen, im Reiter „Actions" prüfen, dass der Lauf grün ist.
+8. [x] Auf `main` pushen, im Reiter „Actions" prüfen, dass der Lauf grün ist.
 
 ### C · Abnahme am deployten Stand
 
-9. [ ] Protokoll unten auf der GitHub-Pages-Adresse durchspielen, einmal davon auf einem echten Smartphone.
-10. [ ] TASK-05-01 bis 05-05 in [`../Tasks.md`](../Tasks.md) abhaken.
+9. [x] Protokoll unten auf der GitHub-Pages-Adresse durchspielen, einmal davon auf einem echten Smartphone.
+10. [x] TASK-05-01 bis 05-05 in [`../Tasks.md`](../Tasks.md) abhaken.
 
 ## Abnahmeprotokoll
 
@@ -50,17 +50,17 @@ Datum: 22.09.2026 · Adresse: <https://p4u1s.github.io/Coralkeeper/>
 | 8   | `…/Coralkeeper/koralle/neu` direkt aufrufen und neu laden (F5)        | Formular erscheint, kein 404                               | ✓        |
 | 9   | Becken mit Korallen löschen                                           | Löschen wird verhindert, verständliche Meldung (FR-1.1)    | ✓        |
 | 10  | Als Testnutzer B den Bestand öffnen                                   | Keine Korallen von Testnutzer A sichtbar (FR-6.2)          | ✓        |
-| 11  | Ohne Verbindung eine Koralle speichern                                | Deutsche Fehlermeldung, Eingaben bleiben stehen (FR-6.4)   |          |
+| 11  | Ohne Verbindung eine Koralle speichern                                | Deutsche Fehlermeldung, Eingaben bleiben stehen (FR-6.4)   | ✓        |
 | 12  | Ansicht bei 360 px Breite                                             | kein waagerechtes Scrollen, alles bedienbar                | ✓        |
 
 \* entschieden in TASK-05-02: keine Vorbelegung, erste Option „Becken wählen".
 
 ## Fertig, wenn
 
-- [ ] Alle Punkte aus A sind geprüft
-- [ ] Der Deploy-Lauf ist grün
-- [ ] Das Abnahmeprotokoll ist vollständig und alle Tests sind bestanden
-- [ ] **Definition of Done MS-5:** Speichern ohne Becken wird mit einem Feldfehler abgelehnt; angelegte Korallen
+- [x] Alle Punkte aus A sind geprüft
+- [x] Der Deploy-Lauf ist grün
+- [x] Das Abnahmeprotokoll ist vollständig und alle Tests sind bestanden
+- [x] **Definition of Done MS-5:** Speichern ohne Becken wird mit einem Feldfehler abgelehnt; angelegte Korallen
       erscheinen in der Liste – auf dem deployten Stand
 
 ## Quellen
