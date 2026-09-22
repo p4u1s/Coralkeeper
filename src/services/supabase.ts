@@ -21,13 +21,13 @@ if (!url || !publishableKey) {
   );
 }
 
-export const supabase = createClient<Database>(url, publishableKey{
+export const supabase = createClient<Database>(url, publishableKey, {
   global: {
     // Ohne Zeitlimit bleibt eine hängende Anfrage für immer offen wie Task 5- MS5 Abnahmeprotokoll 11 bemerkt (FR-6.4)
     fetch: (input, init) =>
       fetch(input, {
         ...init,
-        signal: init?.signal ?? AbortSignal.timeout(15_000),
+        signal: init?.signal ?? AbortSignal.timeout(10_000),
       }),
   },
 });
