@@ -8,9 +8,10 @@ export const MIN_PASSWORD_LENGTH = 6;
 // Bewusst grob: Text@Text.Text ohne Leerzeichen – die genaue Prüfung macht Supabase
 const EMAIL_PATTERN = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-// Begrenzung der Beckenbezeichnung und des Beckenvolumens
+// Begrenzung der Beckenbezeichnung, Korallentextlänge und des Beckenvolumens
 export const MAX_TANK_NAME_LENGTH = 100;
 export const MAX_TANK_VOLUME = 100_000;
+export const MAX_CORAL_TEXT_LENGTH = 100;
 
 // Nur ganze Zahlen erlaubt: schließt "abc", "-5", "2,5" und "1.320" aus
 const WHOLE_NUMBER_PATTERN = /^\d+$/;
@@ -28,6 +29,14 @@ export type TankErrors = {
   name?: string;
   volume?: string;
   startDate?: string;
+};
+
+export type CoralErrors = {
+  name?: string;
+  tankId?: string;
+  species?: string;
+  tradeName?: string;
+  acquisitionDate?: string;
 };
 
 export function validateLogin(email: string, password: string): LoginErrors {
@@ -95,8 +104,16 @@ export function validateTank(
   return {
     name: checkTankName(name),
     volume: checkVolume(volume),
-    startDate: checkStartDate(startDate),
+    startDate: checkNotInFuture(startDate, "Startdatum"),
   };
+}
+
+// type="date" liefert "" oder ein gültiges JJJJ-MM-TT – daher reicht der Textvergleich
+function checkNotInFuture(date: string, fieldName: string): string | undefined {
+  if (date !== "" && date > todayIso()) {
+    return `Das ${fieldName} darf nicht in der Zukunft liegen.`;
+  }
+  return undefined;
 }
 
 function checkTankName(name: string): string | undefined {
@@ -125,10 +142,30 @@ function checkVolume(volume: string): string | undefined {
   return undefined;
 }
 
-// type="date" liefert "" oder ein gültiges JJJJ-MM-TT – daher reicht der Textvergleich
-function checkStartDate(startDate: string): string | undefined {
-  if (startDate !== "" && startDate > todayIso()) {
-    return "Das Startdatum darf nicht in der Zukunft liegen.";
+export function validateCoral(
+  name: string,
+  tankId: string,
+  species: string,
+  tradeName: string,
+  acquisitionDate: string
+): CoralErrors {
+  return {
+    name:
+      name.trim() === ""
+        ? "Bitte eine Bezeichnung eingeben."
+        : checkCoralText(name, "Die Bezeichnung"),
+    // Die leere Option „Becken wählen" hat den Wert ""
+    tankId: tankId === "" ? "Bitte ein Becken wählen." : undefined,
+    species: checkCoralText(species, "Die Art"),
+    tradeName: checkCoralText(tradeName, "Der Handelsname"),
+    acquisitionDate: checkNotInFuture(acquisitionDate, "Erwerbsdatum"),
+  };
+}
+
+// Label mit Artikel, weil die Felder unterschiedliche Geschlechter haben
+function checkCoralText(value: string, label: string): string | undefined {
+  if (value.trim().length > MAX_CORAL_TEXT_LENGTH) {
+    return `${label} darf höchstens ${MAX_CORAL_TEXT_LENGTH} Zeichen lang sein.`;
   }
   return undefined;
 }
