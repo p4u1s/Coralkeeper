@@ -1,6 +1,6 @@
 # TASK-04-08 · Becken löschen mit Bestätigung und Löschsperre
 
-**Status:** offen
+**Status:** erledigt
 **Bezug:** FR-1.1 (Löschsperre bei zugeordneten Korallen), FR-6.5 (Bestätigungsdialog), NFR-4.7, ER-Modell Festlegung 1
 **Voraussetzung:** TASK-04-07
 
@@ -14,31 +14,33 @@ verständlich, je nach Entscheidung aus TASK-04-03 vorher oder nachher.
 
 ## Vor dem Start klären
 
-- [ ] **Dialogtext.** Laut ER-Modell hängen `messwert` und `becken_ereignis` per `ON DELETE CASCADE` am Becken –
+- [x] **Dialogtext.** Laut ER-Modell hängen `messwert` und `becken_ereignis` per `ON DELETE CASCADE` am Becken –
       mit dem Becken verschwinden also alle Diary-Einträge. Vorschlag:
       Titel „Becken löschen?", Text „„{Name}" und alle Diary-Einträge dieses Beckens werden endgültig gelöscht."
       → Wortlaut festlegen.
+      → **Entschieden 21.09.2026:** Vorschlag übernommen. Buttons „Abbrechen" · „Löschen", beim Löschen „Wird gelöscht …".
 
 ## Schritte
 
-1. [ ] Alert-Dialog per shadcn hinzufügen (`npx shadcn@latest add alert-dialog`) und an `design.md` anpassen:
+1. [x] Alert-Dialog per shadcn hinzufügen (`npx shadcn@latest add alert-dialog`) und an `design.md` anpassen:
        Fläche `surface`, Rahmen, Radius 14, keine Schatten, Buttons 48 hoch.
-2. [ ] Im Beckendetail Button „Löschen" (Sekundärbutton mit Schrift in `error`, wie „Abmelden").
-3. [ ] Dialog mit „Abbrechen" und „Löschen"; „Abbrechen" ist die sichere Standardaktion.
-4. [ ] Bestätigen ruft `deleteTank`; während des Löschens beide Buttons deaktiviert, Beschriftung „Wird gelöscht …".
-5. [ ] Erfolg → zur Beckenliste. Fehler → Meldung sichtbar lassen (im Dialog oder auf der Seite), Becken bleibt bestehen.
+2. [x] Im Beckendetail Button „Löschen" (Sekundärbutton mit Schrift in `error`, wie „Abmelden").
+3. [x] Dialog mit „Abbrechen" und „Löschen"; „Abbrechen" ist die sichere Standardaktion.
+4. [x] Bestätigen ruft `deleteTank`; während des Löschens beide Buttons deaktiviert, Beschriftung „Wird gelöscht …".
+5. [x] Erfolg → zur Beckenliste. Fehler → Meldung sichtbar lassen (im Dialog oder auf der Seite), Becken bleibt bestehen.
 6. [ ] Bei Entscheidung (b) aus TASK-04-03: Enthält das Becken Korallen, statt „Löschen" einen Hinweis anzeigen,
        dass zuerst die Korallen umgesetzt oder gelöscht werden müssen.
+       → Entfällt: Entscheidung (a) in TASK-04-03.
 
 ## Fertig, wenn
 
-- [ ] Ohne Bestätigung wird nichts gelöscht; „Abbrechen" und `Esc` schließen den Dialog folgenlos (FR-6.5)
-- [ ] Ein leeres Becken wird gelöscht und fehlt danach in der Beckenliste
-- [ ] **Löschsperre:** Als Testnutzer A lässt sich Becken `aaaaaaaa-0000-0000-0000-000000000001` (enthält die
+- [x] Ohne Bestätigung wird nichts gelöscht; „Abbrechen" und `Esc` schließen den Dialog folgenlos (FR-6.5)
+- [x] Ein leeres Becken wird gelöscht und fehlt danach in der Beckenliste
+- [x] **Löschsperre:** Als Testnutzer A lässt sich Becken `aaaaaaaa-0000-0000-0000-000000000001` (enthält die
       Testkorallen …02 und …03) **nicht** löschen, es erscheint die verständliche Meldung (FR-1.1)
-- [ ] Der Dialog ist mit der Tastatur bedienbar, der Fokus bleibt im Dialog und kehrt danach zum Auslöser zurück
-- [ ] Buttons im Dialog mindestens 44 px hoch; bei 360 px Breite passt der Dialog ohne waagerechtes Scrollen
-- [ ] `npm run build`, `npm run lint`, `npm run format` ohne Fehler
+- [x] Der Dialog ist mit der Tastatur bedienbar, der Fokus bleibt im Dialog und kehrt danach zum Auslöser zurück
+- [x] Buttons im Dialog mindestens 44 px hoch; bei 360 px Breite passt der Dialog ohne waagerechtes Scrollen
+- [x] `npm run build`, `npm run lint`, `npm run format` ohne Fehler
 
 ## Hinweise
 
