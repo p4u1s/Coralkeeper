@@ -68,7 +68,7 @@ Diese Punkte sind in den Quelldokumenten nicht festgelegt oder widersprechen sic
 | 6   | Validierungsregeln und Labeltexte                                                                  | TASK-05-02 | entschieden: siehe TASK-05-02      |
 | 7   | `/koralle/neu` ohne Becken: Hinweis zeigen oder auf `/` umleiten?                                  | TASK-05-03 | entschieden: Hinweis auf der Seite |
 | 8   | Ziel nach „Speichern" und „Abbrechen"                                                              | TASK-05-03 | entschieden: beide auf `/`         |
-| 9   | Was zeigt ein Listeneintrag?                                                                       | TASK-05-04 | offen                              |
+| 9   | Was zeigt ein Listeneintrag?                                                                       | TASK-05-04 | entschieden: siehe TASK-05-04      |
 | 10  | Status und Legende im Bestand                                                                      | TASK-05-04 | entschieden: erst MS-9             |
 | 11  | Detailseite und anklickbare Einträge                                                               | –          | entschieden: erst MS-6             |
 

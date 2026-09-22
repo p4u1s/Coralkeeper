@@ -43,3 +43,6 @@ Diese Anforderungen sind Teil der Definition of Done von MS-9 und werden nicht a
 ## MS-9 im Detail
 
 **Umfang:** Kachelansicht mit Primärbild (FR-1.3); Filter nach Becken, Art, Status und Sortierung (FR-1.4); Suche (FR-1.5); Detailansicht vervollständigen (FR-1.6); Statuswechsel mit Datum und Notiz, erzeugt Historieneintrag (FR-1.9); Koralle bearbeiten und löschen, Ableger bleiben erhalten (FR-1.10); Steckbriefwerte als Icons mit Textlabel und Legende, „keine Angabe" für leere Felder (FR-2.3); Schutzstatus mit Hinweis auf Eigenangabe (FR-2.4); Bild-Upload, unkomprimiert, max. 5 MB (NFR-2.5); Profil ansehen und bearbeiten (FR-6.8).
+
+**Aus MS-5 übernommen (22.09.2026):** Anzahl der Korallen unter dem Titel „Bestand“ wie im Mockup (dort mit Filter:
+„x von y Korallen · n Becken“). In MS-5 bewusst weggelassen, siehe TASK-05-04.
