@@ -1,6 +1,6 @@
 # TASK-05-03 · Seite „Koralle anlegen"
 
-**Status:** offen
+**Status:** erledigt
 **Bezug:** FR-1.2, FR-1.14, FR-1.15 (Korallenanlage ohne Becken nicht erreichbar), FR-6.4 (Lade-, Leer- und Fehlerzustand),
 Abnahmekriterium Abschnitt 7 Punkt 4
 **Voraussetzung:** TASK-05-02
@@ -14,38 +14,40 @@ noch kein Becken, darf das Formular nicht erscheinen – auch nicht bei Direktau
 
 ## Vor dem Start klären
 
-- [ ] **Ohne Becken.** Wer `/koralle/neu` direkt aufruft, ohne ein Becken zu haben:
+- [x] **Ohne Becken.** Wer `/koralle/neu` direkt aufruft, ohne ein Becken zu haben:
   - **(a)** Hinweis „Lege zuerst ein Becken an" mit Aktion „Becken anlegen" direkt auf der Seite
   - **(b)** Umleitung auf `/`, dort steht der Hinweis bereits
   → Entscheiden. (a) erklärt sich selbst; (b) ist kürzer, springt aber kommentarlos weg.
   Bei (a): Hinweiskarte aus `HomeScreen.tsx` kopieren oder als kleine Komponente herausziehen? → Festlegen.
-- [ ] **Ziel nach „Speichern".** Vorschlag: Bestand `/` – dort ist die neue Koralle sofort in der Liste zu sehen (Definition
+  **Entschieden:** (a), Hinweiskarte aus `HomeScreen.tsx` kopiert, dazu Sekundär-Link „Zum Bestand“ (auch im Fehlerfall).
+- [x] **Ziel nach „Speichern".** Vorschlag: Bestand `/` – dort ist die neue Koralle sofort in der Liste zu sehen (Definition
       of Done). Die Detailseite kommt erst in MS-6.
       **Ziel von „Abbrechen":** Vorschlag `/`, fester Pfad statt „zurück" (wie beim Becken).
       → Festlegen.
+      **Entschieden:** beide auf `/`.
 
 ## Schritte
 
-1. [ ] **Route** `/koralle/neu` in `src/App.tsx` **außerhalb** von `AppLayout` eintragen, neben `/becken/neu` – Formulare
+1. [x] **Route** `/koralle/neu` in `src/App.tsx` **außerhalb** von `AppLayout` eintragen, neben `/becken/neu` – Formulare
        ohne Bottom-Navigation (design.md, Abschnitt 4). Der Pfad steht in der Routenliste (Abschnitt 7, alt), der
        Kommentar über dem Router braucht keinen Zusatz.
-2. [ ] **Seite** `src/pages/CoralCreatePage.tsx`, Überschrift „Koralle anlegen", Becken über `useTanks()` laden:
+2. [x] **Seite** `src/pages/CoralCreatePage.tsx`, Überschrift „Koralle anlegen", Becken über `useTanks()` laden:
    - `loading` → „Wird geladen …"
    - `error` → Meldung mit `role="alert"` und „Erneut versuchen"
    - keine Becken → Verhalten nach Entscheidung
    - Becken vorhanden → `CoralForm` mit der Beckenliste
-3. [ ] **Speichern:** `createCoral` aufrufen, danach zum festgelegten Ziel navigieren.
+3. [x] **Speichern:** `createCoral` aufrufen, danach zum festgelegten Ziel navigieren.
 
 ## Fertig, wenn
 
-- [ ] Speichern ohne Becken zeigt einen Feldfehler unter „Becken", es geht keine Anfrage raus (**Definition of Done**)
-- [ ] Speichern mit leerer Bezeichnung zeigt einen Feldfehler
-- [ ] Eine Koralle nur mit Bezeichnung und Becken lässt sich speichern; in Supabase sind `art`, `handelsname`,
+- [x] Speichern ohne Becken zeigt einen Feldfehler unter „Becken", es geht keine Anfrage raus (**Definition of Done**)
+- [x] Speichern mit leerer Bezeichnung zeigt einen Feldfehler
+- [x] Eine Koralle nur mit Bezeichnung und Becken lässt sich speichern; in Supabase sind `art`, `handelsname`,
       `erwerbsdatum` `null`, `status` ist `im_bestand`, `nutzer_id` ist die eigene
-- [ ] Ohne Becken erscheint das Formular nicht, auch nicht bei Direktaufruf von `/koralle/neu` (FR-1.15)
-- [ ] Ohne Verbindung erscheint eine verständliche deutsche Meldung, die Eingaben bleiben stehen (FR-6.4)
-- [ ] Keine Bottom-Navigation; Bedienung mit Tastatur und Enter möglich; bei 360 px vollständig sichtbar
-- [ ] `npm run build`, `npm run lint`, `npm run format` ohne Fehler
+- [x] Ohne Becken erscheint das Formular nicht, auch nicht bei Direktaufruf von `/koralle/neu` (FR-1.15)
+- [x] Ohne Verbindung erscheint eine verständliche deutsche Meldung, die Eingaben bleiben stehen (FR-6.4)
+- [x] Keine Bottom-Navigation; Bedienung mit Tastatur und Enter möglich; bei 360 px vollständig sichtbar
+- [x] `npm run build`, `npm run lint`, `npm run format` ohne Fehler
 
 ## Hinweise
 
