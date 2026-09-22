@@ -8,4 +8,4 @@
 - [x] **TASK-04-06** Geführter Leerzustand im Bestand („Lege zuerst ein Becken an").
 - [x] **TASK-04-07** Beckendetail und Becken bearbeiten.
 - [x] **TASK-04-08** Becken löschen mit Bestätigungsdialog und Löschsperre.
-- [ ] **TASK-04-09** Responsive prüfen, deployen und am deployten Stand abnehmen.
+- [x] **TASK-04-09** Responsive prüfen, deployen und am deployten Stand abnehmen.
