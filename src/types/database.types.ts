@@ -366,6 +366,7 @@ export type Database = {
           art: string | null
           becken_id: string
           belegnummer: string | null
+          besonderheiten: string | null
           bezeichnung: string
           cites_nr: string | null
           erwerbsdatum: string | null
@@ -392,6 +393,7 @@ export type Database = {
           art?: string | null
           becken_id: string
           belegnummer?: string | null
+          besonderheiten?: string | null
           bezeichnung: string
           cites_nr?: string | null
           erwerbsdatum?: string | null
@@ -418,6 +420,7 @@ export type Database = {
           art?: string | null
           becken_id?: string
           belegnummer?: string | null
+          besonderheiten?: string | null
           bezeichnung?: string
           cites_nr?: string | null
           erwerbsdatum?: string | null
