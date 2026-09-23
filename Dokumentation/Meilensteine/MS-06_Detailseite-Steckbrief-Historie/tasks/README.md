@@ -85,7 +85,7 @@ Diese Punkte sind in den Quelldokumenten nicht festgelegt oder widersprechen sic
 | 2   | Datum des Systemeintrags: UTC-Datum oder deutsches Datum?                                           | TASK-06-01 | entschieden: deutsches Datum (`Europe/Berlin`) |
 | 3   | Wortlaut der Systemeinträge                                                                         | TASK-06-01 | entschieden: siehe TASK-06-01                  |
 | 4   | Darf das Frontend Einträge vom Typ `system` selbst anlegen?                                         | TASK-06-01 | entschieden: ja, nicht eingeschränkt           |
-| 5   | Sortierung der Historie – schon jetzt absteigend (FR-3.2 gehört eigentlich zu MS-10)?               | TASK-06-02 | offen                                          |
+| 5   | Sortierung der Historie – schon jetzt absteigend (FR-3.2 gehört eigentlich zu MS-10)?               | TASK-06-02 | entschieden: absteigend, neuester oben         |
 | 6   | Steckbrief-Felder: Wuchsform als Liste oder Freitext, „Besonderheiten" ohne Spalte, Schutzstatus?   | TASK-06-03 | offen                                          |
 | 7   | Steckbrief schon im Formular „Koralle anlegen" oder nur auf der Detailseite?                        | TASK-06-03 | offen                                          |
 | 8   | Aktiver Tab als lokaler Zustand oder als URL-Parameter?                                             | TASK-06-04 | offen                                          |

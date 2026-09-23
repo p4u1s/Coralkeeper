@@ -1,6 +1,6 @@
 # TASK-06-02 · Historien-Service und Hook
 
-**Status:** offen
+**Status:** erledigt (23.09.2026)
 **Bezug:** FR-3.5 (Journaleintrag), FR-3.3 (append-only), NFR-4.3 (Datenzugriff nur über `src/services/*`, eigene Hooks),
 NFR-4.4, NFR-4.1
 **Voraussetzung:** TASK-06-01
@@ -15,32 +15,33 @@ mit Lade- und Fehlerzustand.
 
 ## Vor dem Start klären
 
-- [ ] **Dateinamen.** Vorschlag `src/services/history.ts` und `src/hooks/useHistory.ts` (englisch wie `tank.ts`).
-      → Festlegen.
-- [ ] **Sortierung.** Absteigend nach `datum`, bei gleichem Datum nach `erstellt_am` absteigend – so steht der neueste
-      Eintrag oben und die Reihenfolge ist eindeutig. FR-3.2 (chronologische Historienansicht) ist formal MS-10, die
-      Sortierung kostet aber nur eine Zeile. → Bestätigen.
+- [x] **Dateinamen.** → **entschieden: `src/services/history.ts` und `src/hooks/useHistory.ts`** (englisch wie
+      `tank.ts`).
+- [x] **Sortierung.** → **entschieden: absteigend nach `datum`, bei gleichem Datum nach `erstellt_am` absteigend** –
+      so steht der neueste Eintrag oben und die Reihenfolge ist eindeutig. FR-3.2 (chronologische Historienansicht) ist
+      formal MS-10, die Sortierung kostet aber nur eine Zeile.
 
 ## Schritte
 
-1. [ ] **Typen** aus den generierten Datenbanktypen ableiten (NFR-4.4):
-   - Zeile = `Tables<"historieneintrag">`
+1. [x] **Typen** aus den generierten Datenbanktypen ableiten (NFR-4.4):
+   - Zeile = `Tables<"historieneintrag">` → `HistoryEntry`
    - Eingabe für den Journaleintrag = `koralle_id`, `datum`, `text` – **ohne** `nutzer_id`, `typ`, `bild_id`
-2. [ ] **Funktionen** im Service:
+     → `JournalEntryInput`
+2. [x] **Funktionen** im Service:
    - `listHistory(coralId)` – alle Einträge einer Koralle, Sortierung nach Entscheidung
    - `createJournalEntry(input)` – setzt `typ = 'journal'` fest und `nutzer_id` aus `getSession()` (Muster
-     `createTank`); Text getrimmt
-3. [ ] **Hook** `useHistory(coralId)` – Liste, Status (`loading` / `success` / `error`), Fehlermeldung, `reload()`;
+     `createTank`); Text getrimmt, leerer Text wird `null` wie in `toRow`
+3. [x] **Hook** `useHistory(coralId)` – Liste, Status (`loading` / `success` / `error`), Fehlermeldung, `reload()`;
        Statusnamen und Abbruch-Flag wie in `useTanks`.
-4. [ ] Kurzer Kommentar über dem Service, dass Ändern und Löschen **absichtlich fehlen** (FR-3.3, Festlegung 7).
+4. [x] Kurzer Kommentar über dem Service, dass Ändern und Löschen **absichtlich fehlen** (FR-3.3, Festlegung 7).
 
 ## Fertig, wenn
 
-- [ ] Der Service exportiert keine Update- oder Delete-Funktion für Historieneinträge
-- [ ] Kein Import von `@supabase/*` außerhalb von `src/services/`
-- [ ] Kein `any`, keine handgeschriebenen Tabellentypen
-- [ ] Jede Funktion wirft bei Fehlern eine deutsche Meldung mit `cause`
-- [ ] `npm run build`, `npm run lint`, `npm run format` ohne Fehler
+- [x] Der Service exportiert keine Update- oder Delete-Funktion für Historieneinträge
+- [x] Kein Import von `@supabase/*` außerhalb von `src/services/`
+- [x] Kein `any`, keine handgeschriebenen Tabellentypen
+- [x] Jede Funktion wirft bei Fehlern eine deutsche Meldung mit `cause`
+- [x] `npm run build`, `npm run lint`, `npm run format` ohne Fehler (23.09.2026)
 
 ## Hinweise
 
