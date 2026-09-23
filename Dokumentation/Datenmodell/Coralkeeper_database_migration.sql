@@ -230,6 +230,7 @@ create table public.koralle (
   wuchsform text,
   schwierigkeit public.stufe,
   fuetterung text,
+  besonderheiten text,
 
   schutzstatus public.schutzstatus,
 
