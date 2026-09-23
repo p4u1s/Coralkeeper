@@ -13,6 +13,10 @@ export const MAX_TANK_NAME_LENGTH = 100;
 export const MAX_TANK_VOLUME = 100_000;
 export const MAX_CORAL_TEXT_LENGTH = 100;
 
+// Steckbrief: Wuchsform kurz, Fütterung und Besonderheiten länger (FR-2.2)
+export const MAX_GROWTH_FORM_LENGTH = 100;
+export const MAX_PROFILE_TEXT_LENGTH = 500;
+
 // Nur ganze Zahlen erlaubt: schließt "abc", "-5", "2,5" und "1.320" aus
 const WHOLE_NUMBER_PATTERN = /^\d+$/;
 
@@ -37,6 +41,12 @@ export type CoralErrors = {
   species?: string;
   tradeName?: string;
   acquisitionDate?: string;
+};
+
+export type CoralProfileErrors = {
+  growthForm?: string;
+  feeding?: string;
+  notes?: string;
 };
 
 export function validateLogin(email: string, password: string): LoginErrors {
@@ -162,10 +172,35 @@ export function validateCoral(
   };
 }
 
+// Auswahlfelder brauchen keine Prüfung: der Typ lässt nur gültige Werte zu
+export function validateCoralProfile(
+  growthForm: string,
+  feeding: string,
+  notes: string
+): CoralProfileErrors {
+  return {
+    growthForm: checkCoralText(
+      growthForm,
+      "Die Wuchsform",
+      MAX_GROWTH_FORM_LENGTH
+    ),
+    feeding: checkCoralText(feeding, "Die Fütterung", MAX_PROFILE_TEXT_LENGTH),
+    notes: checkCoralText(
+      notes,
+      'Das Feld „Besonderheiten"',
+      MAX_PROFILE_TEXT_LENGTH
+    ),
+  };
+}
+
 // Label mit Artikel, weil die Felder unterschiedliche Geschlechter haben
-function checkCoralText(value: string, label: string): string | undefined {
-  if (value.trim().length > MAX_CORAL_TEXT_LENGTH) {
-    return `${label} darf höchstens ${MAX_CORAL_TEXT_LENGTH} Zeichen lang sein.`;
+function checkCoralText(
+  value: string,
+  label: string,
+  maxLength = MAX_CORAL_TEXT_LENGTH
+): string | undefined {
+  if (value.trim().length > maxLength) {
+    return `${label} darf höchstens ${maxLength} Zeichen lang sein.`;
   }
   return undefined;
 }
