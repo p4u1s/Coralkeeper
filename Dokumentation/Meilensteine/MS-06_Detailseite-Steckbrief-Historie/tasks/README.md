@@ -14,9 +14,10 @@ Definition of Done).
   (Festlegung 7) – FR-3.3 ist in der Datenbank bereits erzwungen. `datum` ist `NOT NULL` **ohne** Standardwert,
   `text` ist nullable, `erstellt_am` hat `now()`.
 - `koralle` hat eine UPDATE-Policy und alle Steckbrief-Spalten (`licht`, `stroemung`, `platzierung`, `nesselkraft`,
-  `wuchsform`, `schwierigkeit`, `fuetterung`, `schutzstatus`) – **keine Migration** für den Steckbrief nötig.
+  `wuchsform`, `schwierigkeit`, `fuetterung`, `schutzstatus`). Seit TASK-06-03 (23.09.2026) kommt `besonderheiten`
+  dazu (ER-Modell, Festlegung 16); Typen sind seitdem neu generiert.
 - Die generierten Typen enthalten `historieneintrag`, die Enums `stufe`, `platzierung`, `historie_typ` und die
-  Werteliste `Constants` – **keine neue Typgenerierung** nötig (ein Trigger ändert keine Typen).
+  Werteliste `Constants`.
 - Auf `koralle` liegen seit TASK-06-01 (23.09.2026) die Trigger `bei_anlage_systemeintrag` und
   `bei_statuswechsel_systemeintrag`; Systemeinträge entstehen dort, nicht im Service.
 - shadcn `tabs` ist **nicht** installiert (vorhanden: button, input, label, textarea, alert-dialog).
