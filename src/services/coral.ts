@@ -10,6 +10,19 @@ export type CoralInput = Pick<
   "bezeichnung" | "becken_id" | "art" | "handelsname" | "erwerbsdatum"
 >;
 
+// Steckbrief-Spalten (FR-2.1, FR-2.2). Schutzstatus bleibt MS-9 (FR-2.4).
+export type CoralProfileInput = Pick<
+  Coral,
+  | "licht"
+  | "stroemung"
+  | "platzierung"
+  | "nesselkraft"
+  | "wuchsform"
+  | "schwierigkeit"
+  | "fuetterung"
+  | "besonderheiten"
+>;
+
 // Leere Felder mit NULL vorbelegen
 function toRow(input: CoralInput): CoralInput {
   return {
@@ -53,6 +66,41 @@ export async function createCoral(input: CoralInput): Promise<Coral> {
 
   if (error) {
     throw new Error("Koralle konnte nicht angelegt werden.", { cause: error });
+  }
+  return data;
+}
+
+// Leere Felder mit NULL vorbelegen
+function toProfileRow(input: CoralProfileInput): CoralProfileInput {
+  return {
+    licht: input.licht,
+    stroemung: input.stroemung,
+    platzierung: input.platzierung,
+    nesselkraft: input.nesselkraft,
+    wuchsform: input.wuchsform?.trim() || null,
+    schwierigkeit: input.schwierigkeit,
+    fuetterung: input.fuetterung?.trim() || null,
+    besonderheiten: input.besonderheiten?.trim() || null,
+  };
+}
+
+// Aktualisiert ausschließlich die Steckbrief-Spalten: keine Stammdaten,
+// kein Status. Erzeugt deshalb auch keinen Historieneintrag (FR-3.4).
+export async function updateCoralProfile(
+  id: string,
+  input: CoralProfileInput
+): Promise<Coral> {
+  const { data, error } = await supabase
+    .from("koralle")
+    .update(toProfileRow(input))
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) {
+    throw new Error("Steckbrief konnte nicht gespeichert werden.", {
+      cause: error,
+    });
   }
   return data;
 }
