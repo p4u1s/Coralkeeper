@@ -364,6 +364,65 @@ create policy "historieneintrag_insert_eigene"
   with check (nutzer_id = auth.uid());
 
 
+-- Systemeinträge (FR-3.4): ein Eintrag je Anlage und je echtem Statuswechsel.
+-- Bewusst ohne security definer: der Eintrag entsteht mit den Rechten des angemeldeten
+-- Nutzers, die Policy historieneintrag_insert_eigene greift wie bei jedem anderen Eintrag.
+create function public.systemeintrag_anlegen()
+returns trigger
+language plpgsql
+set search_path = ''
+as $$
+declare
+  eintrag_text text;
+begin
+  if tg_op = 'INSERT' then
+    eintrag_text := 'Koralle angelegt';
+  else
+    eintrag_text := 'Status geändert: '
+      || case old.status
+           when 'im_bestand' then 'Im Bestand'
+           when 'zur_abgabe' then 'Zur Abgabe'
+           when 'abgegeben'  then 'Abgegeben'
+           when 'verendet'   then 'Verendet'
+         end
+      || ' → '
+      || case new.status
+           when 'im_bestand' then 'Im Bestand'
+           when 'zur_abgabe' then 'Zur Abgabe'
+           when 'abgegeben'  then 'Abgegeben'
+           when 'verendet'   then 'Verendet'
+         end;
+  end if;
+
+  -- current_date wäre das UTC-Datum: zwischen 0 und 2 Uhr deutscher Zeit stünde der Vortag im Eintrag
+  insert into public.historieneintrag (nutzer_id, koralle_id, datum, typ, text)
+  values (
+    new.nutzer_id,
+    new.id,
+    (now() at time zone 'Europe/Berlin')::date,
+    'system',
+    eintrag_text
+  );
+
+  return null;  -- after-Trigger: der Rückgabewert wird nicht ausgewertet
+end;
+$$;
+
+create trigger bei_anlage_systemeintrag
+  after insert on public.koralle
+  for each row execute function public.systemeintrag_anlegen();
+
+-- nur bei echtem Wechsel, ein Update auf denselben Wert erzeugt keinen Eintrag
+create trigger bei_statuswechsel_systemeintrag
+  after update of status on public.koralle
+  for each row
+  when (old.status is distinct from new.status)
+  execute function public.systemeintrag_anlegen();
+
+-- nicht per RPC aufrufbar (Security Advisor, Lint 0028/0029); der Trigger braucht das Recht nicht
+revoke execute on function public.systemeintrag_anlegen() from public, anon, authenticated;
+
+
 -- ============================================================
 -- Abgabe
 -- ============================================================
@@ -657,3 +716,5 @@ create policy "becken_ereignis_delete_eigene"
   on public.becken_ereignis for delete
   to authenticated
   using (nutzer_id = auth.uid());
+
+  
