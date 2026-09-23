@@ -17,12 +17,13 @@ Definition of Done).
   `wuchsform`, `schwierigkeit`, `fuetterung`, `schutzstatus`) – **keine Migration** für den Steckbrief nötig.
 - Die generierten Typen enthalten `historieneintrag`, die Enums `stufe`, `platzierung`, `historie_typ` und die
   Werteliste `Constants` – **keine neue Typgenerierung** nötig (ein Trigger ändert keine Typen).
-- Auf `koralle` liegt **kein Trigger**; Systemeinträge entstehen heute nirgends.
+- Auf `koralle` liegen seit TASK-06-01 (23.09.2026) die Trigger `bei_anlage_systemeintrag` und
+  `bei_statuswechsel_systemeintrag`; Systemeinträge entstehen dort, nicht im Service.
 - shadcn `tabs` ist **nicht** installiert (vorhanden: button, input, label, textarea, alert-dialog).
 - Testnutzer A besitzt den Historieneintrag `aaaaaaaa-…-000000000005`.
-- **MS-5 ist noch nicht umgesetzt.** MS-6 baut auf dessen Ergebnissen auf: Korallen-Service, `useCoral`,
-  `CoralDetailPage` und Auswahlfeld-Komponente. Die Namen in diesen Tasks sind die Vorschläge aus MS-5 – gelten dort
-  andere Entscheidungen, hier entsprechend lesen.
+- **MS-5 ist seit dem 22.09.2026 umgesetzt.** Vorhanden sind `src/services/coral.ts`, `src/hooks/useCorals.ts`
+  (Liste), `src/components/CoralForm.tsx`, `src/pages/CoralCreatePage.tsx` und `src/components/ui/native-select.tsx`.
+  **Nicht** vorhanden und damit Teil von MS-6: ein Hook für die einzelne Koralle und `CoralDetailPage`.
 
 ---
 
@@ -78,21 +79,27 @@ Alles andere streng nacheinander.
 Diese Punkte sind in den Quelldokumenten nicht festgelegt oder widersprechen sich. Sie stehen jeweils im Abschnitt
 „Vor dem Start klären" des genannten Tasks und sind hier nur gesammelt.
 
-| #   | Frage                                                                                               | Wo         |
-| --- | --------------------------------------------------------------------------------------------------- | ---------- |
-| 1   | Systemeinträge per Datenbank-Trigger oder im Service?                                               | TASK-06-01 |
-| 2   | Datum des Systemeintrags: UTC-Datum oder deutsches Datum?                                           | TASK-06-01 |
-| 3   | Wortlaut der Systemeinträge                                                                         | TASK-06-01 |
-| 4   | Darf das Frontend Einträge vom Typ `system` selbst anlegen?                                         | TASK-06-01 |
-| 5   | Sortierung der Historie – schon jetzt absteigend (FR-3.2 gehört eigentlich zu MS-10)?               | TASK-06-02 |
-| 6   | Steckbrief-Felder: Wuchsform als Liste oder Freitext, „Besonderheiten" ohne Spalte, Schutzstatus?   | TASK-06-03 |
-| 7   | Steckbrief schon im Formular „Koralle anlegen" oder nur auf der Detailseite?                        | TASK-06-03 |
-| 8   | Aktiver Tab als lokaler Zustand oder als URL-Parameter?                                             | TASK-06-04 |
-| 9   | Aussehen der Tabs (design.md kennt keine Tabs)                                                      | TASK-06-04 |
-| 10  | Steckbrief bearbeiten: eigene Formularseite oder direkt im Tab? Pfad?                               | TASK-06-05 |
-| 11  | Journaleintrag: eigene Formularseite oder direkt im Tab? Pfad?                                      | TASK-06-07 |
-| 12  | Validierung Journaleintrag: Zukunftsdatum erlaubt? Höchstlänge Text?                                | TASK-06-07 |
-| 13  | Hinweis auf Unveränderlichkeit vor dem Speichern: Text im Formular oder Bestätigungsdialog?         | TASK-06-07 |
+| #   | Frage                                                                                               | Wo         | Stand                                          |
+| --- | --------------------------------------------------------------------------------------------------- | ---------- | ---------------------------------------------- |
+| 1   | Systemeinträge per Datenbank-Trigger oder im Service?                                               | TASK-06-01 | entschieden: Trigger (Anlage + Statuswechsel)  |
+| 2   | Datum des Systemeintrags: UTC-Datum oder deutsches Datum?                                           | TASK-06-01 | entschieden: deutsches Datum (`Europe/Berlin`) |
+| 3   | Wortlaut der Systemeinträge                                                                         | TASK-06-01 | entschieden: siehe TASK-06-01                  |
+| 4   | Darf das Frontend Einträge vom Typ `system` selbst anlegen?                                         | TASK-06-01 | entschieden: ja, nicht eingeschränkt           |
+| 5   | Sortierung der Historie – schon jetzt absteigend (FR-3.2 gehört eigentlich zu MS-10)?               | TASK-06-02 | offen                                          |
+| 6   | Steckbrief-Felder: Wuchsform als Liste oder Freitext, „Besonderheiten" ohne Spalte, Schutzstatus?   | TASK-06-03 | offen                                          |
+| 7   | Steckbrief schon im Formular „Koralle anlegen" oder nur auf der Detailseite?                        | TASK-06-03 | offen                                          |
+| 8   | Aktiver Tab als lokaler Zustand oder als URL-Parameter?                                             | TASK-06-04 | offen                                          |
+| 9   | Aussehen der Tabs (design.md kennt keine Tabs)                                                      | TASK-06-04 | offen                                          |
+| 10  | Steckbrief bearbeiten: eigene Formularseite oder direkt im Tab? Pfad?                               | TASK-06-05 | offen                                          |
+| 11  | Journaleintrag: eigene Formularseite oder direkt im Tab? Pfad?                                      | TASK-06-07 | offen                                          |
+| 12  | Validierung Journaleintrag: Zukunftsdatum erlaubt? Höchstlänge Text?                                | TASK-06-07 | offen                                          |
+| 13  | Hinweis auf Unveränderlichkeit vor dem Speichern: Text im Formular oder Bestätigungsdialog?         | TASK-06-07 | offen                                          |
+
+**Anmerkung zu Nr. 1 (23.09.2026, gilt für MS-9):** Der Trigger schreibt als Datum immer den Tag der Änderung.
+FR-1.9 nennt beim Statuswechsel „Datum und optionale Notiz"; der Satz ist mehrdeutig. Festgelegt ist die einfache
+Lesart: **kein Datumsfeld in der Statuswechsel-Oberfläche**, das Datum ist immer das Tagesdatum. Eine eingegebene
+Notiz wird in MS-9 als zusätzlicher Journaleintrag gespeichert, nicht in den Systemeintrag geschrieben –
+Historieneinträge sind append-only.
 
 ---
 
