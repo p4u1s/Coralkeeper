@@ -50,6 +50,7 @@ erDiagram
         text        wuchsform "STECKBRIEF"
         enum        schwierigkeit "STECKBRIEF gering|mittel|hoch"
         text        fuetterung "STECKBRIEF Freitext"
+        text        besonderheiten "STECKBRIEF Freitext (FR-2.2)"
         enum        schutzstatus "STECKBRIEF unbekannt|kein|cites_ii|cites_i"
         enum        quelle_typ "HERKUNFT haendler|privat|eigene_nachzucht"
         text        quelle_name "HERKUNFT"
@@ -224,6 +225,7 @@ Alle Policies gelten nur für `authenticated` – nicht angemeldete Nutzer (`ano
 | 13  | `angebot.art` und `angebot.handelsname` als Kopie aus `koralle`             | FR-4.2: RLS wirkt zeilenweise, nicht spaltenweise – Fremde lesen nur `angebot`, `koralle` bleibt privat. `art` für den Filter nach FR-4.3. Spätere Änderungen an der Koralle wirken nicht auf das Inserat; vertretbar, weil Inserate kurzlebig sind (Anforderungen 3.8)                                 |
 | 14  | `profil` ohne INSERT-Policy                                                 | FR-6.10: Profile legt allein der Trigger an (`security definer`), das Frontend nie                                                                                                                                                                                                                      |
 | 15  | Systemeinträge entstehen per Trigger auf `koralle`, nicht im Service        | FR-3.4: `bei_anlage_systemeintrag` und `bei_statuswechsel_systemeintrag` schreiben den Eintrag in derselben Transaktion wie die Änderung. Ohne `security definer`; `typ = 'system'` bleibt dem Frontend erlaubt (KISS). Datum aus `Europe/Berlin`, nicht `current_date` (UTC) – TASK-06-01              |
+| 16  | `koralle.besonderheiten` als eigene Freitextspalte neben `fuetterung`       | FR-2.2 nennt Freitext für „Fütterung und Besonderheiten"; v1.0 hatte nur `fuetterung`. Eine gemeinsame Spalte würde zwei Angaben vermischen. Nachgetragen in TASK-06-03 (23.09.2026)                                                                                                                    |
 
 ### Fremdschlüssel und Löschverhalten
 

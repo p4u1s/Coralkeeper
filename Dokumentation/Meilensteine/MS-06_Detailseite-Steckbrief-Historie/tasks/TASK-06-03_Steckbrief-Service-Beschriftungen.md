@@ -1,6 +1,6 @@
 # TASK-06-03 · Steckbrief-Service und Beschriftungen
 
-**Status:** offen
+**Status:** erledigt (23.09.2026)
 **Bezug:** FR-2.1 (Steckbrief anlegen und ändern), FR-2.2 (feste Auswahllisten, alle Felder optional), NFR-1.8
 (Klartext statt Fachkürzel), NFR-4.3, NFR-4.4
 **Voraussetzung:** TASK-06-02
@@ -16,45 +16,55 @@ gemeinsam nutzen.
 
 ## Vor dem Start klären
 
-- [ ] **Welche Felder?** FR-2.2 und Datenbank weichen ab:
-  - **Wuchsform** – FR-2.2 zählt sie zu den Auswahllisten, nennt aber keine Werte; in der Datenbank ist sie
-    `text`. Vorschlag: Freitext (die Datenbank ist verbindlich, Rangfolge in `CLAUDE.md`).
-  - **Besonderheiten** – FR-2.2 nennt Freitext „Fütterung und Besonderheiten", es gibt aber nur die Spalte
-    `fuetterung`. Vorschlag: nur „Fütterung"; die Abweichung benennen, keine Migration in MS-6.
+- [x] **Welche Felder?** FR-2.2 und Datenbank weichen ab. → am 23.09.2026 entschieden: **acht Felder**
+  - **Wuchsform** – Freitext. FR-2.2 zählt sie zu den Auswahllisten, nennt aber keine Werte; in der Datenbank ist
+    sie `text`, und die Datenbank ist verbindlich (Rangfolge in `CLAUDE.md`).
+  - **Besonderheiten** – als eigene Spalte `besonderheiten` nachgetragen, damit FR-2.2 („Freitext für Fütterung und
+    Besonderheiten") wörtlich erfüllt ist. Migration und neue Typgenerierung, siehe Schritt 0.
   - **Schutzstatus** – Spalte vorhanden, gehört aber zu FR-2.4 (MS-9, mit Pflichthinweis „Eigenangabe, keine
-    Rechtsauskunft"). Vorschlag: nicht in MS-6.
-  → Festlegen.
-- [ ] **Steckbrief schon beim Anlegen der Koralle?** Die alte Routenliste nennt FR-2.2 auch bei `/koralle/neu`.
-      Vorschlag: nein – der Steckbrief wird auf der Detailseite angelegt, das Anlegeformular aus MS-5 bleibt kurz.
-      → Entscheiden.
-- [ ] **Ort der Beschriftungen.** Vorschlag: eigene Datei `src/lib/labels.ts` (Feldnamen, Stufen, Platzierung, später
-      auch Status). → Festlegen.
+    Rechtsauskunft") und bleibt hier außen vor.
+- [x] **Steckbrief schon beim Anlegen der Koralle?** → am 23.09.2026 entschieden: **nein**. Der Steckbrief wird auf
+      der Detailseite angelegt, das Anlegeformular aus MS-5 bleibt unangetastet. Deckt FR-2.1 („jederzeit ändern")
+      und FR-2.2 („blockieren die Anlage nicht").
+- [x] **Ort der Beschriftungen.** → am 23.09.2026 entschieden: eigene Datei `src/lib/labels.ts` (Feldnamen, Stufen,
+      Platzierung, später auch Status und Schutzstatus).
 
 ## Schritte
 
-1. [ ] **Typ** für die Steckbrief-Eingabe per `Pick` aus `Tables<"koralle">` – nur die festgelegten Felder.
-2. [ ] **Funktion** im Korallen-Service (aus TASK-05-01): `updateCoralProfile(id, input)` – aktualisiert **nur** die
+0. [x] **Migration** (Nutzer, Folge der Entscheidung zu „Besonderheiten"): `alter table public.koralle add column
+       besonderheiten text;`, danach `npm run gen:types`. → am 23.09.2026 ausgeführt, Kontrollabfrage über
+       `information_schema.columns` zeigt `besonderheiten | text | YES`; Spalte steht in `database.types.ts`.
+       Keine RLS-Änderung nötig, `koralle_update_eigene` gilt zeilenweise.
+1. [x] **Typ** für die Steckbrief-Eingabe per `Pick` aus `Tables<"koralle">` – nur die festgelegten Felder.
+       → `CoralProfileInput` in `src/services/coral.ts`.
+2. [x] **Funktion** im Korallen-Service (aus TASK-05-01): `updateCoralProfile(id, input)` – aktualisiert **nur** die
        Steckbrief-Spalten, keine Stammdaten, keinen Status.
-3. [ ] **Leere Werte** als `null` speichern: Auswahl „keine Angabe" → `null`, leere Texte → `null`, Texte getrimmt
-       (eigene `toRow`-Funktion wie in `tank.ts`).
-4. [ ] **Beschriftungen** anlegen:
-   - Feldnamen: Lichtbedarf, Strömung, Platzierung, Nesselkraft, Wuchsform, Schwierigkeitsgrad, Fütterung
+3. [x] **Leere Werte** als `null` speichern: Auswahl „keine Angabe" → `null`, leere Texte → `null`, Texte getrimmt
+       (eigene `toRow`-Funktion wie in `tank.ts`). → `toProfileRow` in `coral.ts`.
+4. [x] **Beschriftungen** anlegen: → `src/lib/labels.ts`
+   - Feldnamen: Lichtbedarf, Strömung, Platzierung, Nesselkraft, Wuchsform, Schwierigkeitsgrad, Fütterung,
+     Besonderheiten (`CORAL_PROFILE_LABELS`, per `satisfies` gegen `CoralProfileInput` auf Vollständigkeit geprüft)
    - Werte `stufe`: Gering · Mittel · Hoch; Werte `platzierung`: Unten · Mitte · Oben
    - Wertelisten aus `Constants` der generierten Typen ableiten, nicht abtippen – so fällt ein neuer Enum-Wert beim
-     Build auf.
-5. [ ] **Validierung** in `src/lib/validation.ts`: Höchstlänge für Wuchsform und Fütterung (Vorschlag 100 bzw. 500
+     Build auf. → `LEVEL_VALUES`, `PLACEMENT_VALUES`; die `Record<Enums<…>, string>`-Typen erzwingen jede Beschriftung.
+5. [x] **Validierung** in `src/lib/validation.ts`: Höchstlänge für Wuchsform und Fütterung (Vorschlag 100 bzw. 500
        Zeichen, als Konstante wie `MAX_TANK_NAME_LENGTH`). Die Auswahlfelder brauchen keine Prüfung.
+       → `MAX_GROWTH_FORM_LENGTH` (100) und `MAX_PROFILE_TEXT_LENGTH` (500, für Fütterung und Besonderheiten),
+       `validateCoralProfile`; `checkCoralText` nimmt die Höchstlänge jetzt als Parameter entgegen.
 
 ## Fertig, wenn
 
-- [ ] `updateCoralProfile` ändert nachweislich keine anderen Spalten (nur Steckbrief-Felder im Update-Objekt)
-- [ ] Zu jedem Enum-Wert gibt es eine deutsche Beschriftung, TypeScript meldet fehlende Werte
-- [ ] Kein `any`, keine handgeschriebenen Tabellentypen
-- [ ] `npm run build`, `npm run lint`, `npm run format` ohne Fehler
+- [x] `updateCoralProfile` ändert nachweislich keine anderen Spalten (nur Steckbrief-Felder im Update-Objekt)
+- [x] Zu jedem Enum-Wert gibt es eine deutsche Beschriftung, TypeScript meldet fehlende Werte
+- [x] Kein `any`, keine handgeschriebenen Tabellentypen
+- [x] `npm run build`, `npm run lint`, `npm run format` ohne Fehler
 
 ## Hinweise
 
-- Keine Migration: UPDATE-Policy auf `koralle` besteht seit MS-3 („Steckbrief, Status").
+- Eine Migration war ursprünglich nicht vorgesehen. Die Entscheidung für eine eigene Spalte `besonderheiten`
+  (23.09.2026) hat eine nötig gemacht – siehe Schritt 0 und ER-Modell, Festlegung 16.
+  Unverändert gilt: für den Steckbrief selbst ist keine Policy-Änderung nötig, die UPDATE-Policy auf `koralle`
+  besteht seit MS-3 („Steckbrief, Status").
 - Icons zu den Steckbriefwerten und die Legende (FR-2.3) kommen mit MS-9 – hier nur Text.
 - Ein Steckbrief-Update erzeugt **keinen** Historieneintrag (FR-3.4 nennt nur Anlage, Status, Becken, Ableger,
   Abgabe). Der Trigger aus TASK-06-01 reagiert nur auf `status`.
