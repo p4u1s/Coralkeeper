@@ -21,6 +21,7 @@ import { CoralProfileEditPage } from "@/pages/CoralProfileEditPage.tsx";
 
 // Pfade nach Requirements v2.2, Abschnitt 7 (FR-6.3)
 // Nicht in Abschnitt 7 enthalten. Festgelegt in TASK-04-01: /diary, /becken/:id/bearbeiten
+// Festgelegt in TASK-06-05: /koralle/:id/steckbrief
 
 const router = createBrowserRouter(
   [
