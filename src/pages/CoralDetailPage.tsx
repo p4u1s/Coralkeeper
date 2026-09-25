@@ -1,12 +1,12 @@
 import type { ReactNode } from "react";
 import { Link, useParams, useSearchParams } from "react-router";
-import { ArrowLeft } from "lucide-react";
 import { buttonVariants } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { CoralProfile } from "@/components/CoralProfile.tsx";
 import { useCoral } from "@/hooks/useCoral.ts";
 import { useTank } from "@/hooks/useTank.ts";
 import { formatDate } from "@/lib/format.ts";
+import { ArrowLeft, Pencil } from "lucide-react";
 
 // Stammdaten der Koralle mit den Tabs Steckbrief und Historie (FR-2.1, FR-6.4)
 
@@ -108,8 +108,18 @@ export function CoralDetailPage() {
               <TabsTrigger value="steckbrief">Steckbrief</TabsTrigger>
               <TabsTrigger value="historie">Historie</TabsTrigger>
             </TabsList>
-            <TabsContent value="steckbrief">
+            <TabsContent value="steckbrief" className="flex flex-col gap-4">
               <CoralProfile coral={coral} />
+              <Link
+                to={`/koralle/${coral.id}/steckbrief`}
+                className={buttonVariants({
+                  variant: "secondary",
+                  className: "w-full",
+                })}
+              >
+                <Pencil aria-hidden="true" />
+                Steckbrief bearbeiten
+              </Link>
             </TabsContent>
             <TabsContent value="historie">
               <p className="text-muted-foreground">
