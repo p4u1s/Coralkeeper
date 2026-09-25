@@ -1,4 +1,4 @@
-// Korallen anlegen und lesen (FR-1.2, FR-1.14)
+// Korallen anlegen, lesen und Steckbrief befüllen(FR-1.2, FR-1.14)
 
 import type { Tables } from "@/types/database.types.ts";
 import { supabase } from "@/services/supabase.ts";
@@ -44,6 +44,24 @@ export async function listCorals(): Promise<Coral[]> {
     throw new Error("Korallen konnten nicht geladen werden.", {
       cause: error,
     });
+  }
+  return data;
+}
+
+// null, wenn die Koralle nicht existiert oder einem anderen Nutzer gehört (RLS)
+export async function getCoral(id: string): Promise<Coral | null> {
+  const { data, error } = await supabase
+    .from("koralle")
+    .select("*")
+    .eq("id", id)
+    .maybeSingle();
+
+  // 22P02: keine gültige UUID in der URL – wird zu „nicht gefunden“
+  if (error?.code === "22P02") {
+    return null;
+  }
+  if (error) {
+    throw new Error("Koralle konnte nicht geladen werden.", { cause: error });
   }
   return data;
 }

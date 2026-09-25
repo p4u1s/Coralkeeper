@@ -51,3 +51,7 @@ Komponente `FormField` (Label, Eingabefeld, `aria-invalid`/`aria-describedby`, F
 **Nur bei verbleibender Zeit** (vorgemerkt 21.09.2026 in TASK-04-07): Unbekannte Pfade (z. B. `/becken/abc/123`) leiten
 still auf den Bestand um (Catch-all aus TASK-03-09). Ggf. eigene Seite „Seite nicht gefunden“ oder Umleitung je Bereich
 (`/becken/*` → `/becken`).
+
+**Nur bei verbleibender Zeit** (vorgemerkt 25.09.2026 in TASK-06-04): Anordnung der Kacheln auf der Korallendetailseite
+überdenken – das zweispaltige Raster aus Stammdaten und acht Steckbrieffeldern (`CoralProfile`) wirkt überladen.
+Denkbar wären weniger Kacheln, eine einspaltige Liste oder eine Gruppierung der Steckbriefwerte.

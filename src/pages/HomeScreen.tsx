@@ -98,20 +98,25 @@ function CoralCard({ coral, tankName }: { coral: Coral; tankName?: string }) {
   const details = [coral.art, coral.handelsname].filter(Boolean).join(" · ");
 
   return (
-    <li className="flex flex-col gap-1 rounded-xl border border-border bg-card p-4">
-      <span className="text-h2 font-semibold wrap-break-word">
-        {coral.bezeichnung}
-      </span>
-      {details && (
-        <span className="text-label wrap-break-word text-muted-foreground">
-          {details}
+    <li>
+      <Link
+        to={`/koralle/${coral.id}`}
+        className="flex min-h-11 flex-col gap-1 rounded-xl border border-border bg-card p-4 outline-none focus-visible:ring-[3px] focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
+      >
+        <span className="text-h2 font-semibold wrap-break-word">
+          {coral.bezeichnung}
         </span>
-      )}
-      {tankName && (
-        <span className="text-caption wrap-break-word text-muted-foreground">
-          {tankName}
-        </span>
-      )}
+        {details && (
+          <span className="text-label wrap-break-word text-muted-foreground">
+            {details}
+          </span>
+        )}
+        {tankName && (
+          <span className="text-caption wrap-break-word text-muted-foreground">
+            {tankName}
+          </span>
+        )}
+      </Link>
     </li>
   );
 }

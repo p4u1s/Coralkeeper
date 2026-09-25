@@ -20,11 +20,14 @@ Definition of Done).
   Werteliste `Constants`.
 - Auf `koralle` liegen seit TASK-06-01 (23.09.2026) die Trigger `bei_anlage_systemeintrag` und
   `bei_statuswechsel_systemeintrag`; Systemeinträge entstehen dort, nicht im Service.
-- shadcn `tabs` ist **nicht** installiert (vorhanden: button, input, label, textarea, alert-dialog).
+- shadcn `tabs` ist seit TASK-06-04 (23.09.2026) installiert (außerdem vorhanden: button, input, label,
+  textarea, alert-dialog, native-select).
 - Testnutzer A besitzt den Historieneintrag `aaaaaaaa-…-000000000005`.
 - **MS-5 ist seit dem 22.09.2026 umgesetzt.** Vorhanden sind `src/services/coral.ts`, `src/hooks/useCorals.ts`
   (Liste), `src/components/CoralForm.tsx`, `src/pages/CoralCreatePage.tsx` und `src/components/ui/native-select.tsx`.
   **Nicht** vorhanden und damit Teil von MS-6: ein Hook für die einzelne Koralle und `CoralDetailPage`.
+  Beides ist am 23.09.2026 TASK-06-04 zugeschlagen worden (dort Schritt 0) und am 24.09.2026 umgesetzt:
+  `getCoral`, `useCoral`, `CoralDetailPage`, Route `/koralle/:id` und die verlinkten Bestandskarten.
 
 ---
 
@@ -89,9 +92,9 @@ Diese Punkte sind in den Quelldokumenten nicht festgelegt oder widersprechen sic
 | 5   | Sortierung der Historie – schon jetzt absteigend (FR-3.2 gehört eigentlich zu MS-10)?               | TASK-06-02 | entschieden: absteigend, neuester oben         |
 | 6   | Steckbrief-Felder: Wuchsform als Liste oder Freitext, „Besonderheiten" ohne Spalte, Schutzstatus?   | TASK-06-03 | entschieden: acht Felder, siehe TASK-06-03     |
 | 7   | Steckbrief schon im Formular „Koralle anlegen" oder nur auf der Detailseite?                        | TASK-06-03 | entschieden: nur Detailseite                   |
-| 8   | Aktiver Tab als lokaler Zustand oder als URL-Parameter?                                             | TASK-06-04 | offen                                          |
-| 9   | Aussehen der Tabs (design.md kennt keine Tabs)                                                      | TASK-06-04 | offen                                          |
-| 10  | Steckbrief bearbeiten: eigene Formularseite oder direkt im Tab? Pfad?                               | TASK-06-05 | offen                                          |
+| 8   | Aktiver Tab als lokaler Zustand oder als URL-Parameter?                                             | TASK-06-04 | entschieden: URL-Parameter `?tab=`             |
+| 9   | Aussehen der Tabs (design.md kennt keine Tabs)                                                      | TASK-06-04 | entschieden: Chipzeile wie die Filterchips     |
+| 10  | Steckbrief bearbeiten: eigene Formularseite oder direkt im Tab? Pfad?                               | TASK-06-05 | entschieden: eigene Seite `/koralle/:id/steckbrief` |
 | 11  | Journaleintrag: eigene Formularseite oder direkt im Tab? Pfad?                                      | TASK-06-07 | offen                                          |
 | 12  | Validierung Journaleintrag: Zukunftsdatum erlaubt? Höchstlänge Text?                                | TASK-06-07 | offen                                          |
 | 13  | Hinweis auf Unveränderlichkeit vor dem Speichern: Text im Formular oder Bestätigungsdialog?         | TASK-06-07 | offen                                          |

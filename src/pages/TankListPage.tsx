@@ -71,7 +71,7 @@ function TankCard({ tank }: { tank: Tank }) {
   return (
     <Link
       to={`/becken/${tank.id}`}
-      className="flex min-h-11 flex-col gap-1 rounded-xl border border-border bg-card p-4"
+      className="flex min-h-11 flex-col gap-1 rounded-xl border border-border bg-card p-4 outline-none focus-visible:ring-[3px] focus-visible:ring-ring focus-visible:ring-offset-2 focus-visible:ring-offset-background"
     >
       <span className="text-h2 font-semibold wrap-break-word">{tank.name}</span>
       {details && (

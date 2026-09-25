@@ -16,6 +16,7 @@ import { TankEditPage } from "@/pages/TankEditPage.tsx";
 import { AppLayout } from "@/components/AppLayout.tsx";
 import { TankCreatePage } from "@/pages/TankCreatePage.tsx";
 import { CoralCreatePage } from "@/pages/CoralCreatePage.tsx";
+import { CoralDetailPage } from "@/pages/CoralDetailPage.tsx";
 
 // Pfade nach Requirements v2.2, Abschnitt 7 (FR-6.3)
 // Nicht in Abschnitt 7 enthalten. Festgelegt in TASK-04-01: /diary, /becken/:id/bearbeiten
@@ -38,6 +39,7 @@ const router = createBrowserRouter(
             { path: "/", element: <HomeScreen /> },
             { path: "/becken", element: <TankListPage /> },
             { path: "/becken/:id", element: <TankDetailPage /> },
+            { path: "/koralle/:id", element: <CoralDetailPage /> },
             { path: "/diary", element: <DiaryPage /> },
             { path: "/profil", element: <ProfilePage /> },
           ],
