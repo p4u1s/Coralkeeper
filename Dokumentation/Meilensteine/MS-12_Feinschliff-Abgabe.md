@@ -55,3 +55,7 @@ still auf den Bestand um (Catch-all aus TASK-03-09). Ggf. eigene Seite „Seite 
 **Nur bei verbleibender Zeit** (vorgemerkt 25.09.2026 in TASK-06-04): Anordnung der Kacheln auf der Korallendetailseite
 überdenken – das zweispaltige Raster aus Stammdaten und acht Steckbrieffeldern (`CoralProfile`) wirkt überladen.
 Denkbar wären weniger Kacheln, eine einspaltige Liste oder eine Gruppierung der Steckbriefwerte.
+
+**Nur bei verbleibender Zeit** (vorgemerkt 28.09.2026 in TASK-07-01): Beim Abschluss eines Inserats (FR-4.7) die Koralle
+in den Bestand des Interessenten übernehmen, Erwerbsdatum = Tag der Übergabe. Voraussetzungen und Hürden stehen im
+Vermerk in MS-11. Setzt voraus, dass MS-11 umgesetzt ist.

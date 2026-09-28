@@ -71,6 +71,8 @@ nicht auf `becken`, `koralle`, `messwert`, `becken_ereignis`, `bild_dokument` un
 
 ## C · Ableger-Snapshot (Entscheidung 5)
 
+> **Entschieden in TASK-07-01 (28.09.2026)**, festgehalten als Festlegung 17 im ER-Modell.
+
 Beim Anlegen eines Ablegers werden Art, Morphe, Steckbrief und Herkunftskette **kopiert, nicht referenziert** (Grundsatz 4, FR-1.7, FR-3.6).
 Da Steckbrief und Herkunft in `koralle` eingebettet sind (Festlegung 3), heißt das: Spalten kopieren. Offen ist, **wo** das passiert,
 **welche** Spalten es genau sind und **wie** die Herkunftskette aussieht. Umgesetzt wird es in MS-7.
