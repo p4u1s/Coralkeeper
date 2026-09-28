@@ -6,7 +6,7 @@ import { CoralProfile } from "@/components/CoralProfile.tsx";
 import { useCoral } from "@/hooks/useCoral.ts";
 import { useTank } from "@/hooks/useTank.ts";
 import { formatDate } from "@/lib/format.ts";
-import { ArrowLeft, Pencil } from "lucide-react";
+import { ArrowLeft, Pencil, Plus } from "lucide-react";
 import { CoralHistory } from "@/components/CoralHistory.tsx";
 
 // Stammdaten der Koralle mit den Tabs Steckbrief und Historie (FR-2.1, FR-6.4)
@@ -122,7 +122,16 @@ export function CoralDetailPage() {
                 Steckbrief bearbeiten
               </Link>
             </TabsContent>
-            <TabsContent value="historie">
+            <TabsContent value="historie" className="flex flex-col gap-4">
+              {/* Über der Liste, damit der Button bei vielen Einträgen
+                  ohne Scrollen erreichbar bleibt */}
+              <Link
+                to={`/koralle/${coral.id}/journal/neu`}
+                className={buttonVariants({ className: "w-full" })}
+              >
+                <Plus aria-hidden="true" />
+                Journaleintrag hinzufügen
+              </Link>
               <CoralHistory coralId={coral.id} />
             </TabsContent>
           </Tabs>
