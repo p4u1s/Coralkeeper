@@ -95,9 +95,9 @@ Diese Punkte sind in den Quelldokumenten nicht festgelegt oder widersprechen sic
 | 8   | Aktiver Tab als lokaler Zustand oder als URL-Parameter?                                             | TASK-06-04 | entschieden: URL-Parameter `?tab=`             |
 | 9   | Aussehen der Tabs (design.md kennt keine Tabs)                                                      | TASK-06-04 | entschieden: Chipzeile wie die Filterchips; am 28.09.2026 geändert: durchgehende Leiste wie shadcn-Standard, Farben wie bisher |
 | 10  | Steckbrief bearbeiten: eigene Formularseite oder direkt im Tab? Pfad?                               | TASK-06-05 | entschieden: eigene Seite `/koralle/:id/steckbrief` |
-| 11  | Journaleintrag: eigene Formularseite oder direkt im Tab? Pfad?                                      | TASK-06-07 | offen                                          |
-| 12  | Validierung Journaleintrag: Zukunftsdatum erlaubt? Höchstlänge Text?                                | TASK-06-07 | offen                                          |
-| 13  | Hinweis auf Unveränderlichkeit vor dem Speichern: Text im Formular oder Bestätigungsdialog?         | TASK-06-07 | offen                                          |
+| 11  | Journaleintrag: eigene Formularseite oder direkt im Tab? Pfad?                                      | TASK-06-07 | entschieden: eigene Seite `/koralle/:id/journal/neu` |
+| 12  | Validierung Journaleintrag: Zukunftsdatum erlaubt? Höchstlänge Text?                                | TASK-06-07 | entschieden: Zukunftsdatum erlaubt, Text Pflicht, max. 1.000 Zeichen (zuerst 2.000, am 28.09.2026 geändert) |
+| 13  | Hinweis auf Unveränderlichkeit vor dem Speichern: Text im Formular oder Bestätigungsdialog?         | TASK-06-07 | entschieden: Text über dem Speichern-Button    |
 
 **Anmerkung zu Nr. 1 (23.09.2026, gilt für MS-9):** Der Trigger schreibt als Datum immer den Tag der Änderung.
 FR-1.9 nennt beim Statuswechsel „Datum und optionale Notiz"; der Satz ist mehrdeutig. Festgelegt ist die einfache
