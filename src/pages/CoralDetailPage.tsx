@@ -7,6 +7,7 @@ import { useCoral } from "@/hooks/useCoral.ts";
 import { useTank } from "@/hooks/useTank.ts";
 import { formatDate } from "@/lib/format.ts";
 import { ArrowLeft, Pencil } from "lucide-react";
+import { CoralHistory } from "@/components/CoralHistory.tsx";
 
 // Stammdaten der Koralle mit den Tabs Steckbrief und Historie (FR-2.1, FR-6.4)
 
@@ -122,9 +123,7 @@ export function CoralDetailPage() {
               </Link>
             </TabsContent>
             <TabsContent value="historie">
-              <p className="text-muted-foreground">
-                Die Historie folgt in Kürze.
-              </p>
+              <CoralHistory coralId={coral.id} />
             </TabsContent>
           </Tabs>
         </>

@@ -22,6 +22,7 @@ in TASK-06-06 gefüllt.
 - [x] **Aussehen.** design.md beschreibt keine Tabs. → am 23.09.2026 entschieden: shadcn `tabs`, gestaltet wie
       die Filterchips aus design.md Abschnitt 4 (aktiv: Akzentfläche, inaktiv: Fläche mit Rahmen, Höhe min. 44).
       Ein Unterstrich-Tab wäre eine Form, die das Designsystem sonst nirgends verwendet.
+      → Am 28.09.2026 geändert: durchgehende Leiste wie shadcn-Standard, Farben wie bisher (README Nr. 9).
 
 ## Schritte
 

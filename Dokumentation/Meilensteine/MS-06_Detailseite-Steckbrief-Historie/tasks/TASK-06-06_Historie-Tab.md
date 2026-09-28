@@ -1,6 +1,6 @@
 # TASK-06-06 · Historie-Tab
 
-**Status:** offen
+**Status:** erledigt (28.09.2026)
 **Bezug:** FR-3.4 (Systemeinträge sichtbar), FR-3.3 (keine Bearbeiten- oder Löschen-Aktion), FR-6.4 (Lade-, Leer- und
 Fehlerzustand), NFR-1.4, Definition of Done MS-6
 **Voraussetzung:** TASK-06-04
@@ -26,24 +26,24 @@ Damit wird die Definition of Done sichtbar: Die Anlage der Koralle steht als Sys
 
 ## Schritte
 
-1. [ ] **Eigene Komponente**, z. B. `src/components/CoralHistory.tsx`, mit `useHistory(coralId)` aus TASK-06-02:
+1. [x] **Eigene Komponente**, z. B. `src/components/CoralHistory.tsx`, mit `useHistory(coralId)` aus TASK-06-02:
    - `loading` → „Wird geladen …"
    - `error` → Meldung mit `role="alert"` und „Erneut versuchen"
    - leer → Text nach Entscheidung
    - Einträge → Liste in der Sortierung des Service
-2. [ ] **Typ-Beschriftung** („System", „Journal", vorsorglich „Abgabe") in `src/lib/labels.ts` aus TASK-06-03.
-3. [ ] **Datum** über `formatDate` aus `src/lib/format.ts`.
-4. [ ] Platzhalter aus TASK-06-04 durch die Komponente ersetzen.
-5. [ ] **Keine** Bearbeiten- oder Löschen-Aktion am Eintrag, auch kein Wischen oder Langdruck (FR-3.3).
+2. [x] **Typ-Beschriftung** („System", „Journal", vorsorglich „Abgabe") in `src/lib/labels.ts` aus TASK-06-03.
+3. [x] **Datum** über `formatDate` aus `src/lib/format.ts`.
+4. [x] Platzhalter aus TASK-06-04 durch die Komponente ersetzen.
+5. [x] **Keine** Bearbeiten- oder Löschen-Aktion am Eintrag, auch kein Wischen oder Langdruck (FR-3.3).
 
 ## Fertig, wenn
 
-- [ ] Eine nach TASK-06-01 neu angelegte Koralle zeigt „Koralle angelegt" als Systemeintrag (**Definition of Done**)
-- [ ] Lade-, Leer- und Fehlerzustand sind sichtbar (FR-6.4) – Fehler z. B. mit abgeschalteter Verbindung prüfen
-- [ ] Datum im Format `TT.MM.JJJJ`, Typ als Text erkennbar
-- [ ] Kein Eintrag bietet eine Aktion zum Ändern oder Löschen
-- [ ] Bei 360 px bricht langer Text um, kein waagerechtes Scrollen
-- [ ] `npm run build`, `npm run lint`, `npm run format` ohne Fehler
+- [x] Eine nach TASK-06-01 neu angelegte Koralle zeigt „Koralle angelegt" als Systemeintrag (**Definition of Done**)
+- [x] Lade-, Leer- und Fehlerzustand sind sichtbar (FR-6.4) – Fehler z. B. mit abgeschalteter Verbindung prüfen
+- [x] Datum im Format `TT.MM.JJJJ`, Typ als Text erkennbar
+- [x] Kein Eintrag bietet eine Aktion zum Ändern oder Löschen
+- [x] Bei 360 px bricht langer Text um, kein waagerechtes Scrollen
+- [x] `npm run build`, `npm run lint`, `npm run format` ohne Fehler
 
 ## Hinweise
 

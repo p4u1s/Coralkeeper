@@ -23,6 +23,12 @@ export const PLACEMENT_LABELS: Record<Enums<"platzierung">, string> = {
   oben: "Oben",
 };
 
+export const HISTORY_TYPE_LABELS: Record<Enums<"historie_typ">, string> = {
+  system: "System",
+  journal: "Journal",
+  abgabe: "Abgabe",
+};
+
 export const CORAL_PROFILE_LABELS = {
   licht: "Lichtbedarf",
   stroemung: "Strömung",
