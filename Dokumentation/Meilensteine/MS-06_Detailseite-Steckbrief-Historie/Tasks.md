@@ -8,4 +8,4 @@
 - [x] **TASK-06-06** Historie-Tab mit Lade-, Leer- und Fehlerzustand.
 - [x] **TASK-06-07** Manuellen Journaleintrag mit Datum und Freitext anlegen.
 - [x] **TASK-06-08** Nachweis: Historieneinträge sind weder bearbeitbar noch löschbar.
-- [ ] **TASK-06-09** Responsive prüfen, deployen und am deployten Stand abnehmen.
+- [x] **TASK-06-09** Responsive prüfen, deployen und am deployten Stand abnehmen.
