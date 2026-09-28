@@ -17,6 +17,9 @@ export const MAX_CORAL_TEXT_LENGTH = 100;
 export const MAX_GROWTH_FORM_LENGTH = 100;
 export const MAX_PROFILE_TEXT_LENGTH = 500;
 
+// Journaleintrag: Freitext für Beobachtungen (FR-3.5)
+export const MAX_JOURNAL_TEXT_LENGTH = 2_000;
+
 // Nur ganze Zahlen erlaubt: schließt "abc", "-5", "2,5" und "1.320" aus
 const WHOLE_NUMBER_PATTERN = /^\d+$/;
 
@@ -47,6 +50,11 @@ export type CoralProfileErrors = {
   growthForm?: string;
   feeding?: string;
   notes?: string;
+};
+
+export type JournalEntryErrors = {
+  date?: string;
+  text?: string;
 };
 
 export function validateLogin(email: string, password: string): LoginErrors {
@@ -193,6 +201,20 @@ export function validateCoralProfile(
   };
 }
 
+// Zukunftsdatum erlaubt (Entscheidung 28.09.2026, TASK-06-07)
+export function validateJournalEntry(
+  date: string,
+  text: string
+): JournalEntryErrors {
+  return {
+    date: date === "" ? "Bitte ein Datum eingeben." : undefined,
+    text:
+      text.trim() === ""
+        ? "Bitte einen Text eingeben."
+        : checkCoralText(text, "Der Text", MAX_JOURNAL_TEXT_LENGTH),
+  };
+}
+
 // Label mit Artikel, weil die Felder unterschiedliche Geschlechter haben
 function checkCoralText(
   value: string,
@@ -206,7 +228,7 @@ function checkCoralText(
 }
 
 // Heutiges Datum in lokaler Zeit als JJJJ-MM-TT
-function todayIso(): string {
+export function todayIso(): string {
   const now = new Date();
   const month = String(now.getMonth() + 1).padStart(2, "0");
   const day = String(now.getDate()).padStart(2, "0");
