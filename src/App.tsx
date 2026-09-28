@@ -18,10 +18,12 @@ import { TankCreatePage } from "@/pages/TankCreatePage.tsx";
 import { CoralCreatePage } from "@/pages/CoralCreatePage.tsx";
 import { CoralDetailPage } from "@/pages/CoralDetailPage.tsx";
 import { CoralProfileEditPage } from "@/pages/CoralProfileEditPage.tsx";
+import { JournalEntryCreatePage } from "@/pages/JournalEntryCreatePage.tsx";
 
 // Pfade nach Requirements v2.2, Abschnitt 7 (FR-6.3)
 // Nicht in Abschnitt 7 enthalten. Festgelegt in TASK-04-01: /diary, /becken/:id/bearbeiten
 // Festgelegt in TASK-06-05: /koralle/:id/steckbrief
+// Festgelegt in TASK-06-07: /koralle/:id/journal/neu
 
 const router = createBrowserRouter(
   [
@@ -49,6 +51,11 @@ const router = createBrowserRouter(
         // Formulare ohne Bottom-Navigation (design.md, Abschnitt 4)
         { path: "/becken/:id/bearbeiten", element: <TankEditPage /> },
         { path: "/koralle/:id/steckbrief", element: <CoralProfileEditPage /> },
+        {
+          path: "/koralle/:id/journal/neu",
+          element: <JournalEntryCreatePage />,
+        },
+
         { path: "/becken/neu", element: <TankCreatePage /> },
         { path: "/koralle/neu", element: <CoralCreatePage /> },
       ],
