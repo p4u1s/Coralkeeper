@@ -46,3 +46,7 @@ Diese Anforderungen sind Teil der Definition of Done von MS-9 und werden nicht a
 
 **Aus MS-5 übernommen (22.09.2026):** Anzahl der Korallen unter dem Titel „Bestand“ wie im Mockup (dort mit Filter:
 „x von y Korallen · n Becken“). In MS-5 bewusst weggelassen, siehe TASK-05-04.
+
+**Aus MS-10 vorgezogen (25.09.2026):** Systemeintrag beim Beckenwechsel einer Koralle (FR-1.11, Teil von FR-3.4).
+Mit FR-1.10 lässt sich das Becken einer Koralle ändern; ohne den Eintrag entstünde ab MS-9 eine Lücke in der
+Historie. Naheliegend ist ein Trigger auf `koralle` nach dem Muster von `bei_statuswechsel_systemeintrag` (TASK-06-01).

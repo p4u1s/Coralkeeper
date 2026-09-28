@@ -14,11 +14,15 @@ Damit wird die Definition of Done sichtbar: Die Anlage der Koralle steht als Sys
 
 ## Vor dem Start klären
 
-- [ ] **Darstellung eines Eintrags.** Vorschlag nach dem Diary-Eintrag im Mockup: Karte mit Typ-Chip („System" bzw.
+- [x] **Darstellung eines Eintrags.** Vorschlag nach dem Diary-Eintrag im Mockup: Karte mit Typ-Chip („System" bzw.
       „Journal"), daneben das Datum `TT.MM.JJJJ`, darunter der Text. Symbole im Chip nur zusammen mit dem Text
-      (design.md, Diary-Typ-Chip); ohne passendes Symbol reicht der Text. → Festlegen.
-- [ ] **Leerzustand.** Tritt nur bei Korallen ohne Systemeintrag auf (Testdaten, Korallen aus MS-5). Vorschlag:
-      „Noch keine Einträge." → Festlegen.
+      (design.md, Diary-Typ-Chip); ohne passendes Symbol reicht der Text. → am 28.09.2026 entschieden: Optik der
+      Diary-Eintragskarte aus dem Mockup (Karte `bg-card`, Rahmen, `rounded-xl`, `p-3`). Oben ein **Typ-Etikett** im
+      Stil des Diary-Typ-Chips, **ohne Symbol**, nur Text („System", „Journal", „Abgabe"); die Diary-Symbole gehören
+      zu den Diary-Typen, nicht zur Historie. Daneben das Datum an der Stelle des Diary-Bezugs, darunter der Text.
+      Ist `text` leer (`null`), entfällt die Textzeile.
+- [x] **Leerzustand.** Tritt nur bei Korallen ohne Systemeintrag auf (Testdaten, Korallen aus MS-5). Vorschlag:
+      „Noch keine Einträge." → am 28.09.2026 entschieden: „Noch keine Einträge."
 
 ## Schritte
 

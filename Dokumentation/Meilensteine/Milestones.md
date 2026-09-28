@@ -205,13 +205,17 @@ Dieses Gate ist gleichzeitig der ehrliche Abbruchpunkt: Wird die Zeit knapp, ist
 
 **Umfang:** Kachelansicht mit Primärbild (FR-1.3); Filter nach Becken, Art, Status und Sortierung (FR-1.4); Suche (FR-1.5); Detailansicht vervollständigen (FR-1.6); Statuswechsel mit Datum und Notiz, erzeugt Historieneintrag (FR-1.9); Koralle bearbeiten und löschen, Ableger bleiben erhalten (FR-1.10); Steckbriefwerte als Icons mit Textlabel und Legende, „keine Angabe" für leere Felder (FR-2.3); Schutzstatus mit Hinweis auf Eigenangabe (FR-2.4); Bild-Upload, unkomprimiert, max. 5 MB (NFR-2.5); Profil ansehen und bearbeiten (FR-6.8).
 
+**Aus MS-10 vorgezogen (25.09.2026):** Systemeintrag beim Beckenwechsel einer Koralle (FR-1.11, Teil von FR-3.4).
+Mit FR-1.10 lässt sich das Becken einer Koralle ändern; ohne den Eintrag entstünde ab MS-9 eine Lücke in der
+Historie. Naheliegend ist ein Trigger auf `koralle` nach dem Muster von `bei_statuswechsel_systemeintrag` (TASK-06-01).
+
 ---
 
 ### MS-10 · Herkunft, Historie & Diary-Ausbau
 
 **Umfang (Must):** Herkunftsdaten je Koralle (FR-3.1); Historienansicht chronologisch absteigend (FR-3.2); Abgabevorgang erfassen (FR-3.7); Verlaufsdiagramm je Parameter mit wählbarem Zeitraum (FR-5.2).
 
-**Wenn Zeit bleibt (Should):** Belegdokumente (FR-3.8), Historienfilter (FR-3.9), Umsetzen zwischen Becken protokollieren (FR-1.11), Wachstumsgalerie (FR-1.12), Fütterung und Düngung (FR-5.5), Soll-Bereiche (FR-5.6), gemeinsamer Zeitstrahl (FR-5.7).
+**Wenn Zeit bleibt (Should):** Belegdokumente (FR-3.8), Historienfilter (FR-3.9), Wachstumsgalerie (FR-1.12), Fütterung und Düngung (FR-5.5), Soll-Bereiche (FR-5.6), gemeinsamer Zeitstrahl (FR-5.7). Umsetzen zwischen Becken protokollieren (FR-1.11) ist am 25.09.2026 nach MS-9 vorgezogen.
 
 ---
 

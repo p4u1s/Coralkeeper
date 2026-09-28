@@ -78,7 +78,7 @@ wird als deutsche Meldung geworfen. Test dann über die Oberfläche in TASK-06-0
 - TASK-05-01 nennt als Hinweis „`createCoral` wird dann erweitert" – bei Entscheidung (a) entfällt das.
 - Ableger (MS-7) sind ebenfalls ein INSERT auf `koralle` und bekommen dann „Koralle angelegt". Ob ein Ableger einen
   eigenen Wortlaut braucht (FR-3.4 „Ablegererzeugung"), wird in MS-7 entschieden – hier nicht vorwegnehmen.
-- Beckenwechsel und Abgabe aus FR-3.4 gehören zu MS-10 (FR-1.11, FR-3.7).
+- Abgabe aus FR-3.4 gehört zu MS-10 (FR-3.7), Beckenwechsel zu MS-9 (FR-1.11, am 25.09.2026 vorgezogen).
 
 ## Quellen
 

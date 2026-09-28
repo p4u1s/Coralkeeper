@@ -93,7 +93,7 @@ Diese Punkte sind in den Quelldokumenten nicht festgelegt oder widersprechen sic
 | 6   | Steckbrief-Felder: Wuchsform als Liste oder Freitext, „Besonderheiten" ohne Spalte, Schutzstatus?   | TASK-06-03 | entschieden: acht Felder, siehe TASK-06-03     |
 | 7   | Steckbrief schon im Formular „Koralle anlegen" oder nur auf der Detailseite?                        | TASK-06-03 | entschieden: nur Detailseite                   |
 | 8   | Aktiver Tab als lokaler Zustand oder als URL-Parameter?                                             | TASK-06-04 | entschieden: URL-Parameter `?tab=`             |
-| 9   | Aussehen der Tabs (design.md kennt keine Tabs)                                                      | TASK-06-04 | entschieden: Chipzeile wie die Filterchips     |
+| 9   | Aussehen der Tabs (design.md kennt keine Tabs)                                                      | TASK-06-04 | entschieden: Chipzeile wie die Filterchips; am 28.09.2026 geändert: durchgehende Leiste wie shadcn-Standard, Farben wie bisher |
 | 10  | Steckbrief bearbeiten: eigene Formularseite oder direkt im Tab? Pfad?                               | TASK-06-05 | entschieden: eigene Seite `/koralle/:id/steckbrief` |
 | 11  | Journaleintrag: eigene Formularseite oder direkt im Tab? Pfad?                                      | TASK-06-07 | offen                                          |
 | 12  | Validierung Journaleintrag: Zukunftsdatum erlaubt? Höchstlänge Text?                                | TASK-06-07 | offen                                          |
