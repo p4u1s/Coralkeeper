@@ -95,6 +95,18 @@ export function CoralDetailPage() {
             </DetailEntry>
           </dl>
 
+          {/* Bei jedem Status sichtbar; abgegeben/verendet erst ab MS-9 prüfen */}
+          <Link
+            to={`/koralle/${coral.id}/ableger/neu`}
+            className={buttonVariants({
+              variant: "secondary",
+              className: "w-full",
+            })}
+          >
+            <Plus aria-hidden="true" />
+            Ableger erzeugen
+          </Link>
+
           <Tabs
             className="gap-4"
             value={activeTab}
