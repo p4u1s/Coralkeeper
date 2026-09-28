@@ -1,7 +1,9 @@
-// Korallen anlegen, lesen und Steckbrief befüllen(FR-1.2, FR-1.14)
+// Korallen und Ableger anlegen, lesen und Steckbrief befüllen(FR-1.2, FR-1.14 FR-1.7)
 
-import type { Tables } from "@/types/database.types.ts";
+import type { Tables, TablesInsert } from "@/types/database.types.ts";
 import { supabase } from "@/services/supabase.ts";
+import { buildOriginChain } from "@/lib/origin.ts";
+import { todayIso } from "@/lib/validation.ts";
 
 export type Coral = Tables<"koralle">;
 
@@ -22,6 +24,9 @@ export type CoralProfileInput = Pick<
   | "fuetterung"
   | "besonderheiten"
 >;
+
+// Eingaben aus dem Ableger-Formular (FR-1.7). Alles andere kommt aus der Ursprungskoralle
+export type FragInput = Pick<Coral, "bezeichnung" | "becken_id">;
 
 // Leere Felder mit NULL vorbelegen
 function toRow(input: CoralInput): CoralInput {
@@ -84,6 +89,67 @@ export async function createCoral(input: CoralInput): Promise<Coral> {
 
   if (error) {
     throw new Error("Koralle konnte nicht angelegt werden.", { cause: error });
+  }
+  return data;
+}
+
+// Snapshot der Ursprungskoralle nach Festlegung 17 – alle Spalten an einer Stelle.
+// Nicht im Insert: primaerbild, quelle_name, belegnummer, cites_nr, herkunft_notiz.
+// status setzt die Datenbank selbst auf im_bestand
+function toFragRow(
+  mother: Coral,
+  input: FragInput
+): Omit<TablesInsert<"koralle">, "nutzer_id"> {
+  const today = todayIso();
+
+  return {
+    // aus dem Formular
+    bezeichnung: input.bezeichnung.trim(),
+    becken_id: input.becken_id,
+    // kopiert
+    art: mother.art,
+    handelsname: mother.handelsname,
+    licht: mother.licht,
+    stroemung: mother.stroemung,
+    platzierung: mother.platzierung,
+    nesselkraft: mother.nesselkraft,
+    wuchsform: mother.wuchsform,
+    schwierigkeit: mother.schwierigkeit,
+    fuetterung: mother.fuetterung,
+    besonderheiten: mother.besonderheiten,
+    schutzstatus: mother.schutzstatus,
+    // neu gesetzt
+    mutter_id: mother.id,
+    erwerbsdatum: today,
+    quelle_typ: "eigene_nachzucht",
+    herkunftskette: buildOriginChain(mother, today),
+  };
+}
+
+// Die Systemeinträge bei Ableger und Ursprungskoralle schreibt der Trigger (Festlegung 15)
+export async function createFrag(
+  mother: Coral,
+  input: FragInput
+): Promise<Coral> {
+  // getSession statt getUser, Begründung siehe createTank
+  const { data: sessionData, error: sessionError } =
+    await supabase.auth.getSession();
+
+  if (sessionError || !sessionData.session) {
+    throw new Error("Nicht angemeldet.", { cause: sessionError });
+  }
+
+  const { data, error } = await supabase
+    .from("koralle")
+    .insert({
+      ...toFragRow(mother, input),
+      nutzer_id: sessionData.session.user.id,
+    })
+    .select()
+    .single();
+
+  if (error) {
+    throw new Error("Ableger konnte nicht angelegt werden.", { cause: error });
   }
   return data;
 }

@@ -34,14 +34,14 @@ mit den kopierten Daten der Ursprungskoralle, der danach im Bestand steht.
 
 1. [ ] **Route** in `src/App.tsx` **außerhalb** von `AppLayout` eintragen und im Kopfkommentar als
        „Festgelegt in TASK-07-03" ergänzen.
-2. [ ] **Seite**, z. B. `src/pages/OffshootCreatePage.tsx`: lädt die Ursprungskoralle mit `useCoral(id)` und die
+2. [ ] **Seite**, z. B. `src/pages/FragCreatePage.tsx`: lädt die Ursprungskoralle mit `useCoral(id)` und die
        Becken mit `useTanks()`; Lade-, Fehler- und Nicht-gefunden-Zustand nach Entscheidung (FR-6.4).
-3. [ ] **Formular** als eigene Komponente, z. B. `src/components/OffshootForm.tsx` (nicht in `components/ui/`):
+3. [ ] **Formular** als eigene Komponente, z. B. `src/components/FragForm.tsx` (nicht in `components/ui/`):
    - Bezeichnung \* und Becken \* (`NativeSelect`, vorbelegt mit dem Becken der Ursprungskoralle)
    - Label über dem Feld, `*` und Legende „\* Pflichtfeld" am Formularkopf
-   - Feldfehler aus `validateOffshoot` unter dem Feld, mit `aria-invalid` und `aria-describedby` wie in `CoralForm`
+   - Feldfehler aus `validateFrag` unter dem Feld, mit `aria-invalid` und `aria-describedby` wie in `CoralForm`
    - Hinweissatz nach Entscheidung
-4. [ ] **Speichern** über `createOffshoot(mother, input)`; Button während des Speicherns deaktiviert; Serverfehler als
+4. [ ] **Speichern** über `createFrag(mother, input)`; Button während des Speicherns deaktiviert; Serverfehler als
        deutsche Meldung mit `role="alert"`, Eingaben bleiben stehen.
 5. [ ] **Weiterleitung** nach Entscheidung.
 6. [ ] **Button „Ableger erzeugen"** auf der `CoralDetailPage` nach Entscheidung.

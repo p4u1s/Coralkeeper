@@ -57,6 +57,11 @@ export type JournalEntryErrors = {
   text?: string;
 };
 
+export type FragErrors = {
+  name?: string;
+  tankId?: string;
+};
+
 export function validateLogin(email: string, password: string): LoginErrors {
   return {
     email: checkEmail(email),
@@ -177,6 +182,18 @@ export function validateCoral(
     species: checkCoralText(species, "Die Art"),
     tradeName: checkCoralText(tradeName, "Der Handelsname"),
     acquisitionDate: checkNotInFuture(acquisitionDate, "Erwerbsdatum"),
+  };
+}
+
+// Gleiche Meldungen wie in validateCoral
+export function validateFrag(name: string, tankId: string): FragErrors {
+  return {
+    name:
+      name.trim() === ""
+        ? "Bitte eine Bezeichnung eingeben."
+        : checkCoralText(name, "Die Bezeichnung"),
+    // Die leere Option „Becken wählen" hat den Wert ""
+    tankId: tankId === "" ? "Bitte ein Becken wählen." : undefined,
   };
 }
 

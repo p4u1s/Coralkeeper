@@ -29,6 +29,12 @@ export const HISTORY_TYPE_LABELS: Record<Enums<"historie_typ">, string> = {
   abgabe: "Abgabe",
 };
 
+export const SOURCE_TYPE_LABELS: Record<Enums<"quelle_typ">, string> = {
+  haendler: "Händler",
+  privat: "Privat",
+  eigene_nachzucht: "Eigene Nachzucht",
+};
+
 export const CORAL_PROFILE_LABELS = {
   licht: "Lichtbedarf",
   stroemung: "Strömung",
