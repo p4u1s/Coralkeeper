@@ -7,5 +7,5 @@
 - [x] **TASK-06-05** Steckbrief anlegen und ändern (Formular).
 - [x] **TASK-06-06** Historie-Tab mit Lade-, Leer- und Fehlerzustand.
 - [x] **TASK-06-07** Manuellen Journaleintrag mit Datum und Freitext anlegen.
-- [ ] **TASK-06-08** Nachweis: Historieneinträge sind weder bearbeitbar noch löschbar.
+- [x] **TASK-06-08** Nachweis: Historieneinträge sind weder bearbeitbar noch löschbar.
 - [ ] **TASK-06-09** Responsive prüfen, deployen und am deployten Stand abnehmen.
