@@ -92,9 +92,9 @@ Diese Punkte sind in den Quelldokumenten nicht festgelegt oder widersprechen sic
 | 4   | „Unveränderlich" (FR-3.6) nur in der UI oder zusätzlich per Trigger?                                    | TASK-07-01 | entschieden: nur UI |
 | 5   | Systemeintrag Ablegererzeugung: Wortlaut, beim Ableger, bei der Ursprungskoralle oder bei beiden?       | TASK-07-01 | entschieden: bei beiden |
 | 6   | Herkunftskette schon in MS-7 anzeigen?                                                                  | TASK-07-01 | entschieden: nicht anzeigen, erst MS-10 |
-| 7   | Ableger-Formular: Pfad, Vorbelegung der Bezeichnung, Hinweis auf übernommene Daten                      | TASK-07-03 | offen |
-| 8   | Button „Ableger erzeugen": Ort auf der Detailseite, bei welchem Status sichtbar?                        | TASK-07-03 | offen |
-| 9   | Ziel nach dem Speichern: Detailseite des Ablegers oder der Ursprungskoralle?                            | TASK-07-03 | offen |
+| 7   | Ableger-Formular: Pfad, Vorbelegung der Bezeichnung, Hinweis auf übernommene Daten                      | TASK-07-03 | entschieden: siehe TASK-07-03 |
+| 8   | Button „Ableger erzeugen": Ort auf der Detailseite, bei welchem Status sichtbar?                        | TASK-07-03 | entschieden: unter den Stammdaten, jeder Status |
+| 9   | Ziel nach dem Speichern: Detailseite des Ablegers oder der Ursprungskoralle?                            | TASK-07-03 | entschieden: Detailseite des Ablegers |
 | 10  | Inserat und Status koppeln: Service, Trigger oder Datenbankfunktion?                                    | TASK-07-04 | offen |
 | 11  | Dateinamen für Inserat-Service und Hook                                                                 | TASK-07-05 | offen |
 | 12  | Welche Korallen dürfen inseriert werden – jede im Bestand oder nur Ableger (`mutter_id`)?               | TASK-07-06 | offen |
