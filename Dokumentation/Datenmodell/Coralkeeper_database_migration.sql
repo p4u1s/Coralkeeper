@@ -366,6 +366,7 @@ create policy "historieneintrag_insert_eigene"
 
 
 -- Systemeinträge (FR-3.4): ein Eintrag je Anlage und je echtem Statuswechsel.
+-- Beim Ableger (mutter_id gesetzt) zusätzlich ein Eintrag bei der Ursprungskoralle (Festlegung 17).
 -- Bewusst ohne security definer: der Eintrag entsteht mit den Rechten des angemeldeten
 -- Nutzers, die Policy historieneintrag_insert_eigene greift wie bei jedem anderen Eintrag.
 create function public.systemeintrag_anlegen()
@@ -375,9 +376,34 @@ set search_path = ''
 as $$
 declare
   eintrag_text text;
+  mutter_bezeichnung text;
+  -- current_date wäre das UTC-Datum: zwischen 0 und 2 Uhr deutscher Zeit stünde der Vortag im Eintrag
+  heute date := (now() at time zone 'Europe/Berlin')::date;
 begin
-  if tg_op = 'INSERT' then
+  if tg_op = 'INSERT' and new.mutter_id is null then
     eintrag_text := 'Koralle angelegt';
+
+  elsif tg_op = 'INSERT' then
+    -- ohne security definer greift RLS: eine fremde mutter_id liefert keine Zeile
+    select bezeichnung into mutter_bezeichnung
+      from public.koralle
+      where id = new.mutter_id;
+
+    if mutter_bezeichnung is null then
+      eintrag_text := 'Ableger angelegt';
+    else
+      eintrag_text := 'Ableger von „' || mutter_bezeichnung || '“ angelegt';
+
+      insert into public.historieneintrag (nutzer_id, koralle_id, datum, typ, text)
+      values (
+        new.nutzer_id,
+        new.mutter_id,
+        heute,
+        'system',
+        'Ableger „' || new.bezeichnung || '“ erzeugt'
+      );
+    end if;
+
   else
     eintrag_text := 'Status geändert: '
       || case old.status
@@ -395,15 +421,8 @@ begin
          end;
   end if;
 
-  -- current_date wäre das UTC-Datum: zwischen 0 und 2 Uhr deutscher Zeit stünde der Vortag im Eintrag
   insert into public.historieneintrag (nutzer_id, koralle_id, datum, typ, text)
-  values (
-    new.nutzer_id,
-    new.id,
-    (now() at time zone 'Europe/Berlin')::date,
-    'system',
-    eintrag_text
-  );
+  values (new.nutzer_id, new.id, heute, 'system', eintrag_text);
 
   return null;  -- after-Trigger: der Rückgabewert wird nicht ausgewertet
 end;
