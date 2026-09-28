@@ -18,7 +18,7 @@ export const MAX_GROWTH_FORM_LENGTH = 100;
 export const MAX_PROFILE_TEXT_LENGTH = 500;
 
 // Journaleintrag: Freitext für Beobachtungen (FR-3.5)
-export const MAX_JOURNAL_TEXT_LENGTH = 2_000;
+export const MAX_JOURNAL_TEXT_LENGTH = 1_000;
 
 // Nur ganze Zahlen erlaubt: schließt "abc", "-5", "2,5" und "1.320" aus
 const WHOLE_NUMBER_PATTERN = /^\d+$/;
