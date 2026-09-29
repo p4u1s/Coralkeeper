@@ -1,6 +1,6 @@
 # TASK-07-04 · Inserat und Status koppeln
 
-**Status:** offen
+**Status:** erledigt
 **Bezug:** FR-4.1 („Die Koralle erhält den Status `zur Abgabe`"), FR-4.2 („zurückziehbar – die Koralle geht zurück auf
 `im Bestand`, das Inserat wird gelöscht"), FR-3.4, ER-Modell Festlegungen 12 und 15
 **Voraussetzung:** MS-6 abgeschlossen (unabhängig vom Ableger-Strang)
@@ -15,7 +15,7 @@ wo die Kopplung liegt, damit kein halber Zustand entsteht (Inserat sichtbar, Kor
 
 ## Vor dem Start klären
 
-- [ ] **Wo liegt die Kopplung?**
+- [x] **Wo liegt die Kopplung?**
   - **(a)** Service: zwei Aufrufe nacheinander. Scheitert der zweite, bleibt ein halber Zustand; ein Rückgängig-Aufruf
     im Service kann selbst scheitern.
   - **(b)** Trigger auf `angebot`: nach INSERT Status `zur_abgabe`, nach DELETE Status `im_bestand`. Eine Transaktion,
@@ -23,31 +23,34 @@ wo die Kopplung liegt, damit kein halber Zustand entsteht (Inserat sichtbar, Kor
   - **(c)** Datenbankfunktion per `rpc`: eine Transaktion, aber eine zweite Aufrufart neben `.from()` und eine eigene
     Rechteprüfung.
   → Vorschlag: **(b)**.
-- [ ] **Bedingung beim Löschen.** FR-4.7 (MS-11) setzt die Koralle erst auf `abgegeben` und löscht dann das Inserat.
+  → **Entschieden am 29.09.2026:** (b).
+- [x] **Bedingung beim Löschen.** FR-4.7 (MS-11) setzt die Koralle erst auf `abgegeben` und löscht dann das Inserat.
       Ein Trigger ohne Bedingung würde `abgegeben` wieder mit `im_bestand` überschreiben. → Vorschlag: nach DELETE nur
       zurücksetzen, **wenn der Status noch `zur_abgabe` ist**.
-- [ ] **Inserieren nur aus `im_bestand` – in der Datenbank erzwingen?** → Vorschlag: nein, nur in der UI (KISS).
+  → **Entschieden am 29.09.2026:** wie vorgeschlagen.
+- [x] **Inserieren nur aus `im_bestand` – in der Datenbank erzwingen?** → Vorschlag: nein, nur in der UI (KISS).
       Ein zweites Inserat zur selben Koralle verhindert `UNIQUE` auf `angebot.koralle_id` ohnehin.
+  → **Entschieden am 29.09.2026:** wie vorgeschlagen.
 
 ## Schritte
 
 Bei Entscheidung (b):
 
-1. [ ] **Trigger-Funktion** in SQL, z. B. `angebot_status_setzen()`: Aufbau wie `systemeintrag_anlegen` –
+1. [x] **Trigger-Funktion** in SQL, z. B. `angebot_status_setzen()`: Aufbau wie `systemeintrag_anlegen` –
        `set search_path = ''`, **ohne** `security definer` (die Policy `koralle_update_eigene` greift; Festlegung 12
        stellt sicher, dass die Koralle dem Nutzer gehört), `revoke execute … from public, anon, authenticated`.
    - INSERT: `update public.koralle set status = 'zur_abgabe' where id = new.koralle_id`
    - DELETE: `… set status = 'im_bestand' where id = old.koralle_id and status = 'zur_abgabe'`
-2. [ ] **Zwei Trigger** auf `public.angebot`: nach INSERT und nach DELETE, je `for each row`.
-3. [ ] **SQL im SQL-Editor ausführen** (Nutzer), Kontrollabfrage auf Funktion und beide Trigger.
-4. [ ] **Test als `do $$ … $$`-Block** mit abschließendem `raise exception`, angemeldet als Testnutzer A:
+2. [x] **Zwei Trigger** auf `public.angebot`: nach INSERT und nach DELETE, je `for each row`.
+3. [x] **SQL im SQL-Editor ausführen** (Nutzer), Kontrollabfrage auf Funktion und beide Trigger.
+4. [x] **Test als `do $$ … $$`-Block** mit abschließendem `raise exception`, angemeldet als Testnutzer A:
    - Koralle anlegen, Inserat anlegen → Status `zur_abgabe`, genau ein Eintrag
      „Status geändert: Im Bestand → Zur Abgabe"
    - Inserat löschen → Status `im_bestand`, genau ein weiterer Eintrag „Status geändert: Zur Abgabe → Im Bestand"
    - erneut inserieren, Status auf `abgegeben` setzen, Inserat löschen → Status bleibt `abgegeben`
    - → als `TASK-07-04_Schritt 4_Inserat-Status-Test.sql` in diesem Ordner ablegen
-5. [ ] **Security Advisor** im Dashboard prüfen.
-6. [ ] **Dokumentation nachziehen** (nach Freigabe): Migrationsdatei, Abschnitt „Angebot"; ER-Modell, neue
+5. [x] **Security Advisor** im Dashboard prüfen.
+6. [x] **Dokumentation nachziehen** (nach Freigabe): Migrationsdatei, Abschnitt „Angebot"; ER-Modell, neue
        Festlegung 18.
 
 Bei Entscheidung (a) oder (c): keine Trigger. Die Kopplung entsteht in TASK-07-05 im Service bzw. als Funktion;
@@ -55,11 +58,11 @@ Schritte 3–6 gelten sinngemäß für (c).
 
 ## Fertig, wenn
 
-- [ ] Ein neues Inserat setzt die Koralle auf `zur_abgabe` und erzeugt genau einen Systemeintrag
-- [ ] Das Löschen setzt sie auf `im_bestand` zurück – aber nicht, wenn sie inzwischen `abgegeben` ist
-- [ ] Der Testblock läuft durch und rollt alles zurück (keine Testreste in der Datenbank)
-- [ ] Security Advisor ohne neue Warnung
-- [ ] Migrationsdatei und ER-Modell sind nachgezogen
+- [x] Ein neues Inserat setzt die Koralle auf `zur_abgabe` und erzeugt genau einen Systemeintrag
+- [x] Das Löschen setzt sie auf `im_bestand` zurück – aber nicht, wenn sie inzwischen `abgegeben` ist
+- [x] Der Testblock läuft durch und rollt alles zurück (keine Testreste in der Datenbank)
+- [x] Security Advisor ohne neue Warnung
+- [x] Migrationsdatei und ER-Modell sind nachgezogen
 
 ## Hinweise
 

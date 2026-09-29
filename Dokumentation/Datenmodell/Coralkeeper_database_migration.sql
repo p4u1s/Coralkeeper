@@ -565,6 +565,45 @@ create policy "angebot_delete_eigene"
   to authenticated
   using (nutzer_id = auth.uid());
 
+-- Inserat und Status koppeln (FR-4.1, FR-4.2): ein neues Inserat setzt die Koralle auf zur_abgabe,
+-- das Löschen setzt sie auf im_bestand zurück – in derselben Transaktion wie das Inserat.
+-- Den Systemeintrag zum Statuswechsel schreibt bei_statuswechsel_systemeintrag.
+-- Bewusst ohne security definer: die Policy koralle_update_eigene greift,
+-- Festlegung 12 stellt sicher, dass die Koralle dem Nutzer gehört.
+create function public.angebot_status_setzen()
+returns trigger
+language plpgsql
+set search_path = ''
+as $$
+begin
+  if tg_op = 'INSERT' then
+    update public.koralle
+      set status = 'zur_abgabe'
+      where id = new.koralle_id;
+
+  else
+    -- nur aus zur_abgabe zurücksetzen: FR-4.7 (MS-11) setzt erst abgegeben und löscht dann das Inserat
+    update public.koralle
+      set status = 'im_bestand'
+      where id = old.koralle_id
+        and status = 'zur_abgabe';
+  end if;
+
+  return null;  -- after-Trigger: der Rückgabewert wird nicht ausgewertet
+end;
+$$;
+
+create trigger bei_inserat_anlage_status_setzen
+  after insert on public.angebot
+  for each row execute function public.angebot_status_setzen();
+
+create trigger bei_inserat_loeschung_status_setzen
+  after delete on public.angebot
+  for each row execute function public.angebot_status_setzen();
+
+-- nicht per RPC aufrufbar (Security Advisor, Lint 0028/0029); der Trigger braucht das Recht nicht
+revoke execute on function public.angebot_status_setzen() from public, anon, authenticated;
+
 
 -- ============================================================
 -- Anfrage
