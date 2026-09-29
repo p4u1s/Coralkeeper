@@ -107,6 +107,20 @@ export function CoralDetailPage() {
             Ableger erzeugen
           </Link>
 
+          {/* Nur im Bestand (Entscheidung TASK-07-06); Status und bestehendes
+              Inserat zeigt TASK-07-07 */}
+          {coral.status === "im_bestand" && (
+            <Link
+              to={`/koralle/${coral.id}/inserat/neu`}
+              className={buttonVariants({
+                variant: "secondary",
+                className: "w-full",
+              })}
+            >
+              Zur Abgabe markieren
+            </Link>
+          )}
+
           <Tabs
             className="gap-4"
             value={activeTab}
