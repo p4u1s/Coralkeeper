@@ -7,5 +7,5 @@
 - [x] **TASK-07-05** Inserat-Service und Hook für Lesen, Anlegen und Zurückziehen.
 - [x] **TASK-07-06** Inserat mit Modus, Preis bzw. Tauschwunsch und Größe anlegen (Formular).
 - [x] **TASK-07-07** Status und Inserat auf der Detailseite anzeigen, Inserat zurückziehen.
-- [ ] **TASK-07-08** RLS-Nachweis mit zweitem Testnutzer (Definition of Done).
+- [x] **TASK-07-08** RLS-Nachweis mit zweitem Testnutzer (Definition of Done).
 - [ ] **TASK-07-09** Responsive prüfen, deployen und am deployten Stand abnehmen.

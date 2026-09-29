@@ -102,7 +102,7 @@ Diese Punkte sind in den Quelldokumenten nicht festgelegt oder widersprechen sic
 | 14  | Status-Anzeige auf der Detailseite: Ort und Form                                                        | TASK-07-07 | entschieden: Plakette unter dem Titel wie im Mockup |
 | 15  | Inserat-Anzeige: Karte über der Tab-Leiste oder dritter Tab?                                            | TASK-07-07 | entschieden: Karte über der Tab-Leiste |
 | 16  | Neu laden nach dem Zurückziehen: `reload` in `useCoral` ergänzen?                                       | TASK-07-07 | entschieden: `reload` in `useCoral` |
-| 17  | Wie „sieht" Testnutzer B das Inserat ohne Inseratsliste (FR-4.3 ist MS-11)? REST-Abruf zusätzlich?      | TASK-07-08 | offen |
+| 17  | Wie „sieht" Testnutzer B das Inserat ohne Inseratsliste (FR-4.3 ist MS-11)? REST-Abruf zusätzlich?      | TASK-07-08 | entschieden: (a) SQL-Test plus Gegenprobe in der App, kein REST-Abruf |
 
 ---
 
