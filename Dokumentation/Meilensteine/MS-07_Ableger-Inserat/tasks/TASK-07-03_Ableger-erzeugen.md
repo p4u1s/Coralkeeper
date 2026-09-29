@@ -1,6 +1,6 @@
 # TASK-07-03 · Ableger erzeugen
 
-**Status:** offen
+**Status:** erledigt
 **Bezug:** FR-1.7 (Aktion in der Detailansicht, Becken vorbelegt und änderbar), FR-1.14, FR-6.4, FR-6.6, NFR-1.3,
 NFR-1.4, NFR-1.7, Abnahmekriterium Abschnitt 7 Punkt 7 („Ableger … erscheint im Bestand")
 **Voraussetzung:** TASK-07-02
@@ -22,6 +22,8 @@ mit den kopierten Daten der Ursprungskoralle, der danach im Bestand steht.
   - **(b)** vorbelegt mit der Bezeichnung der Ursprungskoralle, änderbar
   → Vorschlag: **(b)** – eine Eingabe weniger (NFR-1.1); gleiche Namen sind erlaubt.
   → **Entschieden am 28.09.2026:** (b).
+  → **Geändert am 29.09.2026:** vorbelegt mit „{Bezeichnung} (Ableger)", änderbar – mit unveränderter Bezeichnung
+  standen im Bestand zwei identische Karten. Eine Markierung als Ableger wäre FR-1.8 (Could-Backlog).
 - [x] **Hinweis auf die übernommenen Daten.** Vorschlag: ein Satz über den Feldern, z. B. „Art, Handelsname und
       Steckbrief werden von „Green Slimer" übernommen."
   → **Entschieden am 28.09.2026:** wie vorgeschlagen, mit der Bezeichnung der Ursprungskoralle; Schutzstatus wird
@@ -57,17 +59,17 @@ mit den kopierten Daten der Ursprungskoralle, der danach im Bestand steht.
 
 ## Fertig, wenn
 
-- [ ] Ableger aus einer Koralle mit ausgefülltem Steckbrief speichern → er erscheint im Bestand (**Abnahme Punkt 7**)
-- [ ] Art · Handelsname und alle Steckbriefwerte des Ablegers stimmen mit der Ursprungskoralle überein (FR-1.7)
-- [ ] Das Becken ist vorbelegt; ein anderes Becken lässt sich wählen und wird gespeichert
-- [ ] Steckbrief des Ablegers ändern → der Steckbrief der Ursprungskoralle bleibt unverändert (Snapshot, Grundsatz 4)
-- [ ] Die Historie von Ableger und Ursprungskoralle zeigt die Einträge nach TASK-07-01
-- [ ] Kontrollabfrage (Nutzer): `mutter_id`, `herkunftskette`, `erwerbsdatum` und `quelle_typ` des Ablegers
+- [x] Ableger aus einer Koralle mit ausgefülltem Steckbrief speichern → er erscheint im Bestand (**Abnahme Punkt 7**)
+- [x] Art · Handelsname und alle Steckbriefwerte des Ablegers stimmen mit der Ursprungskoralle überein (FR-1.7)
+- [x] Das Becken ist vorbelegt; ein anderes Becken lässt sich wählen und wird gespeichert
+- [x] Steckbrief des Ablegers ändern → der Steckbrief der Ursprungskoralle bleibt unverändert (Snapshot, Grundsatz 4)
+- [x] Die Historie von Ableger und Ursprungskoralle zeigt die Einträge nach TASK-07-01
+- [x] Kontrollabfrage (Nutzer): `mutter_id`, `herkunftskette`, `erwerbsdatum` und `quelle_typ` des Ablegers
       entsprechen Festlegung 17
-- [ ] Ohne Bezeichnung oder ohne Becken speichern → Feldfehler, keine Anfrage (FR-6.6)
-- [ ] Ohne Verbindung speichern → deutsche Fehlermeldung, Eingaben bleiben stehen (FR-6.4)
-- [ ] Als Testnutzer B zeigt der Pfad für `aaaaaaaa-0000-0000-0000-000000000002` „nicht gefunden" (FR-6.2)
-- [ ] Alle Felder und Buttons ≥ 44 px, bei 360 px kein waagerechtes Scrollen
+- [x] Ohne Bezeichnung oder ohne Becken speichern → Feldfehler, keine Anfrage (FR-6.6)
+- [x] Ohne Verbindung speichern → deutsche Fehlermeldung, Eingaben bleiben stehen (FR-6.4)
+- [x] Als Testnutzer B zeigt der Pfad für `aaaaaaaa-0000-0000-0000-000000000002` „nicht gefunden" (FR-6.2)
+- [x] Alle Felder und Buttons ≥ 44 px, bei 360 px kein waagerechtes Scrollen
 - [x] `npm run build`, `npm run lint`, `npm run format` ohne Fehler
 
 ## Hinweise

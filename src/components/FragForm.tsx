@@ -21,8 +21,9 @@ type FragFormProps = {
 // Ableger erzeugen: nur Bezeichnung und Becken, der Rest kommt aus der
 // Ursprungskoralle (FR-1.7, FR-1.14, FR-6.6)
 export function FragForm({ mother, tanks, cancelTo, onSubmit }: FragFormProps) {
-  // Beides mit den Werten der Ursprungskoralle vorbelegt (TASK-07-03)
-  const [name, setName] = useState(mother.bezeichnung);
+  // Bezeichnung mit Zusatz vorbelegt, damit Ableger und Ursprungskoralle im
+  // Bestand unterscheidbar sind; Becken wie bei der Ursprungskoralle (TASK-07-03)
+  const [name, setName] = useState(`${mother.bezeichnung} (Ableger)`);
   const [tankId, setTankId] = useState(mother.becken_id);
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<FragErrors>({});
