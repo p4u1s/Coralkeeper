@@ -1,6 +1,7 @@
 // Feldprüfung der Formulare vor dem Absenden (FR-6.6)
 
 import { formatVolume } from "@/lib/format.ts";
+import type { Enums } from "@/types/database.types.ts";
 
 // Gleicher Wert wie in den Supabase-Auth-Einstellungen (TASK-03-06, Schritt 8)
 export const MIN_PASSWORD_LENGTH = 6;
@@ -16,6 +17,10 @@ export const MAX_CORAL_TEXT_LENGTH = 100;
 // Steckbrief: Wuchsform kurz, Fütterung und Besonderheiten länger (FR-2.2)
 export const MAX_GROWTH_FORM_LENGTH = 100;
 export const MAX_PROFILE_TEXT_LENGTH = 500;
+
+// Inserat: Preis bzw. Tauschwunsch und Größe als kurzer Freitext (FR-4.1)
+export const MAX_PRICE_OR_SWAP_LENGTH = 100;
+export const MAX_OFFER_SIZE_LENGTH = 50;
 
 // Journaleintrag: Freitext für Beobachtungen (FR-3.5)
 export const MAX_JOURNAL_TEXT_LENGTH = 1_000;
@@ -60,6 +65,12 @@ export type JournalEntryErrors = {
 export type FragErrors = {
   name?: string;
   tankId?: string;
+};
+
+export type OfferErrors = {
+  mode?: string;
+  priceOrSwap?: string;
+  size?: string;
 };
 
 export function validateLogin(email: string, password: string): LoginErrors {
@@ -229,6 +240,28 @@ export function validateJournalEntry(
       text.trim() === ""
         ? "Bitte einen Text eingeben."
         : checkCoralText(text, "Der Text", MAX_JOURNAL_TEXT_LENGTH),
+  };
+}
+
+// Preis bzw. Tauschwunsch nur prüfen, wenn das Feld sichtbar ist –
+// bei „Verschenken" und vor der Modus-Wahl wird es nicht gespeichert
+export function validateOffer(
+  mode: Enums<"angebot_modus"> | "",
+  priceOrSwap: string,
+  size: string
+): OfferErrors {
+  const hasPriceOrSwap = mode === "tauschen" || mode === "verkaufen";
+  return {
+    // Die leere Option „Modus wählen" hat den Wert ""
+    mode: mode === "" ? "Bitte einen Modus wählen." : undefined,
+    priceOrSwap: hasPriceOrSwap
+      ? checkCoralText(
+          priceOrSwap,
+          mode === "tauschen" ? "Der Tauschwunsch" : "Der Preis",
+          MAX_PRICE_OR_SWAP_LENGTH
+        )
+      : undefined,
+    size: checkCoralText(size, "Die Größe", MAX_OFFER_SIZE_LENGTH),
   };
 }
 
