@@ -8,6 +8,16 @@ export function formatDate(isoDate: string): string {
   return `${day}.${month}.${year}`;
 }
 
+// timestamptz → lokales Datum, z. B. "29.09.2026". Nicht über formatDate,
+// weil der Zeitstempel in UTC gespeichert ist (Entscheidung TASK-07-07)
+export function formatTimestampDate(timestamp: string): string {
+  return new Date(timestamp).toLocaleDateString("de-DE", {
+    day: "2-digit",
+    month: "2-digit",
+    year: "numeric",
+  });
+}
+
 // 1320 → "1.320 l"
 export function formatVolume(liters: number): string {
   return `${liters.toLocaleString("de-DE")} l`;

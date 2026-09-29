@@ -11,12 +11,14 @@ export type CoralState = {
   error: string | null;
 };
 
-export function useCoral(id: string): CoralState {
+export function useCoral(id: string): CoralState & { reload: () => void } {
   const [state, setState] = useState<CoralState>({
     status: "loading",
     coral: null,
     error: null,
   });
+
+  const [reloadCount, setReloadCount] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -46,7 +48,14 @@ export function useCoral(id: string): CoralState {
     return () => {
       cancelled = true;
     };
-  }, [id]);
+  }, [id, reloadCount]);
 
-  return state;
+  // Setzt auf „loading" zurück: die Detailseite baut sich neu auf, Inserat
+  // und Historie laden dabei mit (Entscheidung TASK-07-07)
+  function reload() {
+    setState({ status: "loading", coral: null, error: null });
+    setReloadCount((count) => count + 1);
+  }
+
+  return { ...state, reload };
 }

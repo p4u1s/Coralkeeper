@@ -8,10 +8,21 @@ import { useTank } from "@/hooks/useTank.ts";
 import { formatDate } from "@/lib/format.ts";
 import { ArrowLeft, Pencil, Plus } from "lucide-react";
 import { CoralHistory } from "@/components/CoralHistory.tsx";
+import { CORAL_STATUS_LABELS } from "@/lib/labels.ts";
+import type { Enums } from "@/types/database.types.ts";
+import { CoralOffer } from "@/components/CoralOffer.tsx";
 
 // Stammdaten der Koralle mit den Tabs Steckbrief und Historie (FR-2.1, FR-6.4)
 
 type DetailTab = "steckbrief" | "historie";
+
+// Punktfarbe je Status – nur für den Korallenstatus (design.md, Statusfarben)
+const STATUS_DOT_CLASSES: Record<Enums<"koralle_status">, string> = {
+  im_bestand: "bg-status-bestand",
+  zur_abgabe: "bg-status-abgabe",
+  abgegeben: "bg-status-abgegeben",
+  verendet: "bg-status-verendet",
+};
 
 // Base UI typisiert den Tabwert als any – hier wird er auf die beiden
 // erlaubten Werte eingegrenzt (NFR-4.1)
@@ -22,7 +33,7 @@ function isDetailTab(value: unknown): value is DetailTab {
 export function CoralDetailPage() {
   // Fehlende ID endet in getCoral als null → „nicht gefunden"
   const { id = "" } = useParams();
-  const { status, coral, error } = useCoral(id);
+  const { status, coral, error, reload } = useCoral(id);
   const [searchParams, setSearchParams] = useSearchParams();
 
   // Der aktive Tab steht in der URL, damit F5 und die Rückkehr aus einem
@@ -76,6 +87,14 @@ export function CoralDetailPage() {
                 {details}
               </p>
             )}
+            {/* Punkt plus Text, nie Farbe allein (NFR-1.4) */}
+            <p className="mt-1 flex items-center gap-2 self-start rounded-full border border-border bg-secondary px-3 py-2 text-label font-medium">
+              <span
+                aria-hidden="true"
+                className={`size-2.5 shrink-0 rounded-full ${STATUS_DOT_CLASSES[coral.status]}`}
+              />
+              {CORAL_STATUS_LABELS[coral.status]}
+            </p>
           </div>
 
           <dl className="grid grid-cols-2 gap-3">
@@ -107,19 +126,7 @@ export function CoralDetailPage() {
             Ableger erzeugen
           </Link>
 
-          {/* Nur im Bestand (Entscheidung TASK-07-06); Status und bestehendes
-              Inserat zeigt TASK-07-07 */}
-          {coral.status === "im_bestand" && (
-            <Link
-              to={`/koralle/${coral.id}/inserat/neu`}
-              className={buttonVariants({
-                variant: "secondary",
-                className: "w-full",
-              })}
-            >
-              Zur Abgabe markieren
-            </Link>
-          )}
+          <CoralOffer coral={coral} onWithdrawn={reload} />
 
           <Tabs
             className="gap-4"
