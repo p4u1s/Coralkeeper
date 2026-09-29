@@ -20,12 +20,14 @@ import { CoralDetailPage } from "@/pages/CoralDetailPage.tsx";
 import { CoralProfileEditPage } from "@/pages/CoralProfileEditPage.tsx";
 import { JournalEntryCreatePage } from "@/pages/JournalEntryCreatePage.tsx";
 import { FragCreatePage } from "@/pages/FragCreatePage.tsx";
+import { OfferCreatePage } from "@/pages/OfferCreatePage.tsx";
 
 // Pfade nach Requirements v2.2, Abschnitt 7 (FR-6.3)
 // Nicht in Abschnitt 7 enthalten. Festgelegt in TASK-04-01: /diary, /becken/:id/bearbeiten
 // Festgelegt in TASK-06-05: /koralle/:id/steckbrief
 // Festgelegt in TASK-06-07: /koralle/:id/journal/neu
 // Festgelegt in TASK-07-03: /koralle/:id/ableger/neu
+// Festgelegt in TASK-07-06: /koralle/:id/inserat/neu
 
 const router = createBrowserRouter(
   [
@@ -60,6 +62,10 @@ const router = createBrowserRouter(
         {
           path: "/koralle/:id/ableger/neu",
           element: <FragCreatePage />,
+        },
+        {
+          path: "/koralle/:id/inserat/neu",
+          element: <OfferCreatePage />,
         },
 
         { path: "/becken/neu", element: <TankCreatePage /> },
