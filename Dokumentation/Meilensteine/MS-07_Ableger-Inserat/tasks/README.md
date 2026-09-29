@@ -96,7 +96,7 @@ Diese Punkte sind in den Quelldokumenten nicht festgelegt oder widersprechen sic
 | 8   | Button „Ableger erzeugen": Ort auf der Detailseite, bei welchem Status sichtbar?                        | TASK-07-03 | entschieden: unter den Stammdaten, jeder Status |
 | 9   | Ziel nach dem Speichern: Detailseite des Ablegers oder der Ursprungskoralle?                            | TASK-07-03 | entschieden: Detailseite des Ablegers |
 | 10  | Inserat und Status koppeln: Service, Trigger oder Datenbankfunktion?                                    | TASK-07-04 | entschieden: Trigger auf `angebot` |
-| 11  | Dateinamen für Inserat-Service und Hook                                                                 | TASK-07-05 | offen |
+| 11  | Dateinamen für Inserat-Service und Hook                                                                 | TASK-07-05 | entschieden: `offer.ts`, `useOffer.ts` |
 | 12  | Welche Korallen dürfen inseriert werden – jede im Bestand oder nur Ableger (`mutter_id`)?               | TASK-07-06 | offen |
 | 13  | Inserat-Formular: Pfad, Button-Beschriftung, Modus-Auswahl, Pflichtfelder, Höchstlängen, Hinweistext    | TASK-07-06 | offen |
 | 14  | Status-Anzeige auf der Detailseite: Ort und Form                                                        | TASK-07-07 | offen |

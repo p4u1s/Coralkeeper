@@ -1,6 +1,6 @@
 # TASK-07-05 · Inserat-Service und Hook
 
-**Status:** offen
+**Status:** erledigt
 **Bezug:** FR-4.1, FR-4.2, NFR-4.3 (Datenzugriff nur über `src/services/*`, eigene Hooks), NFR-4.4, NFR-4.1,
 ER-Modell Festlegung 13
 **Voraussetzung:** TASK-07-04
@@ -15,17 +15,18 @@ deutschen Beschriftungen für Modus und Korallenstatus.
 
 ## Vor dem Start klären
 
-- [ ] **Dateinamen.** Vorschlag: `src/services/offer.ts` und `src/hooks/useOffer.ts` (englisch wie `tank.ts`,
+- [x] **Dateinamen.** Vorschlag: `src/services/offer.ts` und `src/hooks/useOffer.ts` (englisch wie `tank.ts`,
       `history.ts`).
+  → **Entschieden am 29.09.2026:** wie vorgeschlagen.
 
 ## Schritte
 
-1. [ ] **Typen** aus den generierten Datenbanktypen (NFR-4.4):
+1. [x] **Typen** aus den generierten Datenbanktypen (NFR-4.4):
    - Zeile = `Tables<"angebot">` → `Offer`
    - Eingabe = `modus`, `preis_oder_tauschwunsch`, `groesse` → `OfferInput`
-2. [ ] **`getOfferForCoral(coralId)`** – das Inserat einer Koralle oder `null` (`maybeSingle`); 22P02 wie in
+2. [x] **`getOfferForCoral(coralId)`** – das Inserat einer Koralle oder `null` (`maybeSingle`); 22P02 wie in
        `getCoral` als „nicht vorhanden" behandeln.
-3. [ ] **`createOffer(coral, input)`**:
+3. [x] **`createOffer(coral, input)`**:
    - `nutzer_id` aus `getSession()`, `koralle_id = coral.id`
    - `art` und `handelsname` aus der Koralle kopieren (Festlegung 13) – für Fremde ist `koralle` nicht lesbar
    - `sichtbar` nicht setzen (Standardwert `true`, FR-4.1)
@@ -33,23 +34,23 @@ deutschen Beschriftungen für Modus und Korallenstatus.
    - `23505` (Verstoß gegen `UNIQUE`) → „Für diese Koralle gibt es bereits ein Inserat.", sonst
      „Inserat konnte nicht angelegt werden." – jeweils mit `cause`
    - bei Entscheidung (a) in TASK-07-04: danach den Status setzen; bei (c): Funktion per `rpc` aufrufen
-4. [ ] **`withdrawOffer(offerId)`** – löscht das Inserat; Fehler „Inserat konnte nicht zurückgezogen werden."
+4. [x] **`withdrawOffer(offerId)`** – löscht das Inserat; Fehler „Inserat konnte nicht zurückgezogen werden."
        Bei Entscheidung (a) in TASK-07-04 zusätzlich den Status zurücksetzen.
-5. [ ] **Hook** `useOffer(coralId)` – Inserat oder `null`, Status (`loading` / `success` / `error`), Fehlermeldung,
+5. [x] **Hook** `useOffer(coralId)` – Inserat oder `null`, Status (`loading` / `success` / `error`), Fehlermeldung,
        `reload()`; Statusnamen und Abbruch-Flag wie in `useTanks`.
-6. [ ] **Beschriftungen** in `src/lib/labels.ts`, Wertelisten aus `Constants`:
+6. [x] **Beschriftungen** in `src/lib/labels.ts`, Wertelisten aus `Constants`:
    - `OFFER_MODE_VALUES`, `OFFER_MODE_LABELS`: Verschenken · Tauschen · Verkaufen
    - `CORAL_STATUS_LABELS`: Im Bestand · Zur Abgabe · Abgegeben · Verendet – derselbe Wortlaut wie im Trigger
      `systemeintrag_anlegen` und in der Statusfarben-Tabelle von design.md
 
 ## Fertig, wenn
 
-- [ ] Der Service exportiert **keine** Update-Funktion für Inserate (UPDATE-Policy erst mit MS-11)
-- [ ] `art` und `handelsname` werden beim Anlegen aus der Koralle übernommen
-- [ ] Zu jedem Wert von `angebot_modus` und `koralle_status` gibt es eine Beschriftung, TypeScript meldet fehlende Werte
-- [ ] Kein `any`, keine handgeschriebenen Tabellentypen, kein Import von `@supabase/*` außerhalb von `src/services/`
-- [ ] Jede Funktion wirft bei Fehlern eine deutsche Meldung mit `cause`
-- [ ] `npm run build`, `npm run lint`, `npm run format` ohne Fehler
+- [x] Der Service exportiert **keine** Update-Funktion für Inserate (UPDATE-Policy erst mit MS-11)
+- [x] `art` und `handelsname` werden beim Anlegen aus der Koralle übernommen
+- [x] Zu jedem Wert von `angebot_modus` und `koralle_status` gibt es eine Beschriftung, TypeScript meldet fehlende Werte
+- [x] Kein `any`, keine handgeschriebenen Tabellentypen, kein Import von `@supabase/*` außerhalb von `src/services/`
+- [x] Jede Funktion wirft bei Fehlern eine deutsche Meldung mit `cause`
+- [x] `npm run build`, `npm run lint`, `npm run format` ohne Fehler
 
 ## Hinweise
 
