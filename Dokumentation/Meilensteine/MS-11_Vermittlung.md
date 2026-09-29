@@ -53,3 +53,12 @@ Diese Anforderungen sind Teil der Definition of Done von MS-11 und werden nicht 
 > selbst nach FR-1.2 an. Eine Übernahme durch die App ist eine neue Anforderung: Der Züchter darf per RLS keine Koralle
 > für Fremde anlegen, und der Interessent kann nach dem Abschluss weder `koralle` noch `abgabe` des Züchters lesen
 > (das Inserat ist gelöscht). In MS-11 erneut vorschlagen; umgesetzt wird es erst in MS-12 (Feinschliff).
+
+> **Notiz (vermerkt am 29.09.2026, TASK-07-06):** Für die öffentliche Inseratsliste (FR-4.3) wäre ein fünfter Eintrag
+> „Inserate" oder „Börse" in der Bottom-Navigation gut, mit einem kleinen Hammer-Symbol – rein symbolisch für „Börse",
+> keine Versteigerung. Nach dem Gate muss es einen Ort geben, an dem **alle** Inserate sichtbar sind, aufgeteilt in
+> **eigene** Inserate und **Angebote anderer Nutzer**. FR-4.3 deckt nur die öffentliche Liste ab; die Aufteilung ist eine
+> Erweiterung. Offen: MS-11 ist optional (Abbruchkriterium) – fällt MS-11 weg, gäbe es diesen Ort nicht.
+> `design.md` (Abschnitt 4, Bottom-Navigation) legt bisher **vier** Einträge
+> fest (Bestand · Becken · Diary · Profil) und hat Vorrang – vor der Umsetzung also erst `design.md` anpassen und bei
+> 360 px Breite prüfen, ob fünf Einträge mit Textlabel noch passen (NFR-1.3, NFR-1.4, NFR-1.6).
