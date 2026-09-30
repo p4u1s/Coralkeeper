@@ -18,7 +18,7 @@ als ein halbes Feature mehr. Code muss menschenlesbar, wartbar und testbar sein.
 ## Stack
 
 TypeScript (strict) · React mit Vite · Tailwind + shadcn/ui · Supabase (Auth, Postgres, Storage, RLS)
-Deployment: Github Pages. Sprache Deutsch, Formate de-DE (`12.03.2026` · `8,1 dKH` · `250 l`).
+Deployment: Github Pages. Sprache Deutsch, Formate de-DE (`12.03.2026` · `8,1 °dKH` · `250 l`).
 
 ## Dokumente und ihre Rangfolge
 

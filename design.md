@@ -6,7 +6,7 @@ feuchten Händen, oft bei blauem Aktinik-Licht. Daraus folgen: dunkles Farbschem
 große Trefferflächen, warme Akzentfarbe.
 
 Plattform: Mobile-First-Webapp (React + Tailwind + shadcn/ui).
-Sprache Deutsch, Formate de-DE: `12.03.2026` · `8,1 dKH` · `250 l` · `1.320 mg/l`.
+Sprache Deutsch, Formate de-DE: `12.03.2026` · `8,1 °dKH` · `250 l` · `1.320 mg/l`.
 
 ---
 
