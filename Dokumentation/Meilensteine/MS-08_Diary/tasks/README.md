@@ -106,8 +106,8 @@ Diese Punkte sind in den Quelldokumenten nicht festgelegt oder widersprechen sic
 | 13  | Darstellung einer Messung in der Liste                                                                 | TASK-08-03 | entschieden: eine Karte je Erfassung (Becken, Datum, `erstellt_am`), eine Zeile je Wert |
 | 14  | Typ-Etikett mit oder ohne Symbol                                                                       | TASK-08-03 | entschieden: mit Symbol, alle aus lucide-react (Reagenzglas, Eimer, Kalender, Fleischstück) |
 | 15  | Messwert-Formular: Plausibilitätsgrenzen, Hinweis „mindestens ein Wert", Becken vorbelegen             | TASK-08-04 | entschieden: siehe TASK-08-04 – Grenzen ab 0 bis KH 11 · Ca 600 · Mg 1700 · NO₃ 12 · PO₄ 10 · Temp. 35, Salinität 1,000–1,050; Hinweis nur bei allen Feldern leer; Becken bei genau einem vorbelegt |
-| 16  | Wasserwechsel: Pflichtfelder, Höchstlängen, Platzhalter                                                | TASK-08-05 | offen |
-| 17  | Ereignis: Pflichtfelder, Auswahl der betroffenen Koralle                                               | TASK-08-06 | offen |
+| 16  | Wasserwechsel: Pflichtfelder, Höchstlängen, Platzhalter                                                | TASK-08-05 | entschieden: siehe TASK-08-05 – Becken und Datum Pflicht, Menge (max. 50) und Notiz (max. 800) optional; ein Formular `TankEventForm` für Wasserwechsel und Ereignis |
+| 17  | Ereignis: Pflichtfelder, Auswahl der betroffenen Koralle                                               | TASK-08-06 | entschieden: siehe TASK-08-06 – Becken, Datum und Beschreibung (max. 1.000) Pflicht; Koralle optional, alle Korallen des Beckens, Optionstext „Bezeichnung (Handelsname)" |
 | 18  | Bearbeiten: welche Felder änderbar, wie wird die Seite erreicht?                                       | TASK-08-07 | offen |
 | 19  | Löschen: Ort des Buttons, Dialogtexte                                                                  | TASK-08-08 | offen |
 

@@ -1,6 +1,6 @@
 # TASK-08-04 · Messwerte erfassen
 
-**Status:** offen
+**Status:** erledigt (30.09.2026)
 **Bezug:** FR-5.1 (Messwerte je Becken mit Datum, alle optional, mindestens einer, feste Einheiten), FR-6.4, FR-6.6,
 NFR-1.3, NFR-1.4, NFR-1.5, Abnahmekriterium Abschnitt 7 Punkt 8
 **Voraussetzung:** TASK-08-03
@@ -63,14 +63,14 @@ gefüllt sein. Gespeichert wird mit einer Anfrage, danach stehen die Werte in de
 
 ## Fertig, wenn
 
-- [ ] KH und Ca eintragen, speichern → beide Werte erscheinen in der Übersicht unter dem Datum (**Abnahme Punkt 8**)
-- [ ] Kontrollabfrage (Nutzer): zwei Zeilen in `messwert` mit gleichem Becken und Datum, `einheit` nach Entscheidung 3
-- [ ] Ohne Wert speichern → Hinweis, keine Anfrage (FR-5.1, FR-6.6)
-- [ ] Ohne Becken speichern → Feldfehler, keine Anfrage
-- [ ] `8,1` und – je nach Entscheidung in TASK-08-02 – `8.1` werden als 8,1 gespeichert; `abc` und Werte über der
+- [x] KH und Ca eintragen, speichern → beide Werte erscheinen in der Übersicht unter dem Datum (**Abnahme Punkt 8**)
+- [x] Kontrollabfrage (Nutzer): zwei Zeilen in `messwert` mit gleichem Becken und Datum, `einheit` nach Entscheidung 3
+- [x] Ohne Wert speichern → Hinweis, keine Anfrage (FR-5.1, FR-6.6)
+- [x] Ohne Becken speichern → Feldfehler, keine Anfrage
+- [x] `8,1` und – je nach Entscheidung in TASK-08-02 – `8.1` werden als 8,1 gespeichert; `abc` und Werte über der
       Grenze ergeben Feldfehler
-- [ ] Ohne Verbindung speichern → deutsche Fehlermeldung, Eingaben bleiben stehen (FR-6.4)
-- [ ] Alle Felder und Buttons ≥ 44 px, bei 360 px kein waagerechtes Scrollen
+- [x] Ohne Verbindung speichern → deutsche Fehlermeldung, Eingaben bleiben stehen (FR-6.4)
+- [x] Alle Felder und Buttons ≥ 44 px, bei 360 px kein waagerechtes Scrollen
 - [x] `npm run build`, `npm run lint`, `npm run format` ohne Fehler
 
 ## Hinweise

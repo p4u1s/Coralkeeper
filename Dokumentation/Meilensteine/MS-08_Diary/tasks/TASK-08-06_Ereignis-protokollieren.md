@@ -14,15 +14,41 @@ betroffenen Koralle festgehalten. Das Formular aus TASK-08-05 bekommt dafür die
 
 ## Vor dem Start klären
 
-- [ ] **Art des Ereignisses** – hängt an Punkt 4 in TASK-08-01:
+- [x] **Art des Ereignisses** – hängt an Punkt 4 in TASK-08-01:
   - bei (a): kein Auswahlfeld, `typ = 'vorfall'`; Text \* mit Platzhalter „z. B. Bleaching an der Montipora"
   - bei (b)/(c): Auswahlfeld \* mit erster Option „Art wählen", Text optional
-- [ ] **Text.** Vorschlag: `Textarea`, höchstens 1.000 Zeichen wie der Journaleintrag.
-- [ ] **Betroffene Koralle.** Vorschlag: Auswahlfeld „Betroffene Koralle" mit erster Option „Keine", danach die
+  → **Entschieden am 30.09.2026:** (a), wie in TASK-08-01 Punkt 4 – kein Auswahlfeld, `typ = 'vorfall'`, Text als
+  Pflichtfeld mit Platzhalter „z. B. Bleaching an der Montipora".
+- [x] **Text.** Vorschlag: `Textarea`, höchstens 1.000 Zeichen wie der Journaleintrag.
+  → **Entschieden am 30.09.2026 (in TASK-08-05):** Höchstlänge 1.000 Zeichen; die Wasserwechsel-Notiz bleibt bei 800.
+- [x] **Kasten „Lege zuerst ein Becken an".** Steht wortgleich in `DiaryPage`, `MeasurementCreatePage` und
+      `WaterChangeCreatePage`.
+  → **Entschieden am 30.09.2026 (in TASK-08-05):** weiter kopieren; taucht er ein viertes Mal auf, wird er in eine
+  gemeinsame Komponente zusammengelegt. Die Seite dieses Tasks wäre das vierte Vorkommen.
+- [x] **Betroffene Koralle.** Vorschlag: Auswahlfeld „Betroffene Koralle" mit erster Option „Keine", danach die
       Korallen des gewählten Beckens (Bezeichnung, bei Bedarf Handelsname); bei Beckenwechsel zurück auf „Keine";
       vor der Beckenwahl deaktiviert. Welche Status? Vorschlag: alle Korallen des Beckens.
-- [ ] **Beschriftung des Typs.** „Ereignis" oder „Vorfall" in Etikett, Button und Seitentitel – nach
+  → **Entschieden am 30.09.2026:** optional, erste Option „Keine"; Optionstext „Bezeichnung (Handelsname)", ohne
+  Handelsname nur die Bezeichnung; alle Korallen des Beckens ohne Filter nach Status; deaktiviert vor der Beckenwahl
+  und bei einem Becken ohne Korallen; Beckenwechsel setzt auf „Keine".
+- [x] **Beschriftung des Typs.** „Ereignis" oder „Vorfall" in Etikett, Button und Seitentitel – nach
       `TANK_EVENT_TYPE_LABELS` aus TASK-08-02.
+  → **Entschieden am 30.09.2026:** „Ereignis" (TASK-08-02); Seitentitel „Ereignis protokollieren", Button
+  „Speichern".
+
+**Weitere Entscheidungen (30.09.2026):**
+
+- Felder in dieser Reihenfolge: Becken \*, Datum \*, Beschreibung \*, Betroffene Koralle. „Menge" entfällt in der
+  Ereignis-Variante, gespeichert wird `menge = null`.
+- Textfeld: Label „Beschreibung \*"; Feldfehler „Bitte eine Beschreibung eingeben." bzw. „Die Beschreibung darf
+  höchstens 1000 Zeichen lang sein."
+- Korallen lädt die Seite (`useTanks` und `useCorals` mit gemeinsamem Lade- und Fehlerzustand wie in `DiaryPage`) und
+  gibt sie als Eigenschaft `corals` an das Formular; die Wasserwechsel-Seite lädt weiterhin keine Korallen.
+- Kasten „Lege zuerst ein Becken an": neue Komponente `src/components/NoTankNotice.tsx`.
+- `validateTankEvent(type, tankId, date, amount, text)`, Konstante `MAX_INCIDENT_TEXT_LENGTH = 1_000`;
+  `TankEventErrors` bleibt unverändert.
+- Seite `src/pages/IncidentCreatePage.tsx`, Route `/diary/ereignis/neu`; Kopfkommentar in `App.tsx` um den Pfad
+  ergänzt.
 
 ## Schritte
 
