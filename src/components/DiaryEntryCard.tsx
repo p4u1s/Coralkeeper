@@ -2,7 +2,7 @@
 // (FR-5.1, FR-5.3, FR-5.4). Wird in TASK-08-07 zum Link auf die Bearbeiten-Seite
 
 import type { ReactNode } from "react";
-import { Beef, Calendar, PaintBucket, TestTube } from "lucide-react";
+import { Beef, Calendar, FlaskConical, PaintBucket } from "lucide-react";
 import type { DiaryEntry } from "@/lib/diary.ts";
 import { formatMeasurement, formatTankEventDetails } from "@/lib/format.ts";
 import {
@@ -37,7 +37,7 @@ export function DiaryEntryCard({
     return (
       <li className="flex flex-col gap-1.5 rounded-xl border border-border bg-card p-3">
         <CardHeader
-          icon={<TestTube {...ICON_PROPS} />}
+          icon={<FlaskConical {...ICON_PROPS} />}
           label="Messung"
           tankName={tankName}
         />

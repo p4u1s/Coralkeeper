@@ -1,6 +1,6 @@
 # TASK-08-06 · Ereignis protokollieren
 
-**Status:** offen
+**Status:** erledigt (30.09.2026)
 **Bezug:** FR-5.4 (Datum, Typ wie Bleaching, Schädling, Vernesselung; Freitext, optional betroffene Koralle), FR-6.4,
 FR-6.6, NFR-1.3, NFR-1.4, Abnahmekriterium Abschnitt 7 Punkt 8
 **Voraussetzung:** TASK-08-05
@@ -49,28 +49,32 @@ betroffenen Koralle festgehalten. Das Formular aus TASK-08-05 bekommt dafür die
   `TankEventErrors` bleibt unverändert.
 - Seite `src/pages/IncidentCreatePage.tsx`, Route `/diary/ereignis/neu`; Kopfkommentar in `App.tsx` um den Pfad
   ergänzt.
+- Symbol für Messungen: Erlenmeyerkolben (`FlaskConical` aus lucide-react) statt Reagenzglas (`TestTube`), im Button
+  „Messwert" der `DiaryPage` und im Typ-Etikett „Messung" der `DiaryEntryCard`. Ändert Entscheidung 14 aus
+  TASK-08-03.
 
 ## Schritte
 
-1. [ ] **Route** nach TASK-08-01 außerhalb von `AppLayout`, Kopfkommentar ergänzen.
-2. [ ] **Validierung** `validateTankEvent` um die Ereignis-Felder erweitern.
-3. [ ] **Formular** `TankEventForm` um die Ereignis-Variante erweitern; Korallen über `useCorals`, nach `becken_id`
+1. [x] **Route** nach TASK-08-01 außerhalb von `AppLayout`, Kopfkommentar ergänzen.
+2. [x] **Validierung** `validateTankEvent` um die Ereignis-Felder erweitern.
+3. [x] **Formular** `TankEventForm` um die Ereignis-Variante erweitern; Korallen über `useCorals`, nach `becken_id`
        gefiltert.
-4. [ ] **Seite**, z. B. `src/pages/IncidentCreatePage.tsx`; ohne Becken Hinweis wie in TASK-08-04.
-5. [ ] **Speichern** über `createTankEvent` mit dem Typ nach Entscheidung; Zustände wie in TASK-08-05.
-6. [ ] **Übersicht**: Korallenzeile nach TASK-08-03 anzeigen.
+4. [x] **Seite**, z. B. `src/pages/IncidentCreatePage.tsx`; ohne Becken Hinweis wie in TASK-08-04.
+5. [x] **Speichern** über `createTankEvent` mit dem Typ nach Entscheidung; Zustände wie in TASK-08-05.
+6. [x] **Übersicht**: Korallenzeile nach TASK-08-03 anzeigen. – Besteht seit TASK-08-03 in `DiaryEntryCard`, kein
+       neuer Code nötig.
 
 ## Fertig, wenn
 
-- [ ] Ereignis mit Text und betroffener Koralle speichern → Eintrag mit Korallenbezeichnung in der Übersicht
+- [x] Ereignis mit Text und betroffener Koralle speichern → Eintrag mit Korallenbezeichnung in der Übersicht
       (**Abnahme Punkt 8**)
-- [ ] Ereignis ohne Koralle speichern → `koralle_id = null`
-- [ ] Kontrollabfrage (Nutzer): Zeile in `becken_ereignis` mit Typ nach Entscheidung, `text`, `koralle_id`
-- [ ] Becken wechseln → Korallenauswahl zeigt nur Korallen des neuen Beckens, Auswahl steht auf „Keine"
-- [ ] Pflichtfelder leer, zu langer Text → Feldfehler, keine Anfrage
-- [ ] Ohne Verbindung speichern → deutsche Fehlermeldung, Eingaben bleiben stehen (FR-6.4)
-- [ ] Alle Felder und Buttons ≥ 44 px, bei 360 px kein waagerechtes Scrollen
-- [ ] `npm run build`, `npm run lint`, `npm run format` ohne Fehler
+- [x] Ereignis ohne Koralle speichern → `koralle_id = null`
+- [x] Kontrollabfrage (Nutzer): Zeile in `becken_ereignis` mit Typ nach Entscheidung, `text`, `koralle_id`
+- [x] Becken wechseln → Korallenauswahl zeigt nur Korallen des neuen Beckens, Auswahl steht auf „Keine"
+- [x] Pflichtfelder leer, zu langer Text → Feldfehler, keine Anfrage
+- [x] Ohne Verbindung speichern → deutsche Fehlermeldung, Eingaben bleiben stehen (FR-6.4)
+- [x] Alle Felder und Buttons ≥ 44 px, bei 360 px kein waagerechtes Scrollen
+- [x] `npm run build`, `npm run lint`, `npm run format` ohne Fehler
 
 ## Hinweise
 

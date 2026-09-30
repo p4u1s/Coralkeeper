@@ -34,6 +34,12 @@ export const MAX_JOURNAL_TEXT_LENGTH = 1_000;
 export const MAX_TANK_EVENT_AMOUNT_LENGTH = 50;
 export const MAX_WATER_CHANGE_NOTE_LENGTH = 800;
 
+// Ereignis: Beschreibung als Freitext (FR-5.4)
+export const MAX_INCIDENT_TEXT_LENGTH = 1_000;
+
+// Die beiden Typen, die TankEventForm anlegt – Fütterung kommt in MS-10
+export type TankEventFormType = "wasserwechsel" | "vorfall";
+
 // Messwerte: Grenzen gegen Tippfehler, keine Soll-Bereiche (FR-5.6, MS-10).
 // Salinität als Dichte hat als einziger Wert eine Untergrenze über 0
 export const MEASUREMENT_LIMITS: Record<
@@ -220,11 +226,13 @@ function checkVolume(volume: string): string | undefined {
 // Menge und Notiz sind optional – ein Wasserwechsel ohne Menge ist trotzdem
 // ein Eintrag (FR-5.3)
 export function validateTankEvent(
+  type: TankEventFormType,
   tankId: string,
   date: string,
   amount: string,
   text: string
 ): TankEventErrors {
+  const isIncident = type === "vorfall";
   return {
     // Die leere Option „Becken wählen" hat den Wert ""
     tankId: tankId === "" ? "Bitte ein Becken wählen." : undefined,
@@ -232,9 +240,20 @@ export function validateTankEvent(
       date === ""
         ? "Bitte ein Datum eingeben."
         : checkNotInFuture(date, "Datum"),
-    amount: checkCoralText(amount, "Die Menge", MAX_TANK_EVENT_AMOUNT_LENGTH),
-    text: checkCoralText(text, "Die Notiz", MAX_WATER_CHANGE_NOTE_LENGTH),
+    amount: isIncident
+      ? undefined
+      : checkCoralText(amount, "Die Menge", MAX_TANK_EVENT_AMOUNT_LENGTH),
+    text: isIncident
+      ? checkIncidentText(text)
+      : checkCoralText(text, "Die Notiz", MAX_WATER_CHANGE_NOTE_LENGTH),
   };
+}
+
+function checkIncidentText(text: string): string | undefined {
+  if (text.trim() === "") {
+    return "Bitte eine Beschreibung eingeben.";
+  }
+  return checkCoralText(text, "Die Beschreibung", MAX_INCIDENT_TEXT_LENGTH);
 }
 
 export function validateCoral(

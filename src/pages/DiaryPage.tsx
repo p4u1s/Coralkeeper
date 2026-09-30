@@ -1,5 +1,5 @@
 import { Link } from "react-router";
-import { Calendar, PaintBucket, Plus, TestTube } from "lucide-react";
+import { Calendar, FlaskConical, PaintBucket } from "lucide-react";
 import { Button, buttonVariants } from "@/components/ui/button";
 import { DiaryEntryCard } from "@/components/DiaryEntryCard.tsx";
 import { useCorals } from "@/hooks/useCorals.ts";
@@ -7,6 +7,7 @@ import { useDiary } from "@/hooks/useDiary.ts";
 import { useTanks } from "@/hooks/useTanks.ts";
 import { groupDiaryByDay } from "@/lib/diary.ts";
 import { formatDate } from "@/lib/format.ts";
+import { NoTankNotice } from "@/components/NoTankNotice.tsx";
 
 // Drei Buttons nebeneinander ab 360 px: Symbol und Text in einer Zeile.
 // Unter 450 px steht beim Wasserwechsel die Kurzform „WasserW."
@@ -63,21 +64,7 @@ export function DiaryPage() {
         </>
       )}
 
-      {status === "success" && tanks.length === 0 && (
-        <section className="flex flex-col gap-3 rounded-xl border border-border bg-card p-4">
-          <h2 className="text-h2 font-semibold">Lege zuerst ein Becken an</h2>
-          <p className="text-muted-foreground">
-            Jeder Diary-Eintrag gehört zu einem Becken.
-          </p>
-          <Link
-            to="/becken/neu"
-            className={buttonVariants({ className: "w-full" })}
-          >
-            <Plus aria-hidden="true" />
-            Becken anlegen
-          </Link>
-        </section>
-      )}
+      {status === "success" && tanks.length === 0 && <NoTankNotice />}
 
       {status === "success" && tanks.length > 0 && (
         <>
@@ -87,7 +74,7 @@ export function DiaryPage() {
               to="/diary/messwerte/neu"
               className={buttonVariants({ className: ENTRY_BUTTON_CLASSES })}
             >
-              <TestTube aria-hidden="true" />
+              <FlaskConical aria-hidden="true" />
               Messwert
             </Link>
             <Link

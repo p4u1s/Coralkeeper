@@ -13,54 +13,64 @@ import {
   todayIso,
   validateTankEvent,
   type TankEventErrors,
+  type TankEventFormType,
 } from "@/lib/validation.ts";
+import type { Coral } from "@/services/coral.ts";
 import type { Tank } from "@/services/tank.ts";
 import type { TankEventInput } from "@/services/tankEvent.ts";
 
 type TankEventFormProps = {
-  // Die Ereignis-Variante ("vorfall") kommt in TASK-08-06 dazu
-  type: "wasserwechsel";
+  type: TankEventFormType;
   tanks: Tank[];
+  // Nur für das Ereignis: Auswahl der betroffenen Koralle
+  corals?: Coral[];
   cancelTo: string;
   onSubmit: (input: TankEventInput) => Promise<void>;
 };
 
-// Wasserwechsel protokollieren (FR-5.3, FR-6.6). Der Typ ist eine
-// Eigenschaft, damit TASK-08-06 das Formular für Ereignisse wiederverwendet
+// Wasserwechsel oder Ereignis protokollieren (FR-5.3, FR-5.4, FR-6.6).
+// Wasserwechsel zeigt Menge und Notiz, Ereignis Beschreibung und Koralle
 export function TankEventForm({
   type,
   tanks,
+  corals = [],
   cancelTo,
   onSubmit,
 }: TankEventFormProps) {
+  const isIncident = type === "vorfall";
   // Bei genau einem Becken vorausgewählt (Entscheidung TASK-08-04)
   const [tankId, setTankId] = useState(tanks.length === 1 ? tanks[0].id : "");
   const [date, setDate] = useState(todayIso());
   const [amount, setAmount] = useState("");
   const [text, setText] = useState("");
+  const [coralId, setCoralId] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<TankEventErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
+
+  // Alle Korallen des gewählten Beckens, ohne Filter nach Status
+  const tankCorals = corals.filter((coral) => coral.becken_id === tankId);
 
   async function handleSubmit(event: SubmitEvent<HTMLFormElement>) {
     event.preventDefault();
     setError(null);
     // Erst prüfen – bei Feldfehlern geht keine Anfrage raus (FR-6.6)
-    const errors = validateTankEvent(tankId, date, amount, text);
+    const errors = validateTankEvent(type, tankId, date, amount, text);
     setFieldErrors(errors);
     if (hasErrors(errors)) {
       return;
     }
     setIsSubmitting(true);
     try {
-      // Getrimmt wird im Service (createTankEvent)
+      // Getrimmt wird im Service (createTankEvent), leere Felder werden dort
+      // zu NULL – beim Ereignis die Menge, ohne Auswahl die Koralle
       await onSubmit({
         becken_id: tankId,
         datum: date,
         typ: type,
         menge: amount,
         text,
-        koralle_id: null,
+        koralle_id: coralId,
       });
     } catch (err) {
       // Nur im Fehlerfall zurücksetzen – nach Erfolg navigiert die Seite weg
@@ -88,6 +98,8 @@ export function TankEventForm({
           value={tankId}
           onChange={(event) => {
             setTankId(event.target.value);
+            // Die Koralle gehört zum alten Becken
+            setCoralId("");
             setFieldErrors((prev) => ({ ...prev, tankId: undefined }));
           }}
           aria-invalid={fieldErrors.tankId !== undefined}
@@ -129,35 +141,43 @@ export function TankEventForm({
           </p>
         )}
       </div>
+      {!isIncident && (
+        <div className="flex flex-col gap-2">
+          <Label htmlFor="tank-event-amount">Menge</Label>
+          <Input
+            id="tank-event-amount"
+            placeholder="z. B. 30 l"
+            value={amount}
+            onChange={(event) => {
+              setAmount(event.target.value);
+              setFieldErrors((prev) => ({ ...prev, amount: undefined }));
+            }}
+            aria-invalid={fieldErrors.amount !== undefined}
+            aria-describedby={
+              fieldErrors.amount ? "tank-event-amount-error" : undefined
+            }
+          />
+          {fieldErrors.amount && (
+            <p
+              id="tank-event-amount-error"
+              className="text-label text-destructive"
+            >
+              {fieldErrors.amount}
+            </p>
+          )}
+        </div>
+      )}
       <div className="flex flex-col gap-2">
-        <Label htmlFor="tank-event-amount">Menge</Label>
-        <Input
-          id="tank-event-amount"
-          placeholder="z. B. 30 l"
-          value={amount}
-          onChange={(event) => {
-            setAmount(event.target.value);
-            setFieldErrors((prev) => ({ ...prev, amount: undefined }));
-          }}
-          aria-invalid={fieldErrors.amount !== undefined}
-          aria-describedby={
-            fieldErrors.amount ? "tank-event-amount-error" : undefined
-          }
-        />
-        {fieldErrors.amount && (
-          <p
-            id="tank-event-amount-error"
-            className="text-label text-destructive"
-          >
-            {fieldErrors.amount}
-          </p>
-        )}
-      </div>
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="tank-event-text">Notiz</Label>
+        <Label htmlFor="tank-event-text">
+          {isIncident ? "Beschreibung *" : "Notiz"}
+        </Label>
         <Textarea
           id="tank-event-text"
-          placeholder="z. B. Scheiben gereinigt"
+          placeholder={
+            isIncident
+              ? "z. B. Bleaching an der Montipora"
+              : "z. B. Scheiben gereinigt"
+          }
           value={text}
           onChange={(event) => {
             setText(event.target.value);
@@ -174,6 +194,27 @@ export function TankEventForm({
           </p>
         )}
       </div>
+      {isIncident && (
+        <div className="flex flex-col gap-2">
+          <Label htmlFor="tank-event-coral">Betroffene Koralle</Label>
+          {/* Deaktiviert vor der Beckenwahl und bei einem Becken ohne Korallen */}
+          <NativeSelect
+            id="tank-event-coral"
+            value={coralId}
+            onChange={(event) => setCoralId(event.target.value)}
+            disabled={tankCorals.length === 0}
+          >
+            <NativeSelectOption value="">Keine</NativeSelectOption>
+            {tankCorals.map((coral) => (
+              <NativeSelectOption key={coral.id} value={coral.id}>
+                {coral.handelsname
+                  ? `${coral.bezeichnung} (${coral.handelsname})`
+                  : coral.bezeichnung}
+              </NativeSelectOption>
+            ))}
+          </NativeSelect>
+        </div>
+      )}
 
       <Button type="submit" className="w-full" disabled={isSubmitting}>
         {isSubmitting ? "Wird gespeichert …" : "Speichern"}

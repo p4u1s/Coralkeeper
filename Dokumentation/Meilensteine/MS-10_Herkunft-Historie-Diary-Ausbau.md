@@ -47,3 +47,5 @@ Diese Anforderungen sind Teil der Definition of Done von MS-10 und werden nicht 
 **Wenn Zeit bleibt (Should):** Belegdokumente (FR-3.8), Historienfilter (FR-3.9), Wachstumsgalerie (FR-1.12), Fütterung und Düngung (FR-5.5), Soll-Bereiche (FR-5.6), gemeinsamer Zeitstrahl (FR-5.7). Umsetzen zwischen Becken protokollieren (FR-1.11) ist am 25.09.2026 nach MS-9 vorgezogen.
 
 **Aus MS-8 übernommen (TASK-08-01, 29.09.2026):** Karte „Letzte Messung" und Button „Messwert erfassen" im Beckendetail sowie die Messwert-Anzeige in der Beckenliste – derselbe Mockup-Block wie das Verlaufsdiagramm (FR-5.2).
+
+**Notiz aus MS-8 (TASK-08-06, 30.09.2026):** Die Diary-Übersicht `/diary` zeigt alle Einträge über alle Becken, ohne Filter. Wunsch: Einträge je Becken anzeigen – gehört zum gemeinsamen Zeitstrahl je Becken (FR-5.7, Should).
