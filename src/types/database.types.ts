@@ -210,6 +210,7 @@ export type Database = {
         Row: {
           becken_id: string
           datum: string
+          erstellt_am: string
           id: string
           koralle_id: string | null
           menge: string | null
@@ -220,6 +221,7 @@ export type Database = {
         Insert: {
           becken_id: string
           datum: string
+          erstellt_am?: string
           id?: string
           koralle_id?: string | null
           menge?: string | null
@@ -230,6 +232,7 @@ export type Database = {
         Update: {
           becken_id?: string
           datum?: string
+          erstellt_am?: string
           id?: string
           koralle_id?: string | null
           menge?: string | null
@@ -479,6 +482,7 @@ export type Database = {
           becken_id: string
           datum: string
           einheit: string | null
+          erstellt_am: string
           id: string
           nutzer_id: string
           parameter: Database["public"]["Enums"]["messparameter"]
@@ -488,6 +492,7 @@ export type Database = {
           becken_id: string
           datum: string
           einheit?: string | null
+          erstellt_am?: string
           id?: string
           nutzer_id: string
           parameter: Database["public"]["Enums"]["messparameter"]
@@ -497,6 +502,7 @@ export type Database = {
           becken_id?: string
           datum?: string
           einheit?: string | null
+          erstellt_am?: string
           id?: string
           nutzer_id?: string
           parameter?: Database["public"]["Enums"]["messparameter"]

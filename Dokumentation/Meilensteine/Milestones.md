@@ -42,9 +42,9 @@ Begründung: Ein nachgelagerter „Nacharbeits-Meilenstein" für diese Punkte wi
 | [**MS-2**](Meilensteine/MS-02_Datenmodell-Schema-Entwurf.md) | Datenmodell & Schema-Entwurf *(parallel zu MS-1)* | Abschnitt 3 und 4 der Anforderungsanalyse, NFR-4.7, NFR-4.4 | ~4 % | ✅ |
 | [**MS-3**](Meilensteine/MS-03_Fundament-Auth.md) | Fundament & Auth | MVP 1 · FR-6.1, FR-6.3, FR-6.10, FR-6.2 | ~8 % | ✅ |
 | [**MS-4**](Meilensteine/MS-04_UI-Shell-Becken.md) | UI-Shell & Becken | MVP 2 · FR-1.1, FR-1.15, NFR-1.2 | ~8 % | ✅ |
-| [**MS-5**](Meilensteine/MS-05_Koralle-Bestand.md) | Koralle & Bestand (Grundgerüst) | MVP 3 · FR-1.2, FR-1.14 | ~11 % | |
-| [**MS-6**](Meilensteine/MS-06_Detailseite-Steckbrief-Historie.md) | Detailseite: Steckbrief & Historie | MVP 4 + 5 · FR-2.1, FR-2.2, FR-3.3, FR-3.4, FR-3.5 | ~11 % | |
-| [**MS-7**](Meilensteine/MS-07_Ableger-Inserat.md) | Ableger & Inserat | MVP 6 · FR-1.7, FR-3.6, FR-4.1, FR-4.2 | ~9 % | |
+| [**MS-5**](Meilensteine/MS-05_Koralle-Bestand.md) | Koralle & Bestand (Grundgerüst) | MVP 3 · FR-1.2, FR-1.14 | ~11 % | ✅ |
+| [**MS-6**](Meilensteine/MS-06_Detailseite-Steckbrief-Historie.md) | Detailseite: Steckbrief & Historie | MVP 4 + 5 · FR-2.1, FR-2.2, FR-3.3, FR-3.4, FR-3.5 | ~11 % | ✅ |
+| [**MS-7**](Meilensteine/MS-07_Ableger-Inserat.md) | Ableger & Inserat | MVP 6 · FR-1.7, FR-3.6, FR-4.1, FR-4.2 | ~9 % | ✅ |
 | [**MS-8**](Meilensteine/MS-08_Diary.md) | Diary | MVP 7 · FR-5.1, FR-5.3, FR-5.4, FR-5.10 | ~10 % | |
 | [🚦](Meilensteine/MS-08a_GATE_MVP-Abnahme.md) | **GATE: MVP-Abnahme** | Abnahmekriterien, Abschnitt 7 | — | |
 | [**MS-9**](Meilensteine/MS-09_Bestand-nutzbar-Profil.md) | Bestand nutzbar & Profil | FR-1.3 bis FR-1.6, FR-1.9, FR-1.10, FR-2.3, FR-2.4, FR-6.8 | ~9 % | |

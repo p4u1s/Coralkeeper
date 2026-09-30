@@ -45,10 +45,10 @@ Datum: · Adresse: <https://p4u1s.github.io/Coralkeeper/>
 | --- | ---------------------------------------------------------------- | ------------------------------------------------------------------------ | -------- |
 | 1   | Diary über die Bottom-Navigation öffnen                          | Übersicht mit Anlegen-Buttons, bestehende Einträge nach Datum            |          |
 | 2   | Messwerte erfassen ohne Wert                                     | Hinweis, kein Eintrag                                                    |          |
-| 3   | Messwerte KH 8,1 und Ca 425 erfassen                             | beide Werte unter dem Datum, `8,1 dKH` und `425 mg/l` (**Abnahme 8**)    |          |
+| 3   | Messwerte KH 8,1 und Ca 425 erfassen                             | beide Werte unter dem Datum, `8,1 °dKH` und `425 mg/l` (**Abnahme 8**)   |          |
 | 4   | Wasserwechsel mit Menge „30 l" und Notiz                         | Eintrag in der Übersicht (**Abnahme 8**)                                 |          |
 | 5   | Ereignis mit Text und betroffener Koralle                        | Eintrag mit Korallenbezeichnung (**Abnahme 8**)                          |          |
-| 6   | KH auf 8,4 korrigieren                                           | Übersicht zeigt `8,4 dKH` (**Abnahme 8**)                                |          |
+| 6   | KH auf 8,4 korrigieren                                           | Übersicht zeigt `8,4 °dKH` (**Abnahme 8**)                               |          |
 | 7   | Wasserwechsel löschen, zuerst abbrechen, dann bestätigen         | nach Abbrechen noch da, nach Bestätigen weg (**Abnahme 8**, FR-6.5)      |          |
 | 8   | Abmelden, neu anmelden                                           | Einträge unverändert (Abschnitt 7, Einleitung)                           |          |
 | 9   | Neue Formularseiten neu laden (F5)                               | Seite erscheint erneut, kein 404                                         |          |

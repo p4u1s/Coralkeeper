@@ -78,8 +78,9 @@ Nur benannt – je Punkt entscheiden: Spalte ergänzen, bewusst weglassen (mit B
 - [ ] **FR-2.2** nennt „Freitext für Fütterung **und Besonderheiten**". Eine Spalte für Besonderheiten gibt es nicht. (MS-6)
 - [ ] **FR-2.2** zählt Wuchsform zu den Feldern mit fester Auswahlliste; im ER-Modell ist `wuchsform` Freitext. `gering`/`mittel`/`hoch`
       passt fachlich nicht zu Wuchsform – die Abweichung bewusst festhalten. (MS-6)
-- [ ] **FR-5.4** nennt Ereignistypen „wie Bleaching, Schädling, Vernesselung". Das ER-Modell fasst sie als `vorfall` plus Freitext zusammen –
+- [x] **FR-5.4** nennt Ereignistypen „wie Bleaching, Schädling, Vernesselung". Das ER-Modell fasst sie als `vorfall` plus Freitext zusammen –
       bewusst festhalten oder das Enum erweitern. (MS-8)
+      → **Entschieden am 29.09.2026:** `vorfall` plus Freitext, Festlegung 19 (TASK-08-01).
 - [ ] **FR-1.5** sucht über „Notiz". `koralle` hat nur `herkunft_notiz`. Welche Notiz ist gemeint? (MS-9)
 - [ ] **FR-4.1** nennt ein Bild zum Inserat. `angebot` hat keine Bildspalte – gemeint ist vermutlich `koralle.primaerbild`.
       Hängt an TASK-02-04 (Frage 3) und TASK-02-05 D. (ab MS-9)

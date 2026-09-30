@@ -101,6 +101,7 @@ erDiagram
         enum        parameter "kh|ca|mg|no3|po4|temperatur|salinitaet, NOT NULL"
         numeric     wert "NOT NULL"
         text        einheit "fest je Parameter (FR-5.1)"
+        timestamptz erstellt_am "NOT NULL, default now()"
     }
 
     becken_ereignis {
@@ -112,6 +113,7 @@ erDiagram
         text        menge "Freitext, z. B. 30 l (FR-5.3)"
         text        text
         uuid        koralle_id FK "-> koralle.id, nullable, ON DELETE SET NULL"
+        timestamptz erstellt_am "NOT NULL, default now()"
     }
 
     bild_dokument {
@@ -228,6 +230,7 @@ Alle Policies gelten nur für `authenticated` – nicht angemeldete Nutzer (`ano
 | 16  | `koralle.besonderheiten` als eigene Freitextspalte neben `fuetterung`       | FR-2.2 nennt Freitext für „Fütterung und Besonderheiten"; v1.0 hatte nur `fuetterung`. Eine gemeinsame Spalte würde zwei Angaben vermischen. Nachgetragen in TASK-06-03 (23.09.2026)                                                                                                                    |
 | 17  | Ableger-Snapshot im Service mit **einem** Insert; `herkunftskette` nur in der UI unveränderlich | FR-1.7, FR-3.6, Grundsatz 4. Kopiert: `art`, `handelsname`, alle Steckbriefspalten einschließlich `besonderheiten`. Neu gesetzt: `mutter_id`, `becken_id` (Formular), `status` (Standardwert), `erwerbsdatum` = Tag der Erzeugung, `quelle_typ` = `eigene_nachzucht`, `herkunftskette`. Leer: `quelle_name`, `belegnummer`, `cites_nr`, `herkunft_notiz`, `primaerbild`. `herkunftskette`: eine Zeile je Generation – `Ableger von „…“ (Art), erzeugt am TT.MM.JJJJ`, dann `Quelle: …` nur bei befüllten Quellfeldern, dann `← ` und die Kette der Ursprungskoralle; leere Angaben entfallen (Format vorläufig). Kein Eingabefeld und kein Trigger für die Kette (KISS); die UPDATE-Policy erlaubt die Änderung technisch. Systemeintrag bei Ableger und Ursprungskoralle, siehe Festlegung 15 – TASK-07-01 |
 | 18  | Inserat und Status per Trigger auf `angebot` gekoppelt, nicht im Service | FR-4.1, FR-4.2: `bei_inserat_anlage_status_setzen` setzt die Koralle auf `zur_abgabe`, `bei_inserat_loeschung_status_setzen` setzt sie auf `im_bestand` zurück – nur wenn sie noch `zur_abgabe` ist, damit `abgegeben` aus FR-4.7 erhalten bleibt (MS-11 setzt dafür erst den Status und löscht dann das Inserat). Eine Transaktion wie Festlegung 15, ohne `security definer`: die Policy `koralle_update_eigene` greift, Festlegung 12 sichert die eigene Koralle. Inserieren nur aus `im_bestand` prüft allein die UI (KISS) – TASK-07-04 |
+| 19  | Diary: ein Messwert je Zeile, Vorfälle als `vorfall` mit Freitext, `erstellt_am` für die Reihenfolge | FR-5.1, FR-5.4, FR-5.5, FR-5.10. Ein Messwert-Eintrag ist eine Zeile: Anlegen schreibt alle ausgefüllten Werte mit **einem** Insert, bearbeitet und gelöscht wird je Wert (keine Datenbankfunktion, KISS). `einheit` wird beim Speichern mit der festen Einheit gefüllt – KH `dKH` (geändert in TASK-08-03: `°dKH`), Ca, Mg, NO₃, PO₄ `mg/l`, Temperatur `°C`; Salinität wird als Dichte ohne Einheit erfasst (z. B. `1,025`), `einheit` bleibt dort leer. Angezeigt wird immer die Einheit aus dem Frontend. Bleaching, Schädling und Vernesselung (FR-5.4) sind kein eigener Typ, sondern `vorfall` mit Freitext – eine Auswertung nach Typ ist nicht gefordert. `fuetterung` (FR-5.5) ist in MS-8 nicht anlegbar, vorhandene Einträge werden angezeigt, bearbeitet und gelöscht. `erstellt_am` (nachgetragen in TASK-08-03, 29.09.2026): innerhalb eines Tags nach Erfassungszeitpunkt, neueste oben; bei gleichem Zeitpunkt Messung, Wasserwechsel, Fütterung, Ereignis. Beim Bearbeiten bleibt `erstellt_am` unverändert – TASK-08-01, TASK-08-03 |
 
 ### Fremdschlüssel und Löschverhalten
 

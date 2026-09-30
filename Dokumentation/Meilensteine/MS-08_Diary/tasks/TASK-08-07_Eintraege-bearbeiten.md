@@ -41,7 +41,7 @@ zu Links.
 
 ## Fertig, wenn
 
-- [ ] Messwert KH von 8,1 auf 8,4 korrigieren → Übersicht zeigt 8,4 dKH (**Abnahme Punkt 8**)
+- [ ] Messwert KH von 8,1 auf 8,4 korrigieren → Übersicht zeigt 8,4 °dKH (**Abnahme Punkt 8**)
 - [ ] Wasserwechsel-Menge und Ereignistext ändern → Übersicht zeigt die neuen Werte
 - [ ] Datum ändern → Eintrag steht unter dem neuen Datum
 - [ ] Ungültige Eingaben → Feldfehler, keine Anfrage

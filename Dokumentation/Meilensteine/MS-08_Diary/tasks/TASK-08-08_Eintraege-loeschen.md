@@ -19,7 +19,7 @@ Jeder Diary-Eintrag lässt sich löschen, aber nie ohne Rückfrage. Der Dialog f
   - **(b)** zusätzlich direkt an jeder Karte der Übersicht – mehr Buttons, bei Messungen einer je Wertzeile
   → Vorschlag: **(a)**.
 - [ ] **Dialogtexte.** Vorschlag:
-  - Messwert: Titel „Messwert löschen?", Text „Karbonathärte (KH) 8,1 dKH vom 12.03.2026 wird endgültig gelöscht."
+  - Messwert: Titel „Messwert löschen?", Text „Karbonathärte (KH) 8,1 °dKH vom 12.03.2026 wird endgültig gelöscht."
   - Wasserwechsel: „Wasserwechsel löschen?", „Der Wasserwechsel vom 12.03.2026 wird endgültig gelöscht."
   - Ereignis: „Ereignis löschen?", „Das Ereignis vom 12.03.2026 wird endgültig gelöscht."
   - Buttons „Abbrechen" und „Löschen" wie im Beckendialog

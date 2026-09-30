@@ -9,7 +9,7 @@ Grundlage: [`../MS-08_Diary.md`](../MS-08_Diary.md) (Umfang und Definition of Do
 
 **Prüfstand 29.09.2026:**
 
-- **MS-7 ist noch nicht abgeschlossen:** TASK-07-08 (RLS-Nachweis) und TASK-07-09 (Abnahme) sind offen.
+- **MS-7 ist abgeschlossen** (TASK-07-09, Abnahme am 29.09.2026).
 - Tabellen `messwert` und `becken_ereignis` bestehen seit MS-3 mit RLS für SELECT, INSERT, UPDATE und DELETE, jeweils
   „eigene" (Festlegung 8). Dass B fremde Zeilen weder lesen noch ändern noch löschen kann, ist in TASK-03-05 geprüft.
   **Keine neue Tabelle nötig**, solange TASK-08-01 keine Schemaänderung beschließt.
@@ -91,21 +91,21 @@ Diese Punkte sind in den Quelldokumenten nicht festgelegt oder widersprechen sic
 
 | #   | Frage                                                                                                  | Wo         | Stand |
 | --- | ------------------------------------------------------------------------------------------------------ | ---------- | ----- |
-| 1   | Was ist ein Messwert-Eintrag – ein einzelner Wert (eine Zeile) oder alle Werte eines Beckens und Tags? | TASK-08-01 | offen |
-| 2   | Einheiten je Parameter, insbesondere Salinität                                                         | TASK-08-01 | offen |
-| 3   | Spalte `messwert.einheit` beim Speichern füllen oder leer lassen?                                      | TASK-08-01 | offen |
-| 4   | Ereignistypen aus FR-5.4 (Bleaching, Schädling, Vernesselung): Freitext oder Enum erweitern?           | TASK-08-01 | offen |
-| 5   | `fuetterung` (FR-5.5, MS-10) in MS-8 anlegbar oder nur anzeigen?                                       | TASK-08-01 | offen |
-| 6   | Reihenfolge bei gleichem Datum ohne `erstellt_am`                                                      | TASK-08-01 | offen |
-| 7   | Datum in der Zukunft erlaubt?                                                                          | TASK-08-01 | offen |
-| 8   | Pfade für Anlegen und Bearbeiten                                                                       | TASK-08-01 | offen |
-| 9   | Beckendetail und Beckenliste: „Letzte Messung", Messwert-Anzeige, „Messwert erfassen" in MS-8?         | TASK-08-01 | offen |
-| 10  | Dateinamen für Services und Hooks                                                                      | TASK-08-02 | offen |
-| 11  | Zahlenformat: Nachkommastellen, Dezimaltrenner bei der Eingabe                                         | TASK-08-02 | offen |
-| 12  | Einstieg: ein Button „Eintrag hinzufügen" oder drei Buttons?                                           | TASK-08-03 | offen |
-| 13  | Darstellung einer Messung in der Liste                                                                 | TASK-08-03 | offen |
-| 14  | Typ-Etikett mit oder ohne Symbol                                                                       | TASK-08-03 | offen |
-| 15  | Messwert-Formular: Plausibilitätsgrenzen, Hinweis „mindestens ein Wert", Becken vorbelegen             | TASK-08-04 | offen |
+| 1   | Was ist ein Messwert-Eintrag – ein einzelner Wert (eine Zeile) oder alle Werte eines Beckens und Tags? | TASK-08-01 | entschieden: eine Zeile je Wert |
+| 2   | Einheiten je Parameter, insbesondere Salinität                                                         | TASK-08-01 | entschieden: siehe TASK-08-01, Salinität als Dichte ohne Einheit; **geändert in TASK-08-03:** KH `°dKH` |
+| 3   | Spalte `messwert.einheit` beim Speichern füllen oder leer lassen?                                      | TASK-08-01 | entschieden: füllen (Salinität leer) |
+| 4   | Ereignistypen aus FR-5.4 (Bleaching, Schädling, Vernesselung): Freitext oder Enum erweitern?           | TASK-08-01 | entschieden: `vorfall` + Freitext |
+| 5   | `fuetterung` (FR-5.5, MS-10) in MS-8 anlegbar oder nur anzeigen?                                       | TASK-08-01 | entschieden: nur anzeigen, bearbeit- und löschbar |
+| 6   | Reihenfolge bei gleichem Datum ohne `erstellt_am`                                                      | TASK-08-01 | entschieden: feste Typ-Reihenfolge, **geändert in TASK-08-03:** Spalte `erstellt_am` |
+| 7   | Datum in der Zukunft erlaubt?                                                                          | TASK-08-01 | entschieden: nicht erlaubt |
+| 8   | Pfade für Anlegen und Bearbeiten                                                                       | TASK-08-01 | entschieden: siehe TASK-08-01 |
+| 9   | Beckendetail und Beckenliste: „Letzte Messung", Messwert-Anzeige, „Messwert erfassen" in MS-8?         | TASK-08-01 | entschieden: nichts davon, nach MS-10 |
+| 10  | Dateinamen für Services und Hooks                                                                      | TASK-08-02 | entschieden: wie vorgeschlagen |
+| 11  | Zahlenformat: Nachkommastellen, Dezimaltrenner bei der Eingabe                                         | TASK-08-02 | entschieden: max. 3 Nachkommastellen, Komma und Punkt als Dezimaltrenner |
+| 12  | Einstieg: ein Button „Eintrag hinzufügen" oder drei Buttons?                                           | TASK-08-03 | entschieden: drei Buttons nebeneinander direkt auf `/diary` |
+| 13  | Darstellung einer Messung in der Liste                                                                 | TASK-08-03 | entschieden: eine Karte je Erfassung (Becken, Datum, `erstellt_am`), eine Zeile je Wert |
+| 14  | Typ-Etikett mit oder ohne Symbol                                                                       | TASK-08-03 | entschieden: mit Symbol, alle aus lucide-react (Reagenzglas, Eimer, Kalender, Fleischstück) |
+| 15  | Messwert-Formular: Plausibilitätsgrenzen, Hinweis „mindestens ein Wert", Becken vorbelegen             | TASK-08-04 | entschieden: siehe TASK-08-04 – Grenzen ab 0 bis KH 11 · Ca 600 · Mg 1700 · NO₃ 12 · PO₄ 10 · Temp. 35, Salinität 1,000–1,050; Hinweis nur bei allen Feldern leer; Becken bei genau einem vorbelegt |
 | 16  | Wasserwechsel: Pflichtfelder, Höchstlängen, Platzhalter                                                | TASK-08-05 | offen |
 | 17  | Ereignis: Pflichtfelder, Auswahl der betroffenen Koralle                                               | TASK-08-06 | offen |
 | 18  | Bearbeiten: welche Felder änderbar, wie wird die Seite erreicht?                                       | TASK-08-07 | offen |

@@ -45,3 +45,5 @@ Diese Anforderungen sind Teil der Definition of Done von MS-10 und werden nicht 
 **Umfang (Must):** Herkunftsdaten je Koralle (FR-3.1); Historienansicht chronologisch absteigend (FR-3.2); Abgabevorgang erfassen (FR-3.7); Verlaufsdiagramm je Parameter mit wählbarem Zeitraum (FR-5.2).
 
 **Wenn Zeit bleibt (Should):** Belegdokumente (FR-3.8), Historienfilter (FR-3.9), Wachstumsgalerie (FR-1.12), Fütterung und Düngung (FR-5.5), Soll-Bereiche (FR-5.6), gemeinsamer Zeitstrahl (FR-5.7). Umsetzen zwischen Becken protokollieren (FR-1.11) ist am 25.09.2026 nach MS-9 vorgezogen.
+
+**Aus MS-8 übernommen (TASK-08-01, 29.09.2026):** Karte „Letzte Messung" und Button „Messwert erfassen" im Beckendetail sowie die Messwert-Anzeige in der Beckenliste – derselbe Mockup-Block wie das Verlaufsdiagramm (FR-5.2).

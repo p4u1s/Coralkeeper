@@ -687,7 +687,10 @@ create table public.messwert (
   wert numeric not null,
 
   -- fest je Parameter (FR-5.1)
-  einheit text
+  einheit text,
+
+  -- Reihenfolge innerhalb eines Tags (Festlegung 19, TASK-08-03)
+  erstellt_am timestamptz not null default now()
 );
 
 -- RLS (FR-6.2): Diary-Einträge sind korrigierbar (Festlegung Nr. 8, FR-5.10)
@@ -749,7 +752,10 @@ create table public.becken_ereignis (
   -- betroffene Koralle, bleibt beim Löschen der Koralle als Eintrag erhalten
   koralle_id uuid
     references public.koralle(id)
-    on delete set null
+    on delete set null,
+
+  -- Reihenfolge innerhalb eines Tags (Festlegung 19, TASK-08-03)
+  erstellt_am timestamptz not null default now()
 );
 
 -- RLS (FR-6.2): Diary-Einträge sind korrigierbar (Festlegung Nr. 8, FR-5.10)
