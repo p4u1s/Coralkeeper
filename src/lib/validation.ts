@@ -1,6 +1,11 @@
 // Feldprüfung der Formulare vor dem Absenden (FR-6.6)
 
-import { formatVolume } from "@/lib/format.ts";
+import { formatVolume, parseDecimal } from "@/lib/format.ts";
+import {
+  MEASUREMENT_EXAMPLES,
+  MEASUREMENT_PARAMETER_VALUES,
+  MEASUREMENT_UNITS,
+} from "@/lib/labels.ts";
 import type { Enums } from "@/types/database.types.ts";
 
 // Gleicher Wert wie in den Supabase-Auth-Einstellungen (TASK-03-06, Schritt 8)
@@ -24,6 +29,24 @@ export const MAX_OFFER_SIZE_LENGTH = 50;
 
 // Journaleintrag: Freitext für Beobachtungen (FR-3.5)
 export const MAX_JOURNAL_TEXT_LENGTH = 1_000;
+
+// Messwerte: Grenzen gegen Tippfehler, keine Soll-Bereiche (FR-5.6, MS-10).
+// Salinität als Dichte hat als einziger Wert eine Untergrenze über 0
+export const MEASUREMENT_LIMITS: Record<
+  Enums<"messparameter">,
+  { min: number; max: number }
+> = {
+  kh: { min: 0, max: 11 },
+  ca: { min: 0, max: 600 },
+  mg: { min: 0, max: 1_700 },
+  no3: { min: 0, max: 12 },
+  po4: { min: 0, max: 10 },
+  temperatur: { min: 0, max: 35 },
+  salinitaet: { min: 1, max: 1.05 },
+};
+
+// Mehr als drei Ziffern nach Komma oder Punkt (Entscheidung TASK-08-04)
+const TOO_MANY_DECIMALS_PATTERN = /[.,]\d{4,}$/;
 
 // Nur ganze Zahlen erlaubt: schließt "abc", "-5", "2,5" und "1.320" aus
 const WHOLE_NUMBER_PATTERN = /^\d+$/;
@@ -71,6 +94,13 @@ export type OfferErrors = {
   mode?: string;
   priceOrSwap?: string;
   size?: string;
+};
+
+export type MeasurementErrors = {
+  tankId?: string;
+  date?: string;
+  values: Partial<Record<Enums<"messparameter">, string>>;
+  atLeastOne?: string;
 };
 
 export function validateLogin(email: string, password: string): LoginErrors {
@@ -263,6 +293,77 @@ export function validateOffer(
       : undefined,
     size: checkCoralText(size, "Die Größe", MAX_OFFER_SIZE_LENGTH),
   };
+}
+
+// texts: Eingabe je Parameter, leere Felder als ""
+export function validateMeasurements(
+  tankId: string,
+  date: string,
+  texts: Record<Enums<"messparameter">, string>
+): MeasurementErrors {
+  const values: MeasurementErrors["values"] = {};
+  for (const parameter of MEASUREMENT_PARAMETER_VALUES) {
+    values[parameter] = checkMeasurement(texts[parameter], parameter);
+  }
+  const allEmpty = MEASUREMENT_PARAMETER_VALUES.every(
+    (parameter) => texts[parameter].trim() === ""
+  );
+  return {
+    // Die leere Option „Becken wählen" hat den Wert ""
+    tankId: tankId === "" ? "Bitte ein Becken wählen." : undefined,
+    date:
+      date === ""
+        ? "Bitte ein Datum eingeben."
+        : checkNotInFuture(date, "Datum"),
+    values,
+    // Nur wenn alle Felder leer sind – sonst reicht der Feldfehler (FR-5.1)
+    atLeastOne: allEmpty
+      ? "Bitte mindestens einen Messwert eintragen."
+      : undefined,
+  };
+}
+
+// hasErrors reicht hier nicht, weil die Wertfehler verschachtelt sind
+export function hasMeasurementErrors(errors: MeasurementErrors): boolean {
+  const { values, ...otherErrors } = errors;
+  return hasErrors(otherErrors) || hasErrors(values);
+}
+
+// Leeres Feld ist kein Fehler; negative Werte lehnt schon parseDecimal ab
+function checkMeasurement(
+  text: string,
+  parameter: Enums<"messparameter">
+): string | undefined {
+  const trimmed = text.trim();
+  if (trimmed === "") {
+    return undefined;
+  }
+  const value = parseDecimal(trimmed);
+  if (value === null) {
+    return `Bitte eine Zahl eingeben, z. B. ${MEASUREMENT_EXAMPLES[parameter]}.`;
+  }
+  if (TOO_MANY_DECIMALS_PATTERN.test(trimmed)) {
+    return "Bitte höchstens drei Nachkommastellen eingeben.";
+  }
+  const { min, max } = MEASUREMENT_LIMITS[parameter];
+  if (value < min || value > max) {
+    return min === 0
+      ? `Der Wert darf höchstens ${formatLimit(max, parameter)} betragen.`
+      : `Der Wert muss zwischen ${formatLimit(min, parameter)} und ${formatLimit(max, parameter)} liegen.`;
+  }
+  return undefined;
+}
+
+// Ohne Tausenderpunkt wie in der Eingabe – "1.700" würde dort als 1,7 gelesen.
+// Salinität immer mit drei Stellen: "1,000" und "1,050"
+function formatLimit(value: number, parameter: Enums<"messparameter">): string {
+  const number = value.toLocaleString("de-DE", {
+    useGrouping: false,
+    minimumFractionDigits: parameter === "salinitaet" ? 3 : 0,
+    maximumFractionDigits: 3,
+  });
+  const unit = MEASUREMENT_UNITS[parameter];
+  return unit ? `${number} ${unit}` : number;
 }
 
 // Label mit Artikel, weil die Felder unterschiedliche Geschlechter haben
