@@ -108,8 +108,8 @@ Diese Punkte sind in den Quelldokumenten nicht festgelegt oder widersprechen sic
 | 15  | Messwert-Formular: Plausibilitätsgrenzen, Hinweis „mindestens ein Wert", Becken vorbelegen             | TASK-08-04 | entschieden: siehe TASK-08-04 – Grenzen ab 0 bis KH 11 · Ca 600 · Mg 1700 · NO₃ 12 · PO₄ 10 · Temp. 35, Salinität 1,000–1,050; Hinweis nur bei allen Feldern leer; Becken bei genau einem vorbelegt |
 | 16  | Wasserwechsel: Pflichtfelder, Höchstlängen, Platzhalter                                                | TASK-08-05 | entschieden: siehe TASK-08-05 – Becken und Datum Pflicht, Menge (max. 50) und Notiz (max. 800) optional; ein Formular `TankEventForm` für Wasserwechsel und Ereignis |
 | 17  | Ereignis: Pflichtfelder, Auswahl der betroffenen Koralle                                               | TASK-08-06 | entschieden: siehe TASK-08-06 – Becken, Datum und Beschreibung (max. 1.000) Pflicht; Koralle optional, alle Korallen des Beckens, Optionstext „Bezeichnung (Handelsname)" |
-| 18  | Bearbeiten: welche Felder änderbar, wie wird die Seite erreicht?                                       | TASK-08-07 | offen |
-| 19  | Löschen: Ort des Buttons, Dialogtexte                                                                  | TASK-08-08 | offen |
+| 18  | Bearbeiten: welche Felder änderbar, wie wird die Seite erreicht?                                       | TASK-08-07 | entschieden: siehe TASK-08-07 – Messwert einzeln (Becken, Datum, Wert), Wasserwechsel/Ereignis über `TankEventForm`, Becken änderbar, Fütterung wie Ereignis; Karte bzw. Wertzeile als Link mit Pfeil ohne Text (bewusste Abweichung von NFR-1.4) |
+| 19  | Löschen: Ort des Buttons, Dialogtexte                                                                  | TASK-08-08 | entschieden: siehe TASK-08-08 – Button nur auf den Bearbeiten-Seiten unter „Abbrechen“, Texte wie vorgeschlagen, Fütterung analog („Die Fütterung vom … wird endgültig gelöscht.“); danach `/diary` mit `replace`; eine Komponente `DeleteEntryDialog` |
 
 ---
 

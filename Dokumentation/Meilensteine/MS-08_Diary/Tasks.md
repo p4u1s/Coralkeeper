@@ -6,6 +6,6 @@
 - [x] **TASK-08-04** Messwerte je Becken mit Datum erfassen, mindestens ein Wert (Formular).
 - [x] **TASK-08-05** Wasserwechsel protokollieren (Formular).
 - [x] **TASK-08-06** Ereignis protokollieren, optional mit betroffener Koralle (Formular).
-- [ ] **TASK-08-07** Messwert, Wasserwechsel und Ereignis bearbeiten.
-- [ ] **TASK-08-08** Messwert, Wasserwechsel und Ereignis löschen, mit Bestätigungsdialog.
+- [x] **TASK-08-07** Messwert, Wasserwechsel und Ereignis bearbeiten.
+- [x] **TASK-08-08** Messwert, Wasserwechsel und Ereignis löschen, mit Bestätigungsdialog.
 - [ ] **TASK-08-09** Responsive prüfen, deployen und am deployten Stand abnehmen.
