@@ -8,4 +8,4 @@
 - [x] **TASK-08-06** Ereignis protokollieren, optional mit betroffener Koralle (Formular).
 - [x] **TASK-08-07** Messwert, Wasserwechsel und Ereignis bearbeiten.
 - [x] **TASK-08-08** Messwert, Wasserwechsel und Ereignis löschen, mit Bestätigungsdialog.
-- [ ] **TASK-08-09** Responsive prüfen, deployen und am deployten Stand abnehmen.
+- [x] **TASK-08-09** Responsive prüfen, deployen und am deployten Stand abnehmen.

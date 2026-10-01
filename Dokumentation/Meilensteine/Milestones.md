@@ -45,7 +45,7 @@ Begründung: Ein nachgelagerter „Nacharbeits-Meilenstein" für diese Punkte wi
 | [**MS-5**](Meilensteine/MS-05_Koralle-Bestand.md) | Koralle & Bestand (Grundgerüst) | MVP 3 · FR-1.2, FR-1.14 | ~11 % | ✅ |
 | [**MS-6**](Meilensteine/MS-06_Detailseite-Steckbrief-Historie.md) | Detailseite: Steckbrief & Historie | MVP 4 + 5 · FR-2.1, FR-2.2, FR-3.3, FR-3.4, FR-3.5 | ~11 % | ✅ |
 | [**MS-7**](Meilensteine/MS-07_Ableger-Inserat.md) | Ableger & Inserat | MVP 6 · FR-1.7, FR-3.6, FR-4.1, FR-4.2 | ~9 % | ✅ |
-| [**MS-8**](Meilensteine/MS-08_Diary.md) | Diary | MVP 7 · FR-5.1, FR-5.3, FR-5.4, FR-5.10 | ~10 % | |
+| [**MS-8**](Meilensteine/MS-08_Diary.md) | Diary | MVP 7 · FR-5.1, FR-5.3, FR-5.4, FR-5.10 | ~10 % | ✅ |
 | [🚦](Meilensteine/MS-08a_GATE_MVP-Abnahme.md) | **GATE: MVP-Abnahme** | Abnahmekriterien, Abschnitt 7 | — | |
 | [**MS-9**](Meilensteine/MS-09_Bestand-nutzbar-Profil.md) | Bestand nutzbar & Profil | FR-1.3 bis FR-1.6, FR-1.9, FR-1.10, FR-2.3, FR-2.4, FR-6.8 | ~9 % | |
 | [**MS-10**](Meilensteine/MS-10_Herkunft-Historie-Diary-Ausbau.md) | Herkunft, Historie & Diary-Ausbau | FR-3.1, FR-3.2, FR-3.7, FR-5.2 | ~7 % | |

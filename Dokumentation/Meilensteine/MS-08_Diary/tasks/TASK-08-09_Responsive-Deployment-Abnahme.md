@@ -1,6 +1,6 @@
 # TASK-08-09 · Responsive prüfen, deployen und am deployten Stand abnehmen
 
-**Status:** offen
+**Status:** erledigt (01.10.2026)
 **Bezug:** Definition of Done MS-8 · FR-6.2, FR-6.4, FR-6.5, FR-6.6 · NFR-1.3 bis NFR-1.7 · Abnahmekriterien
 Abschnitt 7 Punkte 8 und 9
 **Voraussetzung:** TASK-08-01 bis 08-08
@@ -17,55 +17,55 @@ MVP-Gate (MS-08a).
 
 ### A · Querschnittsprüfung (lokal, Build-Stand mit `npm run build` und `npm run preview`)
 
-1. [ ] Diary-Übersicht, die drei Anlegen-Formulare, beide Bearbeiten-Seiten und der Löschdialog bei **360 px**,
+1. [x] Diary-Übersicht, die drei Anlegen-Formulare, beide Bearbeiten-Seiten und der Löschdialog bei **360 px**,
        **390 px** und Desktop-Breite: kein waagerechtes Scrollen, nichts abgeschnitten, lange Texte umbrechen (NFR-1.6)
-2. [ ] Trefferflächen ≥ 44 × 44 px, auch Wertzeilen, Auswahlfelder und Dialog-Buttons (NFR-1.3)
-3. [ ] Kein Symbol ohne Text, jedes Feld mit sichtbarem Label (NFR-1.4)
-4. [ ] Kontrast mit DevTools oder Lighthouse, mindestens WCAG 2.1 AA (NFR-1.4)
-5. [ ] Anlegen, Bearbeiten und Löschen nur mit der Tastatur bedienbar, Fokus immer sichtbar
-6. [ ] Alle UI-Texte deutsch, Datum `TT.MM.JJJJ`, Zahlen mit Komma und Tausenderpunkt, Einheiten immer dabei
+2. [x] Trefferflächen ≥ 44 × 44 px, auch Wertzeilen, Auswahlfelder und Dialog-Buttons (NFR-1.3)
+3. [x] Kein Symbol ohne Text, jedes Feld mit sichtbarem Label (NFR-1.4)
+4. [x] Kontrast mit DevTools oder Lighthouse, mindestens WCAG 2.1 AA (NFR-1.4)
+5. [x] Anlegen, Bearbeiten und Löschen nur mit der Tastatur bedienbar, Fokus immer sichtbar
+6. [x] Alle UI-Texte deutsch, Datum `TT.MM.JJJJ`, Zahlen mit Komma und Tausenderpunkt, Einheiten immer dabei
        (NFR-1.5, NFR-1.8)
-7. [ ] Vom Bestand aus jedes Diary-Formular in höchstens drei Interaktionen erreichbar (NFR-1.2)
+7. [x] Vom Bestand aus jedes Diary-Formular in höchstens drei Interaktionen erreichbar (NFR-1.2)
 
 ### B · Deployment
 
-8. [ ] `npm run build`, `npm run lint`, `npm run format` ohne Fehler.
-9. [ ] Auf `main` pushen (Nutzer), im Reiter „Actions" prüfen, dass der Lauf grün ist.
+8. [x] `npm run build`, `npm run lint`, `npm run format` ohne Fehler.
+9. [x] Auf `main` pushen (Nutzer), im Reiter „Actions" prüfen, dass der Lauf grün ist.
 
 ### C · Abnahme am deployten Stand
 
-10. [ ] Protokoll unten auf der GitHub-Pages-Adresse durchspielen, einmal davon auf einem echten Smartphone.
-11. [ ] TASK-08-01 bis 08-09 in [`../Tasks.md`](../Tasks.md) abhaken.
+10. [x] Protokoll unten auf der GitHub-Pages-Adresse durchspielen, einmal davon auf einem echten Smartphone.
+11. [x] TASK-08-01 bis 08-09 in [`../Tasks.md`](../Tasks.md) abhaken.
 
 ## Abnahmeprotokoll
 
-Datum: · Adresse: <https://p4u1s.github.io/Coralkeeper/>
+Datum: 01.10.2026 · Adresse: <https://p4u1s.github.io/Coralkeeper/>
 
 | #   | Test                                                             | Erwartet                                                                 | Ergebnis |
 | --- | ---------------------------------------------------------------- | ------------------------------------------------------------------------ | -------- |
-| 1   | Diary über die Bottom-Navigation öffnen                          | Übersicht mit Anlegen-Buttons, bestehende Einträge nach Datum            |          |
-| 2   | Messwerte erfassen ohne Wert                                     | Hinweis, kein Eintrag                                                    |          |
-| 3   | Messwerte KH 8,1 und Ca 425 erfassen                             | beide Werte unter dem Datum, `8,1 °dKH` und `425 mg/l` (**Abnahme 8**)   |          |
-| 4   | Wasserwechsel mit Menge „30 l" und Notiz                         | Eintrag in der Übersicht (**Abnahme 8**)                                 |          |
-| 5   | Ereignis mit Text und betroffener Koralle                        | Eintrag mit Korallenbezeichnung (**Abnahme 8**)                          |          |
-| 6   | KH auf 8,4 korrigieren                                           | Übersicht zeigt `8,4 °dKH` (**Abnahme 8**)                               |          |
-| 7   | Wasserwechsel löschen, zuerst abbrechen, dann bestätigen         | nach Abbrechen noch da, nach Bestätigen weg (**Abnahme 8**, FR-6.5)      |          |
-| 8   | Abmelden, neu anmelden                                           | Einträge unverändert (Abschnitt 7, Einleitung)                           |          |
-| 9   | Neue Formularseiten neu laden (F5)                               | Seite erscheint erneut, kein 404                                         |          |
-| 10  | Ohne Verbindung speichern bzw. löschen                           | deutsche Fehlermeldung, Eingaben bleiben stehen (FR-6.4)                 |          |
-| 11  | Als Testnutzer B: Diary öffnen                                   | keine Einträge von A (**Abnahme 9**)                                     |          |
-| 12  | Als B: Bearbeiten-Pfade mit Messwert …08 und Ereignis …09 von A  | „nicht gefunden" (**Abnahme 9**, FR-6.2)                                 |          |
-| 13  | Ansicht bei 360 px Breite                                        | kein waagerechtes Scrollen, alles bedienbar                              |          |
+| 1   | Diary über die Bottom-Navigation öffnen                          | Übersicht mit Anlegen-Buttons, bestehende Einträge nach Datum            | bestanden |
+| 2   | Messwerte erfassen ohne Wert                                     | Hinweis, kein Eintrag                                                    | bestanden |
+| 3   | Messwerte KH 8,1 und Ca 425 erfassen                             | beide Werte unter dem Datum, `8,1 °dKH` und `425 mg/l` (**Abnahme 8**)   | bestanden |
+| 4   | Wasserwechsel mit Menge „30 l" und Notiz                         | Eintrag in der Übersicht (**Abnahme 8**)                                 | bestanden |
+| 5   | Ereignis mit Text und betroffener Koralle                        | Eintrag mit Korallenbezeichnung (**Abnahme 8**)                          | bestanden |
+| 6   | KH auf 8,4 korrigieren                                           | Übersicht zeigt `8,4 °dKH` (**Abnahme 8**)                               | bestanden |
+| 7   | Wasserwechsel löschen, zuerst abbrechen, dann bestätigen         | nach Abbrechen noch da, nach Bestätigen weg (**Abnahme 8**, FR-6.5)      | bestanden |
+| 8   | Abmelden, neu anmelden                                           | Einträge unverändert (Abschnitt 7, Einleitung)                           | bestanden |
+| 9   | Neue Formularseiten neu laden (F5)                               | Seite erscheint erneut, kein 404                                         | bestanden |
+| 10  | Ohne Verbindung speichern bzw. löschen                           | deutsche Fehlermeldung, Eingaben bleiben stehen (FR-6.4)                 | bestanden |
+| 11  | Als Testnutzer B: Diary öffnen                                   | keine Einträge von A (**Abnahme 9**)                                     | bestanden |
+| 12  | Als B: Bearbeiten-Pfade mit Messwert …08 und Ereignis …09 von A  | „nicht gefunden" (**Abnahme 9**, FR-6.2)                                 | bestanden |
+| 13  | Ansicht bei 360 px Breite                                        | kein waagerechtes Scrollen, alles bedienbar                              | bestanden |
 
 Der Datenbank-Nachweis, dass B Messwerte und Ereignisse von A weder lesen noch ändern noch löschen kann, liegt in
 TASK-03-05 und – für das Lesen – in TASK-07-08 (Protokollzeile 6).
 
 ## Fertig, wenn
 
-- [ ] Alle Punkte aus A sind geprüft
-- [ ] Der Deploy-Lauf ist grün
-- [ ] Das Abnahmeprotokoll ist vollständig und alle Tests sind bestanden
-- [ ] **Definition of Done MS-8:** Messwert, Wasserwechsel und Ereignis lassen sich anlegen, einer korrigieren, einer
+- [x] Alle Punkte aus A sind geprüft
+- [x] Der Deploy-Lauf ist grün
+- [x] Das Abnahmeprotokoll ist vollständig und alle Tests sind bestanden
+- [x] **Definition of Done MS-8:** Messwert, Wasserwechsel und Ereignis lassen sich anlegen, einer korrigieren, einer
       löschen – am deployten Stand
 
 ## Hinweise
