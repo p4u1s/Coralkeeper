@@ -1,6 +1,6 @@
 # TASK-08-07 · Einträge bearbeiten
 
-**Status:** offen
+**Status:** erledigt (30.09.2026)
 **Bezug:** FR-5.10 (Diary-Einträge bearbeiten), FR-6.2, FR-6.4, FR-6.6, NFR-1.3, Abnahmekriterium Abschnitt 7
 Punkt 8 („einen davon korrigieren")
 **Voraussetzung:** TASK-08-04, TASK-08-06
@@ -15,41 +15,54 @@ zu Links.
 
 ## Vor dem Start klären
 
-- [ ] **Messwert bearbeiten** (bei Entscheidung 1 (a) in TASK-08-01). Vorschlag: eigenes kleines Formular statt des
+- [x] **Messwert bearbeiten** (bei Entscheidung 1 (a) in TASK-08-01). Vorschlag: eigenes kleines Formular statt des
       Sieben-Felder-Formulars – Becken, Datum und **ein** Wert; der Parameter steht als Text im Titel
       („Karbonathärte (KH) bearbeiten") und ist nicht änderbar. Ein leeres Wertfeld ist ein Feldfehler, Entfernen
       läuft über Löschen (TASK-08-08).
-- [ ] **Wasserwechsel und Ereignis bearbeiten.** Vorschlag: `TankEventForm` mit Anfangswerten wie `TankForm` im
+  → **Entschieden am 30.09.2026:** wie vorgeschlagen. Ändert man Datum oder Becken eines einzelnen Werts, steht er
+  in der Übersicht als eigene Karte (Gruppierung nach Becken, Datum, `erstellt_am`) – vorerst hingenommen, bei
+  Bedarf ändern.
+- [x] **Wasserwechsel und Ereignis bearbeiten.** Vorschlag: `TankEventForm` mit Anfangswerten wie `TankForm` im
       Bearbeiten-Modus; der Typ ist nicht änderbar. Ein Eintrag mit Typ `fuetterung` (Testdatensatz …09) wird nach
       Entscheidung 5 in TASK-08-01 wie ein Ereignis bearbeitet.
-- [ ] **Becken änderbar?** Vorschlag: ja, über dasselbe Auswahlfeld; beim Ereignis setzt ein Beckenwechsel die
+  → **Entschieden am 30.09.2026:** wie vorgeschlagen. Fütterung mit den Feldern des Ereignisses, Beschreibung ist
+  Pflicht, der Typ bleibt `fuetterung`.
+- [x] **Becken änderbar?** Vorschlag: ja, über dasselbe Auswahlfeld; beim Ereignis setzt ein Beckenwechsel die
       Koralle auf „Keine".
-- [ ] **Erreichbarkeit.** Vorschlag: ganze Karte (Wasserwechsel, Ereignis) bzw. Wertzeile (Messung) als Link auf die
+  → **Entschieden am 30.09.2026:** ja.
+- [x] **Erreichbarkeit.** Vorschlag: ganze Karte (Wasserwechsel, Ereignis) bzw. Wertzeile (Messung) als Link auf die
       Bearbeiten-Seite, mit sichtbarem Hinweis „Bearbeiten" oder Pfeil **mit Text** (NFR-1.4) – keine
       Hover-Funktion.
-- [ ] **Ziel nach dem Speichern.** Vorschlag: `/diary` mit `replace`; Abbrechen nach `/diary`.
+  → **Entschieden am 30.09.2026:** ganze Karte bzw. Wertzeile als Link, als Hinweis nur ein Pfeil ohne Text –
+  bewusste Abweichung von NFR-1.4.
+- [x] **Ziel nach dem Speichern.** Vorschlag: `/diary` mit `replace`; Abbrechen nach `/diary`.
+  → **Entschieden am 30.09.2026:** wie vorgeschlagen; bei Fehler und „nicht gefunden" Link „Zum Diary".
 
 ## Schritte
 
-1. [ ] **Routen** nach TASK-08-01 außerhalb von `AppLayout`, Kopfkommentar ergänzen.
-2. [ ] **Seiten**, z. B. `src/pages/MeasurementEditPage.tsx` und `src/pages/TankEventEditPage.tsx`: laden über
+1. [x] **Routen** nach TASK-08-01 außerhalb von `AppLayout`, Kopfkommentar ergänzen.
+2. [x] **Seiten**, z. B. `src/pages/MeasurementEditPage.tsx` und `src/pages/TankEventEditPage.tsx`: laden über
        `useMeasurement` bzw. `useTankEvent`; Zustände Laden, Fehler, „Eintrag nicht gefunden." wie `TankEditPage`.
-3. [ ] **Formulare** um Anfangswerte erweitern (Zahl beim Vorbelegen im de-DE-Format, z. B. `8,1`).
-4. [ ] **Speichern** über `updateMeasurement` bzw. `updateTankEvent`; Button während des Speicherns deaktiviert,
+       → Beide Hooks haben dafür ein `reload` bekommen; der Fehlerzustand zeigt „Erneut versuchen" und „Zum Diary".
+       Titel mit Kürzel („KH bearbeiten", „Temp. bearbeiten") bzw. Typ („Wasserwechsel bearbeiten").
+3. [x] **Formulare** um Anfangswerte erweitern (Zahl beim Vorbelegen im de-DE-Format, z. B. `8,1`).
+       → Messwert: eigenes `MeasurementEditForm`, Vorbelegung über `formatDecimalInput` (ohne Tausenderpunkt),
+       Prüfung über `validateMeasurementEdit`. `TankEventForm` mit `initialValues`.
+4. [x] **Speichern** über `updateMeasurement` bzw. `updateTankEvent`; Button während des Speicherns deaktiviert,
        Serverfehler mit `role="alert"`, Eingaben bleiben stehen.
-5. [ ] **Übersicht**: Einträge als Links nach Entscheidung.
+5. [x] **Übersicht**: Einträge als Links nach Entscheidung.
 
 ## Fertig, wenn
 
-- [ ] Messwert KH von 8,1 auf 8,4 korrigieren → Übersicht zeigt 8,4 °dKH (**Abnahme Punkt 8**)
-- [ ] Wasserwechsel-Menge und Ereignistext ändern → Übersicht zeigt die neuen Werte
-- [ ] Datum ändern → Eintrag steht unter dem neuen Datum
-- [ ] Ungültige Eingaben → Feldfehler, keine Anfrage
-- [ ] Ungültige ID in der URL → „nicht gefunden", keine Fehlermeldung
-- [ ] Als Testnutzer B: Bearbeiten-Pfade mit Messwert …08 und Ereignis …09 von A → „nicht gefunden" (FR-6.2)
-- [ ] Ohne Verbindung speichern → deutsche Fehlermeldung, Eingaben bleiben stehen (FR-6.4)
-- [ ] Alle Felder, Links und Buttons ≥ 44 px, bei 360 px kein waagerechtes Scrollen
-- [ ] `npm run build`, `npm run lint`, `npm run format` ohne Fehler
+- [x] Messwert KH von 8,1 auf 8,4 korrigieren → Übersicht zeigt 8,4 °dKH (**Abnahme Punkt 8**)
+- [x] Wasserwechsel-Menge und Ereignistext ändern → Übersicht zeigt die neuen Werte
+- [x] Datum ändern → Eintrag steht unter dem neuen Datum
+- [x] Ungültige Eingaben → Feldfehler, keine Anfrage
+- [x] Ungültige ID in der URL → „nicht gefunden", keine Fehlermeldung
+- [x] Als Testnutzer B: Bearbeiten-Pfade mit Messwert …08 und Ereignis …09 von A → „nicht gefunden" (FR-6.2)
+- [x] Ohne Verbindung speichern → deutsche Fehlermeldung, Eingaben bleiben stehen (FR-6.4)
+- [x] Alle Felder, Links und Buttons ≥ 44 px, bei 360 px kein waagerechtes Scrollen
+- [x] `npm run build`, `npm run lint`, `npm run format` ohne Fehler
 
 ## Hinweise
 

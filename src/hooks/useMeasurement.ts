@@ -11,12 +11,15 @@ export type MeasurementState = {
   error: string | null;
 };
 
-export function useMeasurement(id: string): MeasurementState {
+export function useMeasurement(
+  id: string
+): MeasurementState & { reload: () => void } {
   const [state, setState] = useState<MeasurementState>({
     status: "loading",
     measurement: null,
     error: null,
   });
+  const [reloadCount, setReloadCount] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -46,7 +49,12 @@ export function useMeasurement(id: string): MeasurementState {
     return () => {
       cancelled = true;
     };
-  }, [id]);
+  }, [id, reloadCount]);
 
-  return state;
+  function reload() {
+    setState({ status: "loading", measurement: null, error: null });
+    setReloadCount((count) => count + 1);
+  }
+
+  return { ...state, reload };
 }

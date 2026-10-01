@@ -68,7 +68,6 @@ export function DiaryPage() {
 
       {status === "success" && tanks.length > 0 && (
         <>
-          {/* Pfade aus TASK-08-01; die Formulare entstehen in TASK-08-04 bis 08-06 */}
           <div className="grid grid-cols-3 gap-2">
             <Link
               to="/diary/messwerte/neu"

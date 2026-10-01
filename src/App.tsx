@@ -24,6 +24,8 @@ import { OfferCreatePage } from "@/pages/OfferCreatePage.tsx";
 import { MeasurementCreatePage } from "@/pages/MeasurementCreatePage.tsx";
 import { WaterChangeCreatePage } from "@/pages/WaterChangeCreatePage.tsx";
 import { IncidentCreatePage } from "@/pages/IncidentCreatePage.tsx";
+import { MeasurementEditPage } from "@/pages/MeasurementEditPage.tsx";
+import { TankEventEditPage } from "@/pages/TankEventEditPage.tsx";
 
 // Pfade nach Requirements v2.2, Abschnitt 7 (FR-6.3)
 // Nicht in Abschnitt 7 enthalten. Festgelegt in TASK-04-01: /diary, /becken/:id/bearbeiten
@@ -31,7 +33,8 @@ import { IncidentCreatePage } from "@/pages/IncidentCreatePage.tsx";
 // Festgelegt in TASK-06-07: /koralle/:id/journal/neu
 // Festgelegt in TASK-07-03: /koralle/:id/ableger/neu
 // Festgelegt in TASK-07-06: /koralle/:id/inserat/neu
-// Festgelegt in TASK-08-01: /diary/messwerte/neu, /diary/wasserwechsel/neu, /diary/ereignis/neu
+// Festgelegt in TASK-08-01: /diary/messwerte/neu, /diary/wasserwechsel/neu, /diary/ereignis/neu,
+// /diary/messwert/:id/bearbeiten, /diary/ereignis/:id/bearbeiten
 
 const router = createBrowserRouter(
   [
@@ -82,6 +85,14 @@ const router = createBrowserRouter(
         {
           path: "/diary/ereignis/neu",
           element: <IncidentCreatePage />,
+        },
+        {
+          path: "/diary/messwert/:id/bearbeiten",
+          element: <MeasurementEditPage />,
+        },
+        {
+          path: "/diary/ereignis/:id/bearbeiten",
+          element: <TankEventEditPage />,
         },
 
         { path: "/becken/neu", element: <TankCreatePage /> },

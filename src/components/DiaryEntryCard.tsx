@@ -1,8 +1,15 @@
 // Eine Karte der Diary-Übersicht: Messung oder Becken-Ereignis
-// (FR-5.1, FR-5.3, FR-5.4). Wird in TASK-08-07 zum Link auf die Bearbeiten-Seite
+// (FR-5.1, FR-5.3, FR-5.4). Karte bzw. Wertzeile führen zur Bearbeiten-Seite (FR-5.10)
 
 import type { ReactNode } from "react";
-import { Beef, Calendar, FlaskConical, PaintBucket } from "lucide-react";
+import { Link } from "react-router";
+import {
+  Beef,
+  Calendar,
+  ChevronRight,
+  FlaskConical,
+  PaintBucket,
+} from "lucide-react";
 import type { DiaryEntry } from "@/lib/diary.ts";
 import { formatMeasurement, formatTankEventDetails } from "@/lib/format.ts";
 import {
@@ -13,6 +20,16 @@ import type { Enums } from "@/types/database.types.ts";
 
 // Liniensymbol nach design.md (Diary-Typ-Chip): 20 px, Strichstärke 1,6
 const ICON_PROPS = { size: 20, strokeWidth: 1.6, "aria-hidden": true } as const;
+
+// Pfeil als Hinweis auf den Link, ohne Text – bewusste Abweichung von NFR-1.4
+// (Entscheidung TASK-08-07)
+const LINK_ARROW = (
+  <ChevronRight {...ICON_PROPS} className="shrink-0 text-muted-foreground" />
+);
+
+// Projektweiter Fokusring wie in TankCard
+const FOCUS_RING_CLASSES =
+  "outline-none focus-visible:ring-[3px] focus-visible:ring-ring";
 
 const EVENT_ICONS: Record<Enums<"ereignis_typ">, ReactNode> = {
   wasserwechsel: <PaintBucket {...ICON_PROPS} />,
@@ -43,14 +60,19 @@ export function DiaryEntryCard({
         />
         <ul className="flex flex-col">
           {entry.values.map((value) => (
-            <li
-              key={value.id}
-              className="flex min-h-11 items-center justify-between gap-4"
-            >
-              <span>{MEASUREMENT_PARAMETER_SHORT_LABELS[value.parameter]}</span>
-              <span className="tabular-nums">
-                {formatMeasurement(value.wert, value.parameter)}
-              </span>
+            <li key={value.id}>
+              <Link
+                to={`/diary/messwert/${value.id}/bearbeiten`}
+                className={`flex min-h-11 items-center justify-between gap-4 rounded-md ${FOCUS_RING_CLASSES}`}
+              >
+                <span>
+                  {MEASUREMENT_PARAMETER_SHORT_LABELS[value.parameter]}
+                </span>
+                <span className="flex items-center gap-2 tabular-nums">
+                  {formatMeasurement(value.wert, value.parameter)}
+                  {LINK_ARROW}
+                </span>
+              </Link>
             </li>
           ))}
         </ul>
@@ -65,20 +87,28 @@ export function DiaryEntryCard({
     : undefined;
 
   return (
-    <li className="flex flex-col gap-1.5 rounded-xl border border-border bg-card p-3">
-      <CardHeader
-        icon={EVENT_ICONS[event.typ]}
-        label={TANK_EVENT_TYPE_LABELS[event.typ]}
-        tankName={tankName}
-      />
-      <p className="wrap-break-word whitespace-pre-line">
-        {formatTankEventDetails(event)}
-      </p>
-      {coralName && (
-        <p className="text-caption wrap-break-word text-muted-foreground">
-          {coralName}
-        </p>
-      )}
+    <li>
+      <Link
+        to={`/diary/ereignis/${event.id}/bearbeiten`}
+        className={`flex items-center gap-2 rounded-xl border border-border bg-card p-3 focus-visible:ring-offset-2 focus-visible:ring-offset-background ${FOCUS_RING_CLASSES}`}
+      >
+        <div className="flex min-w-0 flex-1 flex-col gap-1.5">
+          <CardHeader
+            icon={EVENT_ICONS[event.typ]}
+            label={TANK_EVENT_TYPE_LABELS[event.typ]}
+            tankName={tankName}
+          />
+          <p className="wrap-break-word whitespace-pre-line">
+            {formatTankEventDetails(event)}
+          </p>
+          {coralName && (
+            <p className="text-caption wrap-break-word text-muted-foreground">
+              {coralName}
+            </p>
+          )}
+        </div>
+        {LINK_ARROW}
+      </Link>
     </li>
   );
 }

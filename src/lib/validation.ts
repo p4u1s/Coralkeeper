@@ -113,6 +113,12 @@ export type MeasurementErrors = {
   atLeastOne?: string;
 };
 
+export type MeasurementEditErrors = {
+  tankId?: string;
+  date?: string;
+  value?: string;
+};
+
 export type TankEventErrors = {
   tankId?: string;
   date?: string;
@@ -377,6 +383,28 @@ export function validateMeasurements(
 export function hasMeasurementErrors(errors: MeasurementErrors): boolean {
   const { values, ...otherErrors } = errors;
   return hasErrors(otherErrors) || hasErrors(values);
+}
+
+// Ein einzelner Messwert: anders als beim Erfassen ist das Wertfeld Pflicht,
+// entfernt wird über Löschen (Entscheidung TASK-08-07)
+export function validateMeasurementEdit(
+  tankId: string,
+  date: string,
+  text: string,
+  parameter: Enums<"messparameter">
+): MeasurementEditErrors {
+  return {
+    // Die leere Option „Becken wählen" hat den Wert ""
+    tankId: tankId === "" ? "Bitte ein Becken wählen." : undefined,
+    date:
+      date === ""
+        ? "Bitte ein Datum eingeben."
+        : checkNotInFuture(date, "Datum"),
+    value:
+      text.trim() === ""
+        ? "Bitte einen Wert eingeben."
+        : checkMeasurement(text, parameter),
+  };
 }
 
 // Leeres Feld ist kein Fehler; negative Werte lehnt schon parseDecimal ab

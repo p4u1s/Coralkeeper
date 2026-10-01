@@ -12,12 +12,15 @@ export type TankEventState = {
   error: string | null;
 };
 
-export function useTankEvent(id: string): TankEventState {
+export function useTankEvent(
+  id: string
+): TankEventState & { reload: () => void } {
   const [state, setState] = useState<TankEventState>({
     status: "loading",
     tankEvent: null,
     error: null,
   });
+  const [reloadCount, setReloadCount] = useState(0);
 
   useEffect(() => {
     let cancelled = false;
@@ -47,7 +50,12 @@ export function useTankEvent(id: string): TankEventState {
     return () => {
       cancelled = true;
     };
-  }, [id]);
+  }, [id, reloadCount]);
 
-  return state;
+  function reload() {
+    setState({ status: "loading", tankEvent: null, error: null });
+    setReloadCount((count) => count + 1);
+  }
+
+  return { ...state, reload };
 }

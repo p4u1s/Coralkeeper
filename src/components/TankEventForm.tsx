@@ -17,33 +17,39 @@ import {
 } from "@/lib/validation.ts";
 import type { Coral } from "@/services/coral.ts";
 import type { Tank } from "@/services/tank.ts";
-import type { TankEventInput } from "@/services/tankEvent.ts";
+import type { TankEvent, TankEventInput } from "@/services/tankEvent.ts";
 
 type TankEventFormProps = {
   type: TankEventFormType;
   tanks: Tank[];
   // Nur für das Ereignis: Auswahl der betroffenen Koralle
   corals?: Coral[];
+  // Nur beim Bearbeiten: der gespeicherte Eintrag (FR-5.10)
+  initialValues?: TankEvent;
   cancelTo: string;
   onSubmit: (input: TankEventInput) => Promise<void>;
 };
 
-// Wasserwechsel oder Ereignis protokollieren (FR-5.3, FR-5.4, FR-6.6).
+// Wasserwechsel oder Ereignis protokollieren und bearbeiten
+// (FR-5.3, FR-5.4, FR-5.10, FR-6.6).
 // Wasserwechsel zeigt Menge und Notiz, Ereignis Beschreibung und Koralle
 export function TankEventForm({
   type,
   tanks,
   corals = [],
+  initialValues,
   cancelTo,
   onSubmit,
 }: TankEventFormProps) {
   const isIncident = type === "vorfall";
-  // Bei genau einem Becken vorausgewählt (Entscheidung TASK-08-04)
-  const [tankId, setTankId] = useState(tanks.length === 1 ? tanks[0].id : "");
-  const [date, setDate] = useState(todayIso());
-  const [amount, setAmount] = useState("");
-  const [text, setText] = useState("");
-  const [coralId, setCoralId] = useState("");
+  // Beim Anlegen: bei genau einem Becken vorausgewählt (Entscheidung TASK-08-04)
+  const [tankId, setTankId] = useState(
+    initialValues?.becken_id ?? (tanks.length === 1 ? tanks[0].id : "")
+  );
+  const [date, setDate] = useState(initialValues?.datum ?? todayIso());
+  const [amount, setAmount] = useState(initialValues?.menge ?? "");
+  const [text, setText] = useState(initialValues?.text ?? "");
+  const [coralId, setCoralId] = useState(initialValues?.koralle_id ?? "");
   const [error, setError] = useState<string | null>(null);
   const [fieldErrors, setFieldErrors] = useState<TankEventErrors>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
@@ -67,7 +73,8 @@ export function TankEventForm({
       await onSubmit({
         becken_id: tankId,
         datum: date,
-        typ: type,
+        // Beim Bearbeiten bleibt der gespeicherte Typ, auch bei einer Fütterung
+        typ: initialValues?.typ ?? type,
         menge: amount,
         text,
         koralle_id: coralId,

@@ -64,6 +64,15 @@ export function parseDecimal(text: string): number | null {
   return Number(trimmed.replace(",", "."));
 }
 
+// Gegenstück zu parseDecimal für die Vorbelegung eines Eingabefelds:
+// Komma, kein Tausenderpunkt, keine Einheit. 8.1 → "8,1", 1320 → "1320"
+export function formatDecimalInput(value: number): string {
+  return value.toLocaleString("de-DE", {
+    useGrouping: false,
+    maximumFractionDigits: 3,
+  });
+}
+
 // Menge und Text eines Becken-Ereignisses als eine Zeile, z. B. "25 l · Scheiben gereinigt".
 // Ohne beides "Keine Angabe" (Entscheidung TASK-08-03)
 export function formatTankEventDetails(event: TankEvent): string {
