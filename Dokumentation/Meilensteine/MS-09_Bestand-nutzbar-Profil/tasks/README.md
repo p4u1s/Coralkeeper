@@ -157,12 +157,12 @@ Diese Punkte sind in den Quelldokumenten nicht festgelegt oder widersprechen sic
 | 12  | Wortlaut des Systemeintrags beim Beckenwechsel                                                                | TASK-09-02 | entschieden: „Becken gewechselt: … → …", Ersatz „Becken gewechselt" |
 | 13  | Beckenwechsel: eigene Trigger-Funktion oder `systemeintrag_anlegen` erweitern?                                | TASK-09-02 | entschieden: (a) eigene Funktion |
 | 14  | Profil-UPDATE: ganze Zeile oder nur drei Spalten?                                                             | TASK-09-02 | entschieden: (a) ganze Zeile |
-| 15  | Bucket-Name, Anlage per SQL oder im Dashboard                                                                 | TASK-09-03 | offen |
-| 16  | Welche Storage-Operationen bekommen eine Policy?                                                              | TASK-09-03 | offen |
-| 17  | Nachweis der Storage-Policies: SQL-Test oder in der App?                                                      | TASK-09-03 | offen |
-| 18  | Statuswechsel mit Notiz: Reihenfolge und Fehlerfall                                                           | TASK-09-04 | offen |
-| 19  | Löschen: erst Datenbank oder erst Dateien, Umgang mit Fehlern beim Aufräumen                                  | TASK-09-04 | offen |
-| 20  | Inserat-Sperre nur in der UI oder auch im Service?                                                            | TASK-09-04 | offen |
+| 15  | Bucket-Name, Anlage per SQL oder im Dashboard                                                                 | TASK-09-03 | entschieden: `medien`, per SQL |
+| 16  | Welche Storage-Operationen bekommen eine Policy?                                                              | TASK-09-03 | entschieden: SELECT, INSERT, DELETE, kein UPDATE |
+| 17  | Nachweis der Storage-Policies: SQL-Test oder in der App?                                                      | TASK-09-03 | entschieden: (a) SQL-Test, Teile ggf. nach (b) |
+| 18  | Statuswechsel mit Notiz: Reihenfolge und Fehlerfall                                                           | TASK-09-04 | entschieden: wie vorgeschlagen, Notiz als Journaleintrag danach |
+| 19  | Löschen: erst Datenbank oder erst Dateien, Umgang mit Fehlern beim Aufräumen                                  | TASK-09-04 | entschieden: (a) erst Zeile, Aufräumfehler still |
+| 20  | Inserat-Sperre nur in der UI oder auch im Service?                                                            | TASK-09-04 | entschieden: nur UI |
 | 21  | Bearbeiten: Ort des Buttons, Ziel nach dem Speichern, Seitentitel                                             | TASK-09-05 | offen |
 | 22  | Löschen: Ort des Buttons, Dialogtext, Ziel, Dialog-Komponente                                                 | TASK-09-06 | offen |
 | 23  | Statuswechsel: Auswahlelement, Notiz-Länge, Button, Ziel nach dem Speichern                                   | TASK-09-07 | offen |

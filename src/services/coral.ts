@@ -1,11 +1,17 @@
 // Korallen und Ableger anlegen, lesen und Steckbrief befüllen(FR-1.2, FR-1.14 FR-1.7)
+// Stammdaten ändern, Status wechseln, löschen (FR-1.9, FR-1.10, FR-1.11)
 
 import type { Tables, TablesInsert } from "@/types/database.types.ts";
 import { supabase } from "@/services/supabase.ts";
+import { createJournalEntry } from "@/services/history.ts";
+import { removeCoralImages } from "@/services/image.ts";
 import { buildOriginChain } from "@/lib/origin.ts";
 import { todayIso } from "@/lib/validation.ts";
 
 export type Coral = Tables<"koralle">;
+
+// zur_abgabe entsteht nur mit einem Inserat (Festlegung 18, TASK-09-01)
+export type TargetCoralStatus = Exclude<Coral["status"], "zur_abgabe">;
 
 export type CoralInput = Pick<
   Coral,
@@ -91,6 +97,77 @@ export async function createCoral(input: CoralInput): Promise<Coral> {
     throw new Error("Koralle konnte nicht angelegt werden.", { cause: error });
   }
   return data;
+}
+
+// Status und Steckbrief bleiben unberührt. Den Systemeintrag bei einem
+// Beckenwechsel schreibt der Trigger (FR-1.11)
+export async function updateCoral(
+  id: string,
+  input: CoralInput
+): Promise<Coral> {
+  const { data, error } = await supabase
+    .from("koralle")
+    .update(toRow(input))
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) {
+    throw new Error("Koralle konnte nicht gespeichert werden.", {
+      cause: error,
+    });
+  }
+  return data;
+}
+
+// Den Systemeintrag schreibt der Trigger. Die Notiz wird ein Journaleintrag
+// mit demselben Datum, leere Notiz → kein Eintrag (FR-1.9, FR-3.5)
+export async function changeCoralStatus(
+  id: string,
+  status: TargetCoralStatus,
+  note: string
+): Promise<Coral> {
+  const { data, error } = await supabase
+    .from("koralle")
+    .update({ status })
+    .eq("id", id)
+    .select()
+    .single();
+
+  if (error) {
+    throw new Error("Status konnte nicht geändert werden.", { cause: error });
+  }
+  if (!note.trim()) {
+    return data;
+  }
+
+  try {
+    await createJournalEntry({ koralle_id: id, datum: todayIso(), text: note });
+  } catch (journalError) {
+    throw new Error(
+      "Der Status wurde geändert, die Notiz konnte aber nicht gespeichert werden.",
+      { cause: journalError }
+    );
+  }
+  return data;
+}
+
+// Erst die Zeile, dann die Dateien: Scheitert das Aufräumen, bleiben nur
+// unsichtbare Dateien liegen – die Koralle ist gelöscht, der Fehler wird
+// bewusst nicht gemeldet (TASK-09-04). Historie, Inserat und
+// bild_dokument gehen per Kaskade mit (FR-1.10)
+export async function deleteCoral(id: string): Promise<void> {
+  const { error } = await supabase.from("koralle").delete().eq("id", id);
+
+  if (error) {
+    throw new Error("Koralle konnte nicht gelöscht werden.", { cause: error });
+  }
+
+  try {
+    await removeCoralImages(id);
+  } catch {
+    // bewusst ohne Meldung, siehe oben
+  }
 }
 
 // Snapshot der Ursprungskoralle nach Festlegung 17 – alle Spalten an einer Stelle.
