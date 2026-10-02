@@ -1,5 +1,5 @@
 -- Coralkeeper – komplettes Schema nach ER-Modell v1.0
--- Legt die RLS-Automatik, alle Aufzählungstypen, Tabellen, RLS-Policies und den Profil-Trigger in einem Durchgang an.
+-- Legt die RLS-Automatik, alle Aufzählungstypen, Tabellen, RLS-Policies, Trigger und den Storage-Bucket in einem Durchgang an.
 -- Voraussetzung: leeres public-Schema (neues Supabase-Projekt), im SQL-Editor als Ganzes ausführen.
 --
 -- Reihenfolge: jede Tabelle steht nach den Tabellen, auf die sie verweist.
@@ -842,5 +842,39 @@ create policy "becken_ereignis_delete_eigene"
   on public.becken_ereignis for delete
   to authenticated
   using (nutzer_id = auth.uid());
+
+
+-- ============================================================
+-- Storage
+-- ============================================================
+
+
+-- Bucket für Fotos und Belege, ein Ordner je Nutzer (Festlegung 20; NFR-2.5, NFR-3.1) – TASK-09-03
+-- Privat, Anzeige über signierte URLs. 5 MB = 5 242 880 Byte, JPEG/PNG/WebP.
+insert into storage.buckets (id, name, public, file_size_limit, allowed_mime_types)
+values (
+  'medien',
+  'medien',
+  false,
+  5242880,
+  array['image/jpeg', 'image/png', 'image/webp']
+);
+
+-- Storage-Policies (FR-6.2, NFR-3.1): nur der eigene Ordner <nutzer_id>/…
+-- Kein UPDATE: ein neues Bild ist eine neue Datei, hochgeladen wird ohne Upsert.
+create policy "medien_select_eigene"
+  on storage.objects for select
+  to authenticated
+  using (bucket_id = 'medien' and (storage.foldername(name))[1] = auth.uid()::text);
+
+create policy "medien_insert_eigene"
+  on storage.objects for insert
+  to authenticated
+  with check (bucket_id = 'medien' and (storage.foldername(name))[1] = auth.uid()::text);
+
+create policy "medien_delete_eigene"
+  on storage.objects for delete
+  to authenticated
+  using (bucket_id = 'medien' and (storage.foldername(name))[1] = auth.uid()::text);
 
   
