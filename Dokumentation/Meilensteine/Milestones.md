@@ -18,17 +18,17 @@ Meilensteine sind fortlaufend von `MS-1` bis `MS-12` nummeriert, in genau der Re
 
 Die folgenden Anforderungen gelten **in jedem Meilenstein** für die dort gebauten Screens und werden nicht in einen späteren Meilenstein verschoben:
 
-| ID | Gilt in jedem Meilenstein |
-| --- | --- |
-| FR-6.2 | RLS auf jeder neu angelegten Tabelle, kein Zugriff auf fremde Daten |
-| FR-6.4 | Lade-, Leer- und Fehlerzustände in jeder neuen Liste und jedem neuen Formular |
-| FR-6.5 | Bestätigungsdialog vor jeder löschenden Aktion |
-| FR-6.6 | Formularvalidierung mit Feldfehlern |
-| NFR-1.3 | Trefferflächen ≥ 44 px, keine Hover-abhängige Funktion |
-| NFR-1.4 | Kein Icon ohne Textalternative, sichtbare Labels, Kontrast WCAG 2.1 AA |
-| NFR-1.6 | Nutzbar ab 360 px Breite |
-| NFR-4.1 | TypeScript Strict, kein `any` |
-| NFR-4.3 | Datenzugriff ausschließlich über `src/services/*` |
+| ID      | Gilt in jedem Meilenstein                                                     |
+| ------- | ----------------------------------------------------------------------------- |
+| FR-6.2  | RLS auf jeder neu angelegten Tabelle, kein Zugriff auf fremde Daten           |
+| FR-6.4  | Lade-, Leer- und Fehlerzustände in jeder neuen Liste und jedem neuen Formular |
+| FR-6.5  | Bestätigungsdialog vor jeder löschenden Aktion                                |
+| FR-6.6  | Formularvalidierung mit Feldfehlern                                           |
+| NFR-1.3 | Trefferflächen ≥ 44 px, keine Hover-abhängige Funktion                        |
+| NFR-1.4 | Kein Icon ohne Textalternative, sichtbare Labels, Kontrast WCAG 2.1 AA        |
+| NFR-1.6 | Nutzbar ab 360 px Breite                                                      |
+| NFR-4.1 | TypeScript Strict, kein `any`                                                 |
+| NFR-4.3 | Datenzugriff ausschließlich über `src/services/*`                             |
 
 Begründung: Ein nachgelagerter „Nacharbeits-Meilenstein" für diese Punkte wird erfahrungsgemäß zu klein geschätzt und fällt bei Zeitdruck als Erstes weg.
 
@@ -36,21 +36,21 @@ Begründung: Ein nachgelagerter „Nacharbeits-Meilenstein" für diese Punkte wi
 
 ## 2. Meilensteinübersicht
 
-| MS | Name | Deckt ab | Aufwand | Stand |
-| --- | --- | --- | --- | --- |
-| [**MS-1**](Meilensteine/MS-01_Design-Mockup.md) | Design & Mockup | Vorbereitung Bildschirme und Routing, NFR-1.1 bis NFR-1.8 | ~10 % | ✅ |
-| [**MS-2**](Meilensteine/MS-02_Datenmodell-Schema-Entwurf.md) | Datenmodell & Schema-Entwurf *(parallel zu MS-1)* | Abschnitt 3 und 4 der Anforderungsanalyse, NFR-4.7, NFR-4.4 | ~4 % | ✅ |
-| [**MS-3**](Meilensteine/MS-03_Fundament-Auth.md) | Fundament & Auth | MVP 1 · FR-6.1, FR-6.3, FR-6.10, FR-6.2 | ~8 % | ✅ |
-| [**MS-4**](Meilensteine/MS-04_UI-Shell-Becken.md) | UI-Shell & Becken | MVP 2 · FR-1.1, FR-1.15, NFR-1.2 | ~8 % | ✅ |
-| [**MS-5**](Meilensteine/MS-05_Koralle-Bestand.md) | Koralle & Bestand (Grundgerüst) | MVP 3 · FR-1.2, FR-1.14 | ~11 % | ✅ |
-| [**MS-6**](Meilensteine/MS-06_Detailseite-Steckbrief-Historie.md) | Detailseite: Steckbrief & Historie | MVP 4 + 5 · FR-2.1, FR-2.2, FR-3.3, FR-3.4, FR-3.5 | ~11 % | ✅ |
-| [**MS-7**](Meilensteine/MS-07_Ableger-Inserat.md) | Ableger & Inserat | MVP 6 · FR-1.7, FR-3.6, FR-4.1, FR-4.2 | ~9 % | ✅ |
-| [**MS-8**](Meilensteine/MS-08_Diary.md) | Diary | MVP 7 · FR-5.1, FR-5.3, FR-5.4, FR-5.10 | ~10 % | ✅ |
-| [🚦](Meilensteine/MS-08a_GATE_MVP-Abnahme.md) | **GATE: MVP-Abnahme** | Abnahmekriterien, Abschnitt 7 | — | |
-| [**MS-9**](Meilensteine/MS-09_Bestand-nutzbar-Profil.md) | Bestand nutzbar & Profil | FR-1.3 bis FR-1.6, FR-1.9, FR-1.10, FR-2.3, FR-2.4, FR-6.8 | ~9 % | |
-| [**MS-10**](Meilensteine/MS-10_Herkunft-Historie-Diary-Ausbau.md) | Herkunft, Historie & Diary-Ausbau | FR-3.1, FR-3.2, FR-3.7, FR-5.2 | ~7 % | |
-| [**MS-11**](Meilensteine/MS-11_Vermittlung.md) | Vermittlung *(optional, Abbruchkriterium)* | FR-4.3 bis FR-4.7 | ~8 % | |
-| [**MS-12**](Meilensteine/MS-12_Feinschliff-Abgabe.md) | Feinschliff & Abgabe | NFR-4.5, NFR-2.1 bis NFR-2.4 | ~5 % | |
+| MS                                                                | Name                                              | Deckt ab                                                    | Aufwand | Stand |
+| ----------------------------------------------------------------- | ------------------------------------------------- | ----------------------------------------------------------- | ------- | ----- |
+| [**MS-1**](Meilensteine/MS-01_Design-Mockup.md)                   | Design & Mockup                                   | Vorbereitung Bildschirme und Routing, NFR-1.1 bis NFR-1.8   | ~10 %   | ✅    |
+| [**MS-2**](Meilensteine/MS-02_Datenmodell-Schema-Entwurf.md)      | Datenmodell & Schema-Entwurf _(parallel zu MS-1)_ | Abschnitt 3 und 4 der Anforderungsanalyse, NFR-4.7, NFR-4.4 | ~4 %    | ✅    |
+| [**MS-3**](Meilensteine/MS-03_Fundament-Auth.md)                  | Fundament & Auth                                  | MVP 1 · FR-6.1, FR-6.3, FR-6.10, FR-6.2                     | ~8 %    | ✅    |
+| [**MS-4**](Meilensteine/MS-04_UI-Shell-Becken.md)                 | UI-Shell & Becken                                 | MVP 2 · FR-1.1, FR-1.15, NFR-1.2                            | ~8 %    | ✅    |
+| [**MS-5**](Meilensteine/MS-05_Koralle-Bestand.md)                 | Koralle & Bestand (Grundgerüst)                   | MVP 3 · FR-1.2, FR-1.14                                     | ~11 %   | ✅    |
+| [**MS-6**](Meilensteine/MS-06_Detailseite-Steckbrief-Historie.md) | Detailseite: Steckbrief & Historie                | MVP 4 + 5 · FR-2.1, FR-2.2, FR-3.3, FR-3.4, FR-3.5          | ~11 %   | ✅    |
+| [**MS-7**](Meilensteine/MS-07_Ableger-Inserat.md)                 | Ableger & Inserat                                 | MVP 6 · FR-1.7, FR-3.6, FR-4.1, FR-4.2                      | ~9 %    | ✅    |
+| [**MS-8**](Meilensteine/MS-08_Diary.md)                           | Diary                                             | MVP 7 · FR-5.1, FR-5.3, FR-5.4, FR-5.10                     | ~10 %   | ✅    |
+| [🚦](Meilensteine/MS-08a_GATE_MVP-Abnahme.md)                     | **GATE: MVP-Abnahme**                             | Abnahmekriterien, Abschnitt 7                               | —       | ✅    |
+| [**MS-9**](Meilensteine/MS-09_Bestand-nutzbar-Profil.md)          | Bestand nutzbar & Profil                          | FR-1.3 bis FR-1.6, FR-1.9, FR-1.10, FR-2.3, FR-2.4, FR-6.8  | ~9 %    |       |
+| [**MS-10**](Meilensteine/MS-10_Herkunft-Historie-Diary-Ausbau.md) | Herkunft, Historie & Diary-Ausbau                 | FR-3.1, FR-3.2, FR-3.7, FR-5.2                              | ~7 %    |       |
+| [**MS-11**](Meilensteine/MS-11_Vermittlung.md)                    | Vermittlung _(optional, Abbruchkriterium)_        | FR-4.3 bis FR-4.7                                           | ~8 %    |       |
+| [**MS-12**](Meilensteine/MS-12_Feinschliff-Abgabe.md)             | Feinschliff & Abgabe                              | NFR-4.5, NFR-2.1 bis NFR-2.4                                | ~5 %    |       |
 
 Der Aufwand ist als relativer Anteil am Gesamtprojekt angegeben, nicht in Wochen – so lässt er sich auf jeden Zeitrahmen abbilden. Bis zum MVP-Gate sind rund **71 %** verplant.
 
@@ -87,7 +87,7 @@ Alle übrigen Routen (Beckenliste, Ableger-Formular, Inserat, Profil, Angebotsli
 
 ---
 
-### MS-2 · Datenmodell & Schema-Entwurf *(läuft parallel zu MS-1)*
+### MS-2 · Datenmodell & Schema-Entwurf _(läuft parallel zu MS-1)_
 
 **Ziel:** Das Datenmodell steht auf Papier, bevor die erste Migration geschrieben wird. Abschnitt 3 und 4 der Anforderungsanalyse benennen Entitäten und Beziehungen — sie legen aber weder Datentypen noch Constraints noch das RLS-Muster fest. Genau diese Lücke schließt MS-2.
 
@@ -100,7 +100,7 @@ Alle übrigen Routen (Beckenliste, Ableger-Formular, Inserat, Profil, Angebotsli
 - **Fremdschlüssel mit Löschverhalten**, mindestens die drei aus NFR-4.7 (`koralle.becken_id NOT NULL`, `mutter_id ON DELETE SET NULL`, `anfrage.angebot_id ON DELETE CASCADE`) plus die übrigen bewusst gesetzt
 - **RLS-Matrix:** je Tabelle und je Operation (SELECT/INSERT/UPDATE/DELETE) die Bedingung – inklusive der beiden Sonderfälle: Historie ohne UPDATE/DELETE (FR-3.3) und Angebot mit Lesezugriff für Fremdnutzer bei `sichtbar = true` (FR-4.2)
 - **Namenskonvention** (deutsch, `snake_case`) und Umgang mit Zeitstempeln
-- **Migrationsreihenfolge** als nummerierte Liste, direkt abarbeitbar in MS-3 
+- **Migrationsreihenfolge** als nummerierte Liste, direkt abarbeitbar in MS-3
 
 **Zu entscheidende Punkte** – die Anforderungsanalyse lässt sie offen, MS-3 kann sie nicht offen lassen:
 
@@ -191,7 +191,7 @@ Alle übrigen Routen (Beckenliste, Ableger-Formular, Inserat, Profil, Angebotsli
 
 ---
 
-### 🚦 GATE: MVP-Abnahme *(nach MS-8, vor MS-9)*
+### 🚦 GATE: MVP-Abnahme _(nach MS-8, vor MS-9)_
 
 **Kein Ausbau, bevor dieses Gate steht.**
 
@@ -219,7 +219,7 @@ Historie. Naheliegend ist ein Trigger auf `koralle` nach dem Muster von `bei_sta
 
 ---
 
-### MS-11 · Vermittlung *(optional)*
+### MS-11 · Vermittlung _(optional)_
 
 **Umfang:** Öffentliche Inseratsliste mit Filter (FR-4.3); Interessensanfrage (FR-4.3); Auswahl einer Anfrage, Inserat wird unsichtbar (FR-4.4); gegenseitiger Kontaktaustausch (FR-4.5, NFR-3.3); Rückabwicklung (FR-4.6); Abschluss mit Statuswechsel, Abgabedatensatz, Historieneintrag und Löschen des Inserats (FR-4.7).
 
@@ -255,20 +255,20 @@ Historie. Naheliegend ist ein Trigger auf `koralle` nach dem Muster von `bei_sta
 
 ## 5. Zuordnung zur Umsetzungsreihenfolge der Anforderungsanalyse
 
-| Umsetzungsreihenfolge | Meilenstein |
-| --- | --- |
-| Stufe 0, Schritt 1 (MVP 1) | MS-3 |
-| Stufe 0, Schritt 2 (MVP 2) | MS-4 |
-| Stufe 0, Schritt 3 (MVP 3) | MS-5 |
-| Stufe 0, Schritt 4 und 5 (MVP 4, MVP 5) | MS-6 |
-| Stufe 0, Schritt 6 (MVP 6) | MS-7 |
-| Stufe 0, Schritt 7 (MVP 7) | MS-8 |
-| Ausbaustufe 1 – Bestand nutzbar machen | MS-9 |
-| Ausbaustufe 2 – Herkunft und Historie vervollständigen | MS-10 |
-| Ausbaustufe 3 – Diary ausbauen | MS-10 |
-| Ausbaustufe 4 – Vermittlung | MS-11 |
-| Ausbaustufe 5 – Feinschliff | MS-12 |
-| *(neu, ohne Entsprechung)* | MS-1 |
-| *(neu, ohne Entsprechung)* | MS-2 |
+| Umsetzungsreihenfolge                                  | Meilenstein |
+| ------------------------------------------------------ | ----------- |
+| Stufe 0, Schritt 1 (MVP 1)                             | MS-3        |
+| Stufe 0, Schritt 2 (MVP 2)                             | MS-4        |
+| Stufe 0, Schritt 3 (MVP 3)                             | MS-5        |
+| Stufe 0, Schritt 4 und 5 (MVP 4, MVP 5)                | MS-6        |
+| Stufe 0, Schritt 6 (MVP 6)                             | MS-7        |
+| Stufe 0, Schritt 7 (MVP 7)                             | MS-8        |
+| Ausbaustufe 1 – Bestand nutzbar machen                 | MS-9        |
+| Ausbaustufe 2 – Herkunft und Historie vervollständigen | MS-10       |
+| Ausbaustufe 3 – Diary ausbauen                         | MS-10       |
+| Ausbaustufe 4 – Vermittlung                            | MS-11       |
+| Ausbaustufe 5 – Feinschliff                            | MS-12       |
+| _(neu, ohne Entsprechung)_                             | MS-1        |
+| _(neu, ohne Entsprechung)_                             | MS-2        |
 
 Die Vorbereitungsaufgabe „10–20 Korallenfotos zusammenstellen" ist jetzt Bestandteil von MS-1 und wird in MS-12 als Demo-Daten verwendet (NFR-4.5).
