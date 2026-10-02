@@ -81,6 +81,13 @@ create policy "profil_select_eigenes"
   to authenticated
   using (id = auth.uid());
 
+-- Profil bearbeiten (FR-6.8): ganze Zeile, der Service schreibt nur Anzeigename und Kontaktdaten (TASK-09-02)
+create policy "profil_update_eigenes"
+  on public.profil for update
+  to authenticated
+  using (id = auth.uid())
+  with check (id = auth.uid());
+
 -- bewusst ohne INSERT-Policy: Profile legt allein der Trigger an, das Frontend nie (Festlegung 14)
 
 -- Profil zu jedem neuen Auth-Konto, vorbelegt mit der Konto-E-Mail (FR-6.10)
@@ -262,6 +269,13 @@ create policy "koralle_update_eigene"
   using (nutzer_id = auth.uid())
   with check (nutzer_id = auth.uid());
 
+-- Koralle löschen (FR-1.10): Historie, Bilddatensätze, Inserat und Abgabe gehen per CASCADE mit,
+-- Ableger bleiben mit geleertem mutter_id (Festlegung Nr. 2)
+create policy "koralle_delete_eigene"
+  on public.koralle for delete
+  to authenticated
+  using (nutzer_id = auth.uid());
+
 
 -- ============================================================
 -- Bild-Dokument
@@ -313,6 +327,12 @@ create policy "bild_dokument_insert_eigene"
   on public.bild_dokument for insert
   to authenticated
   with check (nutzer_id = auth.uid());
+
+-- Bilddatensatz löschen; die Datei im Storage entfernt der Service (TASK-09-02)
+create policy "bild_dokument_delete_eigene"
+  on public.bild_dokument for delete
+  to authenticated
+  using (nutzer_id = auth.uid());
 
 
 -- ============================================================
@@ -441,6 +461,47 @@ create trigger bei_statuswechsel_systemeintrag
 
 -- nicht per RPC aufrufbar (Security Advisor, Lint 0028/0029); der Trigger braucht das Recht nicht
 revoke execute on function public.systemeintrag_anlegen() from public, anon, authenticated;
+
+
+-- Beckenwechsel (FR-1.11): ein Eintrag je echtem Wechsel, mit den Beckennamen zum Zeitpunkt des Wechsels.
+-- Bewusst ohne security definer: RLS greift, ein fremdes Becken liefert keinen Namen (TASK-09-02).
+create function public.beckenwechsel_systemeintrag()
+returns trigger
+language plpgsql
+set search_path = ''
+as $$
+declare
+  alter_name text;
+  neuer_name text;
+  eintrag_text text;
+  -- current_date wäre das UTC-Datum: zwischen 0 und 2 Uhr deutscher Zeit stünde der Vortag im Eintrag
+  heute date := (now() at time zone 'Europe/Berlin')::date;
+begin
+  select name into alter_name from public.becken where id = old.becken_id;
+  select name into neuer_name from public.becken where id = new.becken_id;
+
+  if alter_name is null or neuer_name is null then
+    eintrag_text := 'Becken gewechselt';
+  else
+    eintrag_text := 'Becken gewechselt: ' || alter_name || ' → ' || neuer_name;
+  end if;
+
+  insert into public.historieneintrag (nutzer_id, koralle_id, datum, typ, text)
+  values (new.nutzer_id, new.id, heute, 'system', eintrag_text);
+
+  return null;  -- after-Trigger: der Rückgabewert wird nicht ausgewertet
+end;
+$$;
+
+-- nur bei echtem Wechsel, ein Update auf dasselbe Becken erzeugt keinen Eintrag
+create trigger bei_beckenwechsel_systemeintrag
+  after update of becken_id on public.koralle
+  for each row
+  when (old.becken_id is distinct from new.becken_id)
+  execute function public.beckenwechsel_systemeintrag();
+
+-- nicht per RPC aufrufbar (Security Advisor, Lint 0028/0029); der Trigger braucht das Recht nicht
+revoke execute on function public.beckenwechsel_systemeintrag() from public, anon, authenticated;
 
 
 -- ============================================================

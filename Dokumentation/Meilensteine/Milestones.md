@@ -205,6 +205,13 @@ Dieses Gate ist gleichzeitig der ehrliche Abbruchpunkt: Wird die Zeit knapp, ist
 
 **Umfang:** Kachelansicht mit Primärbild (FR-1.3); Filter nach Becken, Art, Status und Sortierung (FR-1.4); Suche (FR-1.5); Detailansicht vervollständigen (FR-1.6); Statuswechsel mit Datum und Notiz, erzeugt Historieneintrag (FR-1.9); Koralle bearbeiten und löschen, Ableger bleiben erhalten (FR-1.10); Steckbriefwerte als Icons mit Textlabel und Legende, „keine Angabe" für leere Felder (FR-2.3); Schutzstatus mit Hinweis auf Eigenangabe (FR-2.4); Bild-Upload, unkomprimiert, max. 5 MB (NFR-2.5); Profil ansehen und bearbeiten (FR-6.8).
 
+**Definition of Done:** Eine Koralle mit Bild erscheint als Kachel und lässt sich über Filter und Suche wiederfinden; Status- und Beckenwechsel stehen als Systemeintrag in ihrer Historie; nach dem Löschen einer Ursprungskoralle sind ihre Ableger unverändert da; das eigene Profil lässt sich ändern.
+
+**Festgelegt in TASK-09-01 (02.10.2026):**
+
+- **Bilder:** In MS-9 nur das Primärbild der Koralle (FR-1.2, FR-1.3, FR-1.6). Journalbild (FR-3.5) nach MS-10, Inseratbild (FR-4.1) nach MS-11. Bildablage siehe ER-Modell, Festlegung 20.
+- **Abweichung von FR-1.5:** Die Suche läuft über Bezeichnung, Handelsname und Art wie im Mockup, nicht über eine „Notiz" – `koralle` hat keine solche Spalte.
+
 **Aus MS-10 vorgezogen (25.09.2026):** Systemeintrag beim Beckenwechsel einer Koralle (FR-1.11, Teil von FR-3.4).
 Mit FR-1.10 lässt sich das Becken einer Koralle ändern; ohne den Eintrag entstünde ab MS-9 eine Lücke in der
 Historie. Naheliegend ist ein Trigger auf `koralle` nach dem Muster von `bei_statuswechsel_systemeintrag` (TASK-06-01).

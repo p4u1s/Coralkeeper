@@ -81,9 +81,12 @@ Nur benannt – je Punkt entscheiden: Spalte ergänzen, bewusst weglassen (mit B
 - [x] **FR-5.4** nennt Ereignistypen „wie Bleaching, Schädling, Vernesselung". Das ER-Modell fasst sie als `vorfall` plus Freitext zusammen –
       bewusst festhalten oder das Enum erweitern. (MS-8)
       → **Entschieden am 29.09.2026:** `vorfall` plus Freitext, Festlegung 19 (TASK-08-01).
-- [ ] **FR-1.5** sucht über „Notiz". `koralle` hat nur `herkunft_notiz`. Welche Notiz ist gemeint? (MS-9)
+- [x] **FR-1.5** sucht über „Notiz". `koralle` hat nur `herkunft_notiz`. Welche Notiz ist gemeint? (MS-9)
+      → **Entschieden am 02.10.2026 (TASK-09-01):** keine Notiz – gesucht wird in Bezeichnung, Handelsname und Art wie
+      im Mockup; die Abweichung steht im MS-9-Dokument.
 - [ ] **FR-4.1** nennt ein Bild zum Inserat. `angebot` hat keine Bildspalte – gemeint ist vermutlich `koralle.primaerbild`.
       Hängt an TASK-02-04 (Frage 3) und TASK-02-05 D. (ab MS-9)
+      → **Verschoben am 02.10.2026 (TASK-09-01):** Inseratbild nach MS-11, vermerkt in `MS-11_Vermittlung.md`.
 - [ ] **Fraglich nullable:** `angebot.koralle_id` → TASK-02-03 · `bild_dokument.storage_pfad` → TASK-02-05 D · `messwert.einheit` → Entscheidung 2 oben
 
 ## Schritte

@@ -19,6 +19,9 @@ Ergebnis ist je ein kurzer Abschnitt bzw. eine Festlegung im ER-Modell. Die Absc
 
 ## A · Namenskonvention
 
+> **`primaerbild` entschieden in TASK-09-01 (02.10.2026):** Name bleibt, Ausnahme von der Namenskonvention –
+> festgehalten in Festlegung 20 im ER-Modell.
+
 Die Regeln stehen weitgehend fest (`CLAUDE.md`, SQL-Datei). Sie müssen nur einmal an einer Stelle aufgeschrieben werden.
 
 | Regel                                                                      | Beispiel                                                            |
@@ -116,6 +119,10 @@ Da Steckbrief und Herkunft in `koralle` eingebettet sind (Festlegung 3), heißt 
 ---
 
 ## D · Bilder, Bucket-Layout und Pfadschema (Entscheidung 6)
+
+> **Entschieden in TASK-09-01 (02.10.2026)**, festgehalten als Festlegung 20 im ER-Modell: ein privater Bucket, ein
+> Ordner je Nutzer, Pfad `<nutzer_id>/<koralle_id>/<bild_dokument.id>.<endung>`, JPEG/PNG/WebP. Offene Punkte 2 und 3
+> gehören zu FR-3.8 (MS-10) und bleiben offen. Bucket-Name und Policies: TASK-09-03.
 
 **Teil der Entscheidung ist schon gefallen:** Es gibt eine eigene Tabelle `bild_dokument` (Fotos und Belege zusammengelegt), und
 `koralle.primaerbild` verweist darauf (Festlegung 9). Die Frage aus MS-2 („reicht die Spalte `koralle.primaerbild`?") ist damit beantwortet –

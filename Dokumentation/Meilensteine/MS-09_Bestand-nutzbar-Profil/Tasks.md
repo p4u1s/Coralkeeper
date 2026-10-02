@@ -1,7 +1,10 @@
 # Tasks für MS-09 · Bestand nutzbar & Profil
 
-- [ ] **TASK-09-01** Festlegungen treffen: Definition of Done, Bilder und Storage, Suchfelder, Regeln für den Statuswechsel, Pfade.
-- [ ] **TASK-09-02** Datenbank: DELETE-Policies für `koralle` und `bild_dokument`, UPDATE-Policy für `profil`, Systemeintrag beim Beckenwechsel, Löschtest.
+Reihenfolge (02.10.2026): 09-01 → 02 → 03 → 04 → 05 → **08 → 07 → 09** → 06 → 10 → 11 → 12 → 13 → 14 – siehe
+[`tasks/README.md`](tasks/README.md).
+
+- [x] **TASK-09-01** Festlegungen treffen: Definition of Done, Bilder und Storage, Suchfelder, Regeln für den Statuswechsel, Pfade.
+- [x] **TASK-09-02** Datenbank: DELETE-Policies für `koralle` und `bild_dokument`, UPDATE-Policy für `profil`, Systemeintrag beim Beckenwechsel, Löschtest.
 - [ ] **TASK-09-03** Storage-Bucket und Storage-Policies anlegen (Ordner je Nutzer, max. 5 MB).
 - [ ] **TASK-09-04** Korallen-Service: Stammdaten ändern, Status wechseln, Koralle löschen.
 - [ ] **TASK-09-05** Koralle bearbeiten (Formular, Becken änderbar).

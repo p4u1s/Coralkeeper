@@ -9,7 +9,7 @@ Grundlage: [`../MS-09_Bestand-nutzbar-Profil.md`](../MS-09_Bestand-nutzbar-Profi
 Done fehlt** – weder das Meilenstein-Dokument noch `Milestones.md` nennt eine. Sie wird in TASK-09-01 festgelegt.
 
 **Annahme:** Das Gate MS-08a ist ohne Befunde bestanden, es gibt keine Fix-Tasks und keine nach MS-9 verschobenen
-Notizen. Zu Beginn von TASK-09-01 bestätigen.
+Notizen. Zu Beginn von TASK-09-01 bestätigen. → **Bestätigt am 02.10.2026.**
 
 **Prüfstand 01.10.2026** (Code und Dokumentation gelesen, Datenbank nicht abgefragt):
 
@@ -83,6 +83,15 @@ Supabase-SQL-Editor aus.
 
 ## Reihenfolge und Abhängigkeiten
 
+**Festgelegte Reihenfolge (02.10.2026, „Weg B"):** Die Bild-Tasks werden vorgezogen, kein Task wird zerlegt:
+
+```text
+09-01 → 09-02 → 09-03 → 09-04 → 09-05 → 09-08 → 09-07 → 09-09 → 09-06 → 09-10 → 09-11 → 09-12 → 09-13 → 09-14
+```
+
+09-08 kommt direkt nach dem Bearbeiten-Formular (09-05), damit Bilder früh hochgeladen werden können; 09-09 braucht
+zusätzlich die Statusseite (09-07). Das Diagramm unten zeigt die ursprüngliche Nummernfolge und die Abhängigkeiten.
+
 ```text
 🚦 Gate MS-08a bestanden
     │
@@ -117,7 +126,7 @@ TASK-09-14  Responsive, Deployment, Abnahme
 MS-10
 ```
 
-Empfohlen ist die Nummernfolge. Abweichen geht an diesen Stellen:
+Ursprünglich empfohlen war die Nummernfolge. Abweichen geht an diesen Stellen:
 
 - **09-10** hängt nur an 09-01 und kann jederzeit danach kommen.
 - **09-13** hängt an 09-01 und 09-02 (UPDATE-Policy) und kann direkt nach 09-02 kommen.
@@ -134,20 +143,20 @@ Diese Punkte sind in den Quelldokumenten nicht festgelegt oder widersprechen sic
 
 | #   | Frage                                                                                                         | Wo         | Stand |
 | --- | ------------------------------------------------------------------------------------------------------------- | ---------- | ----- |
-| 1   | Gate ohne Befunde? Wurden Notizen nach MS-9 verschoben?                                                       | TASK-09-01 | offen |
-| 2   | Definition of Done MS-9                                                                                       | TASK-09-01 | offen |
-| 3   | Bilder in MS-9: nur Primärbild, oder auch Journal- und Inseratbild?                                           | TASK-09-01 | offen |
-| 4   | Bucket-Layout: ein Bucket, Ordner je Nutzer, Pfadschema, privat oder öffentlich (TASK-02-05 D)                | TASK-09-01 | offen |
-| 5   | Erlaubte Dateitypen                                                                                           | TASK-09-01 | offen |
-| 6   | `koralle.primaerbild` umbenennen oder als Ausnahme festhalten (TASK-02-05 A)                                  | TASK-09-01 | offen |
-| 7   | „Notiz" in der Suche (FR-1.5) – welche Spalte?                                                                | TASK-09-01 | offen |
-| 8   | Statuswechsel: welche Zielstatus, `abgegeben` von Hand, Rückweg nach `im_bestand`?                            | TASK-09-01 | offen |
-| 9   | Statuswechsel bei bestehendem Inserat: sperren oder Inserat mitlöschen?                                       | TASK-09-01 | offen |
-| 10  | Status-Filter: Filterchips aus design.md (mit „Archiv") oder vier Status?                                     | TASK-09-01 | offen |
-| 11  | Pfade für Bearbeiten, Statuswechsel und Profil bearbeiten                                                     | TASK-09-01 | offen |
-| 12  | Wortlaut des Systemeintrags beim Beckenwechsel                                                                | TASK-09-02 | offen |
-| 13  | Beckenwechsel: eigene Trigger-Funktion oder `systemeintrag_anlegen` erweitern?                                | TASK-09-02 | offen |
-| 14  | Profil-UPDATE: ganze Zeile oder nur drei Spalten?                                                             | TASK-09-02 | offen |
+| 1   | Gate ohne Befunde? Wurden Notizen nach MS-9 verschoben?                                                       | TASK-09-01 | entschieden: ohne Befunde, nichts verschoben |
+| 2   | Definition of Done MS-9                                                                                       | TASK-09-01 | entschieden: wie vorgeschlagen |
+| 3   | Bilder in MS-9: nur Primärbild, oder auch Journal- und Inseratbild?                                           | TASK-09-01 | entschieden: nur Primärbild; Journalbild MS-10, Inseratbild MS-11 |
+| 4   | Bucket-Layout: ein Bucket, Ordner je Nutzer, Pfadschema, privat oder öffentlich (TASK-02-05 D)                | TASK-09-01 | entschieden: wie vorgeschlagen, privat (Festlegung 20) |
+| 5   | Erlaubte Dateitypen                                                                                           | TASK-09-01 | entschieden: JPEG, PNG, WebP |
+| 6   | `koralle.primaerbild` umbenennen oder als Ausnahme festhalten (TASK-02-05 A)                                  | TASK-09-01 | entschieden: behalten, Ausnahme |
+| 7   | „Notiz" in der Suche (FR-1.5) – welche Spalte?                                                                | TASK-09-01 | entschieden: (c) Bezeichnung, Handelsname, Art |
+| 8   | Statuswechsel: welche Zielstatus, `abgegeben` von Hand, Rückweg nach `im_bestand`?                            | TASK-09-01 | entschieden: wie vorgeschlagen, ohne `zur_abgabe` |
+| 9   | Statuswechsel bei bestehendem Inserat: sperren oder Inserat mitlöschen?                                       | TASK-09-01 | entschieden: (a) sperren mit Hinweis |
+| 10  | Status-Filter: Filterchips aus design.md (mit „Archiv") oder vier Status?                                     | TASK-09-01 | entschieden: vier Filterchips, Start „Alle" |
+| 11  | Pfade für Bearbeiten, Statuswechsel und Profil bearbeiten                                                     | TASK-09-01 | entschieden: wie vorgeschlagen |
+| 12  | Wortlaut des Systemeintrags beim Beckenwechsel                                                                | TASK-09-02 | entschieden: „Becken gewechselt: … → …", Ersatz „Becken gewechselt" |
+| 13  | Beckenwechsel: eigene Trigger-Funktion oder `systemeintrag_anlegen` erweitern?                                | TASK-09-02 | entschieden: (a) eigene Funktion |
+| 14  | Profil-UPDATE: ganze Zeile oder nur drei Spalten?                                                             | TASK-09-02 | entschieden: (a) ganze Zeile |
 | 15  | Bucket-Name, Anlage per SQL oder im Dashboard                                                                 | TASK-09-03 | offen |
 | 16  | Welche Storage-Operationen bekommen eine Policy?                                                              | TASK-09-03 | offen |
 | 17  | Nachweis der Storage-Policies: SQL-Test oder in der App?                                                      | TASK-09-03 | offen |

@@ -62,3 +62,8 @@ Diese Anforderungen sind Teil der Definition of Done von MS-11 und werden nicht 
 > `design.md` (Abschnitt 4, Bottom-Navigation) legt bisher **vier** Einträge
 > fest (Bestand · Becken · Diary · Profil) und hat Vorrang – vor der Umsetzung also erst `design.md` anpassen und bei
 > 360 px Breite prüfen, ob fünf Einträge mit Textlabel noch passen (NFR-1.3, NFR-1.4, NFR-1.6).
+
+> **Aus MS-9 verschoben (TASK-09-01, 02.10.2026):** Bild am Inserat (FR-4.1 „Bild"). `angebot` hat keine Bildspalte,
+> gemeint ist vermutlich das Primärbild der Koralle (TASK-02-02). Erst mit der öffentlichen Inseratsliste (FR-4.3) sehen
+> Fremde Inserate. Der Bucket ist privat (ER-Modell, Festlegung 20) – Fremde brauchen eine eigene Lesefreigabe für das
+> Bild der inserierten Koralle (ER-Modell, offener Punkt 7; RLS-Matrix `bild_dokument`).

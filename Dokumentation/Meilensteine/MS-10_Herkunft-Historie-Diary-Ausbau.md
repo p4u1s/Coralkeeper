@@ -49,3 +49,8 @@ Diese Anforderungen sind Teil der Definition of Done von MS-10 und werden nicht 
 **Aus MS-8 übernommen (TASK-08-01, 29.09.2026):** Karte „Letzte Messung" und Button „Messwert erfassen" im Beckendetail sowie die Messwert-Anzeige in der Beckenliste – derselbe Mockup-Block wie das Verlaufsdiagramm (FR-5.2).
 
 **Notiz aus MS-8 (TASK-08-06, 30.09.2026):** Die Diary-Übersicht `/diary` zeigt alle Einträge über alle Becken, ohne Filter. Wunsch: Einträge je Becken anzeigen – gehört zum gemeinsamen Zeitstrahl je Becken (FR-5.7, Should).
+
+**Aus MS-9 verschoben (TASK-09-01, 02.10.2026):** Bild am Journaleintrag (FR-3.5 „optional Bild", Spalte
+`historieneintrag.bild_id`). MS-9 bringt nur das Primärbild; Bucket, Pfadschema und Bild-Service (`src/services/image.ts`)
+stehen dann schon (ER-Modell, Festlegung 20). Beachten: `historieneintrag.bild_id` hat die Löschregel `NO ACTION` – ein
+Bild mit Historienbezug lässt sich nicht löschen (FR-3.3), auch nicht beim Ersetzen des Primärbilds.
